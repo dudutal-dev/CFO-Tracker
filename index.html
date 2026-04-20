@@ -384,6 +384,19 @@
     .meta-chip.done-yes { background: var(--color-success-bg); color: var(--color-success); border-color: var(--color-success-border); }
     .meta-chip.done-partial { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high-border); }
     .meta-chip.done-pending { background: var(--color-info-pink-bg); color: var(--color-info-pink); border-color: transparent; }
+    .meta-chip.link-chip {
+      background: linear-gradient(135deg, #4285F4 0%, #1A73E8 100%);
+      color: white;
+      border-color: transparent;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+    .meta-chip.link-chip:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(66,133,244,0.35);
+    }
+    .meta-chip.link-chip:active { transform: translateY(0); }
     .overdue-indicator { display: inline-flex; align-items: center; gap: 3px; padding: 3px 7px; background: var(--color-urgent-bg); color: var(--color-urgent); border: 1px solid var(--color-urgent-border); border-radius: 5px; font-size: 10px; font-weight: 700; margin-left: 6px; }
 
     /* SEARCH & FILTERS */
@@ -484,7 +497,27 @@
     .quick-action-btn:active { transform: scale(0.97); }
     .quick-action-btn.primary { background: var(--color-brand); color: var(--color-text-on-accent); border-color: var(--color-brand); grid-column: 1 / -1; }
     [data-theme="dark"] .quick-action-btn.primary { color: var(--color-bg); }
+    .quick-action-btn.apply-now {
+      background: linear-gradient(135deg, #4285F4 0%, #1A73E8 100%);
+      color: white;
+      border-color: transparent;
+      grid-column: 1 / -1;
+      font-weight: 700;
+    }
+    .quick-action-btn.apply-now:hover {
+      background: linear-gradient(135deg, #1A73E8 0%, #1557B0 100%);
+      box-shadow: 0 4px 14px rgba(66,133,244,0.35);
+    }
     .quick-action-emoji { font-size: 16px; }
+
+    .field-hint {
+      font-size: 12px;
+      color: var(--color-text-tertiary);
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    .field-hint a { color: #4285F4; text-decoration: none; font-weight: 500; }
+    .field-hint a:hover { text-decoration: underline; }
 
     /* HISTORY */
     .history-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
@@ -1610,29 +1643,29 @@ const RADAR_STATUS_LABELS = {
 // SEED DATA (with sourceKey for sync)
 // ============================================================
 const SEED_DATA = [
-  {id:1,sourceKey:'signal-rafael-cfo-2026-feb',priority:'URGENT',company:'רפאל מערכות לחימה — CFO',action:'בדיקת מכרז פומבי ב-gov.il רשות החברות; הגשת מועמדות פורמלית + הכנת תיק חומרים (CV + מכתב מקדים)',deadline:'שבוע 1 (דחוף!)',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לזהות אם יש מכרז פומבי במערכת',nextActionDate:'',contact:'ועדת איתור — שולמית דותן (בדימוס)',notes:'תהליך ועדתי ארוך (2-4 חודשים). צריך רקע ביטחוני/ציבורי.\nתא"ל משה ליפל פרש אוק\' 2025.',status:'פעיל',history:[]},
-  {id:2,sourceKey:'bebee-primelease-lubinsky-cfo-feb26',priority:'URGENT',company:'פריים ליס / קבוצת לובינסקי — CFO',action:'פנייה ישירה לדני שביט (מנכ"ל לובינסקי) או צביקה שחר (מנכ"ל פריים ליס) ב-LinkedIn',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לחפש ב-LinkedIn את דני שביט + צביקה שחר',nextActionDate:'',contact:'דני שביט (מנכ"ל לובינסקי); צביקה שחר (מנכ"ל פריים ליס); דור קלימן היה CFO של לובינסקי',notes:'צי 10,000 רכב; 500M₪ חוב מוסדיים 2024; פיט מושלם לרקע ציי רכב שלך',status:'פעיל',history:[]},
-  {id:3,sourceKey:'recruiter-sgroup-import-procurement-mar26',priority:'URGENT',company:'חברה יבואנית (השמה גרופ) — CFO + רכש',action:'פנייה להשמה גרופ עם מכתב ממוקד; דגש על Pri-Trade',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לעלות לאתר sgroup.co.il + שליחת CV',nextActionDate:'',contact:'השמה גרופ (sgroup.co.il)',notes:'שילוב CFO + רכש = Pri-Trade 1:1. יבואנית בינונית משפחתית כנראה.',status:'פעיל',history:[]},
-  {id:4,sourceKey:'recruiter-guykonik-global-raanana-mar26',priority:'URGENT',company:'חברה גלובאלית רעננה (גיא קוניק)',action:'פנייה ישירה לגיא קוניק השמה בכירה',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn connect עם Guy Konik + הודעה ישירה',nextActionDate:'',contact:'גיא קוניק (LinkedIn)',notes:'Multi-brand יבואנית; רעננה; CPA + SAP + יבוא + 3+ שנות CFO',status:'פעיל',history:[]},
-  {id:5,sourceKey:'alljobs-728-realestate-tlv-discreet-mar26',priority:'HIGH',company:'חברת נדל"ן ציבורית מהגדולות בארץ (דיסקרטי)',action:'חקירה מיידית לזהות משרד ההשמה דרך AllJobs; cross-check עם LinkedIn של CFOs בחברות נדל"ן ציבוריות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + LinkedIn Sales Navigator',nextActionDate:'',contact:'לא ידוע — דיסקרטי',notes:'Azrieli/Melisron/Gazit/Mivne/Alony/Amot/Big — 7 מועמדות. שכר צפוי 150-300K',status:'פעיל',history:[]},
-  {id:6,sourceKey:'alljobs-retail-group-50staff-mar26',priority:'HIGH',company:'קבוצה ציבורית קמעונאות (50+ עובדי כספים)',action:'איתור זהות — 50+ צוות = שופרסל/Rami Levi; פנייה ישירה דרך HR',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי החברה',nextActionDate:'',contact:'לזהות',notes:'פיט לרקע לוגיסטיקה (שרשרת אספקה, יבוא, הפצה). CFO נוכחי של שופרסל = גיל וייס',status:'פעיל',history:[]},
-  {id:7,sourceKey:'drushim-organize-retail-hadera-feb26',priority:'HIGH',company:'ORganize — ריטייל מולטי-ברנד (חדרה)',action:'פנייה ל-ORganize. בירור אם הדרישה 3-4 שנים יש לשנות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'organize-hr.co.il + LinkedIn Managing Partner',nextActionDate:'',contact:'ORganize (אתר)',notes:'Multi-brand; מותגים בינלאומיים; חדרה; פיט Pri-Trade. ⚠️ אולי חסר רמה',status:'פעיל',history:[]},
-  {id:8,sourceKey:'alljobs-beverage-georgia-mar26',priority:'HIGH',company:'חברת משקאות (תמפו/יפאורה) — גאורגיה',action:'זיהוי החברה ופנייה דיסקרטית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי תמפו/יפאורה/CBC',nextActionDate:'',contact:'לזהות',notes:'בינלאומי + גידור סחורות + IFRS; פתיחת מבשלת בירה בגאורגיה',status:'פעיל',history:[]},
-  {id:9,sourceKey:'glassdoor-kornit-rosh-haayin-mar26',priority:'HIGH',company:'Kornit Digital (ראש העין)',action:'LinkedIn ישיר ל-VP Finance/Recruiter; פנייה דרך רשת אישית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn Kornit + חיפוש בוגרי פרידנזון שעברו לחברה',nextActionDate:'',contact:'Kornit HR (LinkedIn)',notes:'דואלית NASDAQ+TASE; ראש העין!; SEC reporting + US GAAP',status:'פעיל',history:[]},
-  {id:10,sourceKey:'drushim-industrial-subsidiary-feb26',priority:'MEDIUM',company:'חברה תעשייתית חברת-בת של ציבורית',action:'חקירת זהות דרך Drushim; פנייה למפרסם',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-reference חברות אחזקה',nextActionDate:'',contact:'לזהות',notes:'אחזקה ציבורית עם חב"ב: Elco/Electra/Plasson/Tadiran/ICL/Shapir',status:'פעיל',history:[]},
-  {id:11,sourceKey:'alljobs-interview-realestate-herzliya-mar26',priority:'MEDIUM',company:'Interview השמה — נדל"ן הרצליה',action:'פנייה ל-Interview השמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Interview השמה + LinkedIn',nextActionDate:'',contact:'Interview השמה (Google)',notes:'נדל"ן ציבורית הרצליה; Alony Hetz/Electra RE?',status:'פעיל',history:[]},
-  {id:12,sourceKey:'alljobs-adstik-innovations-rosh-haayin-mar26',priority:'MEDIUM',company:'אדסטיק אינוביישנס (ראש העין)',action:'פנייה ישירה — חברה מגייסת עצמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'אתר החברה + LinkedIn',nextActionDate:'',contact:'אדסטיק HR',notes:'Geographic perfect fit; אבל חברה פחות מאתגרת — בדוק גודל',status:'פעיל',history:[]},
-  {id:13,sourceKey:'recruiter-etzhasade-import-feb26',priority:'MEDIUM',company:'חברה יבואנית מובילה (עץ השדה)',action:'פנייה לעץ השדה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn עץ השדה + CV',nextActionDate:'',contact:'עץ השדה (LinkedIn)',notes:'יבואנית משפחתית בינונית; פיט Pri-Trade',status:'פעיל',history:[]},
-  {id:14,sourceKey:'drushim-fintech-public-feb26',priority:'MEDIUM',company:'חברה ציבורית טכנולוגית פינטק',action:'חקירת זהות דרך Drushim',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-check TASE פינטק',nextActionDate:'',contact:'לזהות',notes:'חברות פינטק TASE: Tsur, Nayax, Global-e, Plus500, eToro',status:'פעיל',history:[]},
-  {id:15,sourceKey:'alljobs-construction-ipo-mar26',priority:'MEDIUM',company:'חברת בנייה גדולה (CFO בכיר + הנפקה)',action:'חקירת זהות; פנייה למפרסם',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + JobMaster',nextActionDate:'',contact:'לזהות',notes:'קבלניות ציבוריות: Shikun & Binui, Ashtrom, Electra. הנפקה עתידית → IPO',status:'פעיל',history:[]},
-  {id:16,sourceKey:'glassdoor-medison-pharma-ptk-mar26',priority:'MEDIUM',company:'Medison Pharma',action:'LinkedIn ישיר + CV',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Medison LinkedIn + HR',nextActionDate:'',contact:'Medison HR',notes:'פארמה פרטית גדולה; פתח תקווה',status:'פעיל',history:[]},
-  {id:17,sourceKey:'glassdoor-diageo-israel-tlv-mar26',priority:'MEDIUM',company:'Diageo Israel',action:'LinkedIn ישיר; פנייה ל-HR גלובלי',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Diageo Careers + LinkedIn',nextActionDate:'',contact:'Diageo HR (גלובלי)',notes:'Country CFO משקאות גלובלי; Johnnie Walker/Guinness/Smirnoff',status:'פעיל',history:[]},
-  {id:18,sourceKey:'recruiter-etzhasade-defense-feb26',priority:'MEDIUM',company:'חברה תעשייתית ביטחונית (עץ השדה)',action:'פנייה לעץ השדה אם תחזור הודעה',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'עץ השדה LinkedIn',nextActionDate:'',contact:'עץ השדה',notes:'ביטחוני פרטי: Plasan/IMCO/IWI/UVision/Meprolight',status:'פעיל',history:[]},
-  {id:19,sourceKey:'signal-ondas-expansion-2026-feb',priority:'LOW',company:'אונדס (Ondas) — הרחבה',action:'מעקב ב-SEC filings + LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב חודשי ב-SEC EDGAR',nextActionDate:'',contact:'Ondas HR (LinkedIn)',notes:'חברה צומחת; מעבירים בכירים מרפאל; פוטנציאל CFO/Senior Finance',status:'פעיל',history:[]},
-  {id:20,sourceKey:'signal-shufersal-turnover',priority:'LOW',company:'שופרסל — מעקב turnover',action:'מעקב ב-Calcalist/Globes',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "שופרסל CFO"',nextActionDate:'',contact:'לא רלוונטי כרגע',notes:'CFO גיל וייס מונה 2024; turnover גבוה היסטורית',status:'פעיל',history:[]},
-  {id:21,sourceKey:'glassdoor-startups-cyber-social-2026',priority:'LOW',company:'Transmit Security / TangoMe / Tenengroup',action:'פאסיבי — מעקב',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב LinkedIn',nextActionDate:'',contact:'ישיר מהחברות',notes:'סטארטאפים היי-טק; שלב פחות מתאים אבל אופציה',status:'פעיל',history:[]},
-  {id:22,sourceKey:'fractional-brookskeret-nextage-2026',priority:'LOW',company:'Brooks-Keret / Nextage — Fractional CFO',action:'החלטה אסטרטגית — האם ללכת על מסלול עצמאות',deadline:'לא מיידי',done:'לא',stage:'13. מוקפא',lastActionDate:'',nextAction:'לדון בתוך משפחה קודם',nextActionDate:'',contact:'Brooks-Keret / Nextage (אתרים)',notes:'מסלול עצמאי; רק אם ישקול לעזוב חברה שכירה',status:'מוקפא',history:[]},
-  {id:23,sourceKey:'signal-sindiana-2026-feb',priority:'LOW',company:'סינדיאנה (Sindiana) — יו"ר חדש',action:'מעקב ב-Calcalist/LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "סינדיאנה"',nextActionDate:'',contact:'לא ידוע',notes:'סטארטאפ דיפנס טק; יו"ר חדש הר אבן; פוטנציאל CFO חדש',status:'פעיל',history:[]}
+  {id:1,sourceKey:'signal-rafael-cfo-2026-feb',priority:'URGENT',company:'רפאל מערכות לחימה — CFO',jobLink:'https://www.gov.il/he/departments/government_companies_authority',action:'בדיקת מכרז פומבי ב-gov.il רשות החברות; הגשת מועמדות פורמלית + הכנת תיק חומרים (CV + מכתב מקדים)',deadline:'שבוע 1 (דחוף!)',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לזהות אם יש מכרז פומבי במערכת',nextActionDate:'',contact:'ועדת איתור — שולמית דותן (בדימוס)',notes:'תהליך ועדתי ארוך (2-4 חודשים). צריך רקע ביטחוני/ציבורי.\nתא"ל משה ליפל פרש אוק\' 2025.',status:'פעיל',history:[]},
+  {id:2,sourceKey:'bebee-primelease-lubinsky-cfo-feb26',priority:'URGENT',company:'פריים ליס / קבוצת לובינסקי — CFO',jobLink:'https://jobify360.co.il/jobs/8561560-aj',action:'פנייה ישירה לדני שביט (מנכ"ל לובינסקי) ב-LinkedIn + הגשה דרך Jobify',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn connect עם Dani Shavit + הגשה דרך jobify360',nextActionDate:'',contact:'דני שביט (מנכ"ל לובינסקי); שמעון ברונשטיין (CFO נוכחי - 03-6710437); סיגל בן עלי (CFO קודמת, עברה לחברה הכלכלית ראשון לצ)',notes:'צי 10,000 רכב; 500M₪ חוב מוסדיים 2024; פיט מושלם לרקע ציי רכב שלך.\nמנהל: פריים ליס + לובינסקי טרייד + לוביט סוכנות לביטוח.\nדרישה: רו"ח מוסמך + 5+ שנות CFO + ניסיון בענף רכב/אשראי יתרון',status:'פעיל',history:[]},
+  {id:3,sourceKey:'recruiter-sgroup-import-procurement-mar26',priority:'URGENT',company:'חברה יבואנית (השמה גרופ) — CFO + רכש',jobLink:'https://www.sgroup.co.il',action:'פנייה להשמה גרופ עם מכתב ממוקד; דגש על Pri-Trade',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לעלות לאתר sgroup.co.il + שליחת CV',nextActionDate:'',contact:'השמה גרופ (sgroup.co.il)',notes:'שילוב CFO + רכש = Pri-Trade 1:1. יבואנית בינונית משפחתית כנראה.',status:'פעיל',history:[]},
+  {id:4,sourceKey:'recruiter-guykonik-global-raanana-mar26',priority:'URGENT',company:'חברה גלובאלית רעננה (גיא קוניק)',jobLink:'https://www.linkedin.com/search/results/people/?keywords=Guy%20Konik%20executive%20search',action:'פנייה ישירה לגיא קוניק השמה בכירה',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn connect עם Guy Konik + הודעה ישירה',nextActionDate:'',contact:'גיא קוניק (LinkedIn)',notes:'Multi-brand יבואנית; רעננה; CPA + SAP + יבוא + 3+ שנות CFO',status:'פעיל',history:[]},
+  {id:5,sourceKey:'alljobs-728-realestate-tlv-discreet-mar26',priority:'HIGH',company:'חברת נדל"ן ציבורית מהגדולות בארץ (דיסקרטי)',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728&City=&Region=12',action:'חקירה מיידית לזהות משרד ההשמה דרך AllJobs; cross-check עם LinkedIn של CFOs בחברות נדל"ן ציבוריות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + LinkedIn Sales Navigator',nextActionDate:'',contact:'לא ידוע — דיסקרטי',notes:'Azrieli/Melisron/Gazit/Mivne/Alony/Amot/Big — 7 מועמדות. שכר צפוי 150-300K',status:'פעיל',history:[]},
+  {id:6,sourceKey:'alljobs-retail-group-50staff-mar26',priority:'HIGH',company:'קבוצה ציבורית קמעונאות (50+ עובדי כספים)',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728',action:'איתור זהות — 50+ צוות = שופרסל/Rami Levi; פנייה ישירה דרך HR',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי החברה',nextActionDate:'',contact:'לזהות',notes:'פיט לרקע לוגיסטיקה (שרשרת אספקה, יבוא, הפצה). CFO נוכחי של שופרסל = גיל וייס',status:'פעיל',history:[]},
+  {id:7,sourceKey:'drushim-organize-retail-hadera-feb26',priority:'HIGH',company:'ORganize — ריטייל מולטי-ברנד (חדרה)',jobLink:'https://www.drushim.co.il/jobs/subcat/390/',action:'פנייה ל-ORganize. בירור אם הדרישה 3-4 שנים יש לשנות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'organize-hr.co.il + LinkedIn Managing Partner',nextActionDate:'',contact:'ORganize (אתר)',notes:'Multi-brand; מותגים בינלאומיים; חדרה; פיט Pri-Trade. ⚠️ אולי חסר רמה',status:'פעיל',history:[]},
+  {id:8,sourceKey:'alljobs-beverage-georgia-mar26',priority:'HIGH',company:'חברת משקאות (תמפו/יפאורה) — גאורגיה',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728',action:'זיהוי החברה ופנייה דיסקרטית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי תמפו/יפאורה/CBC',nextActionDate:'',contact:'לזהות',notes:'בינלאומי + גידור סחורות + IFRS; פתיחת מבשלת בירה בגאורגיה',status:'פעיל',history:[]},
+  {id:9,sourceKey:'glassdoor-kornit-rosh-haayin-mar26',priority:'HIGH',company:'Kornit Digital (ראש העין)',jobLink:'https://www.kornit.com/careers/',action:'LinkedIn ישיר ל-VP Finance/Recruiter; פנייה דרך רשת אישית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn Kornit + חיפוש בוגרי פרידנזון שעברו לחברה',nextActionDate:'',contact:'Kornit HR (LinkedIn)',notes:'דואלית NASDAQ+TASE; ראש העין!; SEC reporting + US GAAP',status:'פעיל',history:[]},
+  {id:10,sourceKey:'drushim-industrial-subsidiary-feb26',priority:'MEDIUM',company:'חברה תעשייתית חברת-בת של ציבורית',jobLink:'https://www.drushim.co.il/jobs/subcat/390/',action:'חקירת זהות דרך Drushim; פנייה למפרסם',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-reference חברות אחזקה',nextActionDate:'',contact:'לזהות',notes:'אחזקה ציבורית עם חב"ב: Elco/Electra/Plasson/Tadiran/ICL/Shapir',status:'פעיל',history:[]},
+  {id:11,sourceKey:'alljobs-interview-realestate-herzliya-mar26',priority:'MEDIUM',company:'Interview השמה — נדל"ן הרצליה',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728',action:'פנייה ל-Interview השמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Interview השמה + LinkedIn',nextActionDate:'',contact:'Interview השמה (Google)',notes:'נדל"ן ציבורית הרצליה; Alony Hetz/Electra RE?',status:'פעיל',history:[]},
+  {id:12,sourceKey:'alljobs-adstik-innovations-rosh-haayin-mar26',priority:'MEDIUM',company:'אדסטיק אינוביישנס (ראש העין)',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728&City=ראש+העין',action:'פנייה ישירה — חברה מגייסת עצמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'אתר החברה + LinkedIn',nextActionDate:'',contact:'אדסטיק HR',notes:'Geographic perfect fit; אבל חברה פחות מאתגרת — בדוק גודל',status:'פעיל',history:[]},
+  {id:13,sourceKey:'recruiter-etzhasade-import-feb26',priority:'MEDIUM',company:'חברה יבואנית מובילה (עץ השדה)',jobLink:'https://www.drushim.co.il/jobs/search/%D7%A2%D7%A5%20%D7%94%D7%A9%D7%93%D7%94/',action:'פנייה לעץ השדה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn עץ השדה + CV',nextActionDate:'',contact:'עץ השדה (LinkedIn)',notes:'יבואנית משפחתית בינונית; פיט Pri-Trade',status:'פעיל',history:[]},
+  {id:14,sourceKey:'drushim-fintech-public-feb26',priority:'MEDIUM',company:'חברה ציבורית טכנולוגית פינטק',jobLink:'https://www.drushim.co.il/jobs/subcat/390/',action:'חקירת זהות דרך Drushim',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-check TASE פינטק',nextActionDate:'',contact:'לזהות',notes:'חברות פינטק TASE: Tsur, Nayax, Global-e, Plus500, eToro',status:'פעיל',history:[]},
+  {id:15,sourceKey:'alljobs-construction-ipo-mar26',priority:'MEDIUM',company:'חברת בנייה גדולה (CFO בכיר + הנפקה)',jobLink:'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728',action:'חקירת זהות; פנייה למפרסם',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + JobMaster',nextActionDate:'',contact:'לזהות',notes:'קבלניות ציבוריות: Shikun & Binui, Ashtrom, Electra. הנפקה עתידית → IPO',status:'פעיל',history:[]},
+  {id:16,sourceKey:'glassdoor-medison-pharma-ptk-mar26',priority:'MEDIUM',company:'Medison Pharma',jobLink:'https://www.medisonpharma.com/careers/',action:'LinkedIn ישיר + CV',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Medison LinkedIn + HR',nextActionDate:'',contact:'Medison HR',notes:'פארמה פרטית גדולה; פתח תקווה',status:'פעיל',history:[]},
+  {id:17,sourceKey:'glassdoor-diageo-israel-tlv-mar26',priority:'MEDIUM',company:'Diageo Israel',jobLink:'https://careers.diageo.com/search?keywords=israel',action:'LinkedIn ישיר; פנייה ל-HR גלובלי',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Diageo Careers + LinkedIn',nextActionDate:'',contact:'Diageo HR (גלובלי)',notes:'Country CFO משקאות גלובלי; Johnnie Walker/Guinness/Smirnoff',status:'פעיל',history:[]},
+  {id:18,sourceKey:'recruiter-etzhasade-defense-feb26',priority:'MEDIUM',company:'חברה תעשייתית ביטחונית (עץ השדה)',jobLink:'https://www.drushim.co.il/jobs/search/%D7%A2%D7%A5%20%D7%94%D7%A9%D7%93%D7%94/',action:'פנייה לעץ השדה אם תחזור הודעה',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'עץ השדה LinkedIn',nextActionDate:'',contact:'עץ השדה',notes:'ביטחוני פרטי: Plasan/IMCO/IWI/UVision/Meprolight',status:'פעיל',history:[]},
+  {id:19,sourceKey:'signal-ondas-expansion-2026-feb',priority:'LOW',company:'אונדס (Ondas) — הרחבה',jobLink:'https://ondas.com/careers/',action:'מעקב ב-SEC filings + LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב חודשי ב-SEC EDGAR',nextActionDate:'',contact:'Ondas HR (LinkedIn)',notes:'חברה צומחת; מעבירים בכירים מרפאל; פוטנציאל CFO/Senior Finance',status:'פעיל',history:[]},
+  {id:20,sourceKey:'signal-shufersal-turnover',priority:'LOW',company:'שופרסל — מעקב turnover',jobLink:'https://www.shufersal.co.il/online/he/careers',action:'מעקב ב-Calcalist/Globes',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "שופרסל CFO"',nextActionDate:'',contact:'לא רלוונטי כרגע',notes:'CFO גיל וייס מונה 2024; turnover גבוה היסטורית',status:'פעיל',history:[]},
+  {id:21,sourceKey:'glassdoor-startups-cyber-social-2026',priority:'LOW',company:'Transmit Security / TangoMe / Tenengroup',jobLink:'https://www.linkedin.com/jobs/search/?keywords=CFO&location=Israel&f_C=transmit-security',action:'פאסיבי — מעקב',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב LinkedIn',nextActionDate:'',contact:'ישיר מהחברות',notes:'סטארטאפים היי-טק; שלב פחות מתאים אבל אופציה',status:'פעיל',history:[]},
+  {id:22,sourceKey:'fractional-brookskeret-nextage-2026',priority:'LOW',company:'Brooks-Keret / Nextage — Fractional CFO',jobLink:'https://brookskeret.co.il',action:'החלטה אסטרטגית — האם ללכת על מסלול עצמאות',deadline:'לא מיידי',done:'לא',stage:'13. מוקפא',lastActionDate:'',nextAction:'לדון בתוך משפחה קודם',nextActionDate:'',contact:'Brooks-Keret / Nextage (אתרים)',notes:'מסלול עצמאי; רק אם ישקול לעזוב חברה שכירה',status:'מוקפא',history:[]},
+  {id:23,sourceKey:'signal-sindiana-2026-feb',priority:'LOW',company:'סינדיאנה (Sindiana) — יו"ר חדש',jobLink:'https://www.linkedin.com/search/results/companies/?keywords=Sindiana',action:'מעקב ב-Calcalist/LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "סינדיאנה"',nextActionDate:'',contact:'לא ידוע',notes:'סטארטאפ דיפנס טק; יו"ר חדש הר אבן; פוטנציאל CFO חדש',status:'פעיל',history:[]}
 ];
 
 // ============================================================
@@ -1662,14 +1695,22 @@ function loadData() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       state.jobs = JSON.parse(stored);
-      // Backward compat: add sourceKey to any job missing it
+      let needsMigration = false;
       state.jobs.forEach(j => {
+        // Backward compat: add sourceKey to any job missing it
         if (!j.sourceKey) {
           const seed = SEED_DATA.find(s => s.id === j.id || s.company === j.company);
           j.sourceKey = seed ? seed.sourceKey : `user-${j.id}-${Date.now()}`;
+          needsMigration = true;
+        }
+        // Migration v2.1: add jobLink from SEED_DATA if missing
+        if (j.jobLink === undefined) {
+          const seed = SEED_DATA.find(s => s.sourceKey === j.sourceKey);
+          j.jobLink = seed ? (seed.jobLink || '') : '';
+          needsMigration = true;
         }
       });
-      saveData();
+      if (needsMigration) saveData();
     } else {
       state.jobs = JSON.parse(JSON.stringify(SEED_DATA));
       saveData();
@@ -2124,6 +2165,7 @@ function renderJobCard(job) {
   const statusClass = (job.status || '').startsWith('סגור') ? 'status-closed' : '';
   const doneChipClass = job.done === 'כן' ? 'done-yes' : job.done === 'חלקי' ? 'done-partial' : job.done === 'בהמתנה' ? 'done-pending' : '';
   const doneEmoji = job.done === 'כן' ? '✅' : job.done === 'חלקי' ? '🔶' : job.done === 'בהמתנה' ? '⏸️' : '⭕';
+  const hasLink = job.jobLink && job.jobLink.trim().length > 0;
 
   return `
     <div class="job-card priority-${job.priority} ${doneClass} ${statusClass}" onclick="openDetailModal(${job.id})">
@@ -2136,9 +2178,25 @@ function renderJobCard(job) {
         <div class="meta-chip stage">📌 ${escapeHTML((job.stage || '').replace(/^\d+\.\s*/, ''))}</div>
         <div class="meta-chip ${doneChipClass}">${doneEmoji} ${escapeHTML(job.done || 'לא')}</div>
         ${job.deadline ? `<div class="meta-chip">🗓 ${escapeHTML(job.deadline)}</div>` : ''}
+        ${hasLink ? `<div class="meta-chip link-chip" onclick="event.stopPropagation(); openJobLink(${job.id})" title="פתח קישור למשרה">🔗 הגש עכשיו</div>` : ''}
       </div>
     </div>
   `;
+}
+
+function openJobLink(jobId) {
+  const job = state.jobs.find(j => j.id === jobId);
+  if (!job || !job.jobLink) {
+    showToast('אין קישור למשרה זו');
+    return;
+  }
+  try {
+    new URL(job.jobLink);
+  } catch (e) {
+    showToast('קישור לא תקין');
+    return;
+  }
+  window.open(job.jobLink, '_blank', 'noopener,noreferrer');
 }
 
 function renderPipeline() {
@@ -3484,6 +3542,7 @@ function applySyncUpdate() {
     if (!j.done) j.done = 'לא';
     if (!j.stage) j.stage = '1. לא התחיל';
     if (!j.priority) j.priority = 'MEDIUM';
+    if (j.jobLink === undefined) j.jobLink = '';
   });
   state.jobs = state.jobs.concat(trulyNewJobs);
   saveData();
@@ -3596,7 +3655,7 @@ function openNewJobModal() {
   const id = getNextId();
   const newJob = {
     id, sourceKey: `user-${Date.now()}`,
-    priority: 'MEDIUM', company: '', action: '', deadline: '',
+    priority: 'MEDIUM', company: '', jobLink: '', action: '', deadline: '',
     done: 'לא', stage: '1. לא התחיל',
     lastActionDate: '', nextAction: '', nextActionDate: '',
     contact: '', notes: '', status: 'פעיל', history: [], _new: true
@@ -3608,8 +3667,15 @@ function openNewJobModal() {
 }
 
 function renderDetailForm(job) {
+  const hasLink = job.jobLink && job.jobLink.trim().length > 0;
+
   return `
     <div class="quick-actions">
+      ${hasLink ? `
+        <button class="quick-action-btn apply-now" onclick="openJobLink(${job.id})">
+          <span class="quick-action-emoji">🔗</span><span>הגש עכשיו</span>
+        </button>
+      ` : ''}
       <button class="quick-action-btn primary" onclick="openEmailModal(${job.id})">
         <span class="quick-action-emoji">📧</span><span>שלח קורות חיים במייל</span>
       </button>
@@ -3630,6 +3696,12 @@ function renderDetailForm(job) {
     <div class="field-group">
       <label class="field-label">שם החברה / תיאור</label>
       <input type="text" class="field-input" id="field-company" value="${escapeHTML(job.company)}">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">🔗 קישור ישיר למשרה</label>
+      <input type="url" class="field-input" id="field-jobLink" value="${escapeHTML(job.jobLink || '')}" placeholder="https://..." dir="ltr" style="text-align:left;">
+      ${hasLink ? `<div class="field-hint"><a href="${escapeHTML(job.jobLink)}" target="_blank" rel="noopener noreferrer" style="color:#4285F4; text-decoration:none;">↗ פתח בלשונית חדשה</a></div>` : ''}
     </div>
 
     <div class="field-group">
@@ -3763,7 +3835,23 @@ function saveCurrentJob() {
   const newCompany = document.getElementById('field-company').value.trim();
   if (!newCompany) { showToast('חובה להזין שם חברה'); return; }
 
+  // Validate jobLink URL if provided
+  const newJobLink = document.getElementById('field-jobLink').value.trim();
+  if (newJobLink) {
+    try {
+      const u = new URL(newJobLink);
+      if (!['http:', 'https:'].includes(u.protocol)) {
+        showToast('הקישור חייב להתחיל ב-http או https');
+        return;
+      }
+    } catch (e) {
+      showToast('הקישור למשרה אינו תקין');
+      return;
+    }
+  }
+
   job.company = newCompany;
+  job.jobLink = newJobLink;
   job.priority = document.getElementById('field-priority').value;
   job.done = document.getElementById('field-done').value;
   job.stage = document.getElementById('field-stage').value;
@@ -3834,12 +3922,14 @@ async function exportJSON() {
   const data = {
     _meta: {
       exportDate: new Date().toISOString(),
-      appVersion: '2.0',
+      appVersion: '2.1',
       type: 'full-backup'
     },
     jobs: state.jobs,
     profile: state.profile,
-    radarItems: state.radarItems
+    radarItems: state.radarItems,
+    searchSources: state.searchSources,
+    searchSourcesLog: state.searchSourcesLog
   };
   const jsonStr = JSON.stringify(data, null, 2);
   const filename = `cfo-jobs-backup-${new Date().toISOString().split('T')[0]}.json`;
@@ -3872,9 +3962,9 @@ async function exportJSON() {
 }
 
 async function exportCSV() {
-  const headers = ['#','sourceKey','עדיפות','חברה','פעולה','דדליין','בוצע','שלב','תאריך פעולה אחרונה','פעולה הבאה','תאריך הבא','איש קשר','הערות','סטטוס'];
+  const headers = ['#','sourceKey','עדיפות','חברה','קישור למשרה','פעולה','דדליין','בוצע','שלב','תאריך פעולה אחרונה','פעולה הבאה','תאריך הבא','איש קשר','הערות','סטטוס'];
   const rows = state.jobs.map(j => [
-    j.id, j.sourceKey || '', j.priority, j.company, j.action, j.deadline, j.done, j.stage,
+    j.id, j.sourceKey || '', j.priority, j.company, j.jobLink || '', j.action, j.deadline, j.done, j.stage,
     j.lastActionDate, j.nextAction, j.nextActionDate, j.contact, j.notes, j.status
   ]);
   const csv = [headers, ...rows].map(r => r.map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(',')).join('\n');

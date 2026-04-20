@@ -1,4 +1,23 @@
-# GitHub Pages configuration
-# This app is fully static - no Jekyll processing needed
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
 
-# Disable Jekyll to speed up deploys (no _config.yml needed)
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Node / JS (just in case)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Local backups
+*.backup.json
+backup-*.json
+
+# Logs
+*.log
