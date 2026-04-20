@@ -559,6 +559,81 @@
     .sync-new-job-title { font-weight: 600; color: var(--color-text-primary); }
     .sync-new-job-desc { color: var(--color-text-tertiary); margin-top: 2px; }
 
+    /* GOOGLE DRIVE FILES */
+    .gdrive-files-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .gdrive-file-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      background: var(--color-surface);
+      border: 1.5px solid var(--color-border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+    .gdrive-file-item:hover {
+      border-color: var(--color-brand);
+      background: var(--color-surface-2);
+    }
+    .gdrive-file-icon {
+      width: 40px;
+      height: 40px;
+      background: #4285F4;
+      color: white;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+    .gdrive-file-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .gdrive-file-name {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .gdrive-file-meta {
+      font-size: 11px;
+      color: var(--color-text-tertiary);
+      margin-top: 3px;
+    }
+    .gdrive-file-action {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--color-brand);
+      flex-shrink: 0;
+    }
+    [data-theme="dark"] .gdrive-file-action { color: var(--color-accent-gold); }
+
+    .gdrive-status-chip {
+      margin: 10px 14px;
+      padding: 8px 12px;
+      background: var(--color-success-bg);
+      border: 1px solid var(--color-success-border);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--color-success);
+      line-height: 1.5;
+    }
+    [data-theme="dark"] .gdrive-status-chip { color: var(--color-text-primary); }
+    .gdrive-status-chip.inactive {
+      background: var(--color-surface-2);
+      border-color: var(--color-border);
+      color: var(--color-text-tertiary);
+    }
+
     /* SYNC PROTECTION BOX — shows guarantees before update */
     .sync-protection-box {
       padding: 14px 16px;
@@ -1040,6 +1115,44 @@
         <input type="file" id="backup-import-input" accept=".json" style="display:none" onchange="importBackup(event)">
       </div>
 
+      <!-- Google Drive Sync -->
+      <div class="settings-section">
+        <div class="settings-title">☁️ סנכרון Google Drive</div>
+        <div id="gdrive-status-row"></div>
+        <div class="settings-item" onclick="gdriveBackup()" id="gdrive-backup-item">
+          <div class="settings-item-icon" style="background:#4285F4; color:white;">☁️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">גבה ל-Google Drive</div>
+            <div class="settings-item-desc" id="gdrive-backup-desc">שמירה מאובטחת ב-Drive האישי שלך</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item" onclick="openGDriveRestoreModal()" id="gdrive-restore-item">
+          <div class="settings-item-icon" style="background:#34A853; color:white;">📥</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">שחזר מ-Google Drive</div>
+            <div class="settings-item-desc">בחר מגיבוי קיים ב-Drive</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item" onclick="openGDriveSetup()" id="gdrive-setup-item">
+          <div class="settings-item-icon" style="background:var(--color-surface-3);">⚙️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title" id="gdrive-setup-title">הגדרת חיבור Google Drive</div>
+            <div class="settings-item-desc" id="gdrive-setup-desc">הדבק Client ID לחיבור ראשוני</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item hidden" onclick="gdriveSignOut()" id="gdrive-signout-item">
+          <div class="settings-item-icon" style="background:var(--color-warning-bg); color:var(--color-warning);">🚪</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">התנתקות מ-Drive</div>
+            <div class="settings-item-desc">חידוש הרשאות בפעם הבאה</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+      </div>
+
       <!-- Stats -->
       <div class="settings-section">
         <div class="settings-title">סטטיסטיקות</div>
@@ -1171,6 +1284,21 @@
     <div class="modal-footer">
       <button class="btn-danger" onclick="deleteRadarItem()">מחיקה</button>
       <button class="btn-primary" onclick="saveRadarItem()">שמירה</button>
+    </div>
+  </div>
+</div>
+
+<!-- Google Drive Restore Modal -->
+<div class="modal-overlay" id="gdrive-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">☁️ גיבויים ב-Google Drive</div>
+      <button class="modal-close" onclick="closeGDriveModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="gdrive-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeGDriveModal()" style="flex:1;">סגור</button>
     </div>
   </div>
 </div>
@@ -2082,6 +2210,58 @@ function renderMore() {
       undoEl.classList.add('hidden');
     }
   }
+
+  // Google Drive status
+  const gdriveStatusRow = document.getElementById('gdrive-status-row');
+  const gdriveSetupTitle = document.getElementById('gdrive-setup-title');
+  const gdriveSetupDesc = document.getElementById('gdrive-setup-desc');
+  const gdriveBackupItem = document.getElementById('gdrive-backup-item');
+  const gdriveRestoreItem = document.getElementById('gdrive-restore-item');
+  const gdriveSignoutItem = document.getElementById('gdrive-signout-item');
+  const gdriveBackupDesc = document.getElementById('gdrive-backup-desc');
+
+  if (gdriveStatusRow) {
+    const hasClient = hasGDriveClientId();
+    const lastBackup = getLastGDriveBackup();
+
+    if (!hasClient) {
+      // Setup needed
+      gdriveStatusRow.innerHTML = `
+        <div class="gdrive-status-chip inactive">
+          ⚠️ עוד לא הוגדר. הדבק Client ID כדי להתחיל.
+        </div>
+      `;
+      if (gdriveBackupItem) gdriveBackupItem.style.opacity = '0.4';
+      if (gdriveRestoreItem) gdriveRestoreItem.style.opacity = '0.4';
+      if (gdriveSetupTitle) gdriveSetupTitle.textContent = 'הגדרת חיבור Google Drive';
+      if (gdriveSetupDesc) gdriveSetupDesc.textContent = 'לחץ כאן כדי להתחיל — זה ייקח דקה';
+      if (gdriveSignoutItem) gdriveSignoutItem.classList.add('hidden');
+    } else {
+      // Configured
+      if (lastBackup) {
+        const when = new Date(lastBackup.uploadDate);
+        const hoursAgo = Math.round((Date.now() - when.getTime()) / 3600000);
+        const timeStr = hoursAgo < 1 ? 'לפני פחות משעה' : hoursAgo < 24 ? `לפני ${hoursAgo} שעות` : `ב-${when.toLocaleDateString('he-IL')}`;
+        gdriveStatusRow.innerHTML = `
+          <div class="gdrive-status-chip">
+            ✅ מחובר. גיבוי אחרון: ${timeStr} (${lastBackup.jobCount} משרות + ${lastBackup.radarCount} רדאר)
+          </div>
+        `;
+        if (gdriveBackupDesc) gdriveBackupDesc.textContent = `גיבוי אחרון ${timeStr}`;
+      } else {
+        gdriveStatusRow.innerHTML = `
+          <div class="gdrive-status-chip inactive">
+            ℹ️ מחובר, אבל עוד לא בוצע גיבוי ראשון.
+          </div>
+        `;
+      }
+      if (gdriveBackupItem) gdriveBackupItem.style.opacity = '1';
+      if (gdriveRestoreItem) gdriveRestoreItem.style.opacity = '1';
+      if (gdriveSetupTitle) gdriveSetupTitle.textContent = 'עדכן Client ID';
+      if (gdriveSetupDesc) gdriveSetupDesc.textContent = 'שנה את ה-Client ID המחובר';
+      if (gdriveSignoutItem) gdriveSignoutItem.classList.remove('hidden');
+    }
+  }
 }
 
 // ============================================================
@@ -2748,6 +2928,384 @@ function closeEmailModal() {
 // SYNC IMPORT
 // ============================================================
 const SYNC_BACKUP_KEY = 'cfo_tracker_sync_backup_v1';
+
+// ============================================================
+// GOOGLE DRIVE INTEGRATION
+// ============================================================
+// Fill this in with your Google Cloud OAuth Client ID
+// (see setup guide: GOOGLE_DRIVE_SETUP.md)
+const GOOGLE_CLIENT_ID = localStorage.getItem('cfo_gdrive_client_id') || '';
+const GOOGLE_DRIVE_SCOPE = 'https://www.googleapis.com/auth/drive.file';
+const GDRIVE_FOLDER_NAME = 'CFO Tracker Backups';
+const GDRIVE_TOKEN_KEY = 'cfo_gdrive_token';
+const GDRIVE_LAST_BACKUP_KEY = 'cfo_gdrive_last_backup';
+
+let gdriveTokenClient = null;
+let gdriveAccessToken = null;
+let gdriveGisLoaded = false;
+
+function loadGoogleIdentityServices() {
+  return new Promise((resolve, reject) => {
+    if (gdriveGisLoaded && window.google?.accounts?.oauth2) {
+      resolve();
+      return;
+    }
+    const existingScript = document.getElementById('gis-script');
+    if (existingScript) {
+      existingScript.addEventListener('load', () => {
+        gdriveGisLoaded = true;
+        resolve();
+      });
+      return;
+    }
+    const script = document.createElement('script');
+    script.id = 'gis-script';
+    script.src = 'https://accounts.google.com/gsi/client';
+    script.async = true;
+    script.defer = true;
+    script.onload = () => {
+      gdriveGisLoaded = true;
+      resolve();
+    };
+    script.onerror = () => reject(new Error('Failed to load Google Identity Services'));
+    document.head.appendChild(script);
+  });
+}
+
+function getGoogleClientId() {
+  return localStorage.getItem('cfo_gdrive_client_id') || GOOGLE_CLIENT_ID;
+}
+
+async function gdriveAuthenticate() {
+  const clientId = getGoogleClientId();
+  if (!clientId) {
+    if (confirm('לא מוגדר Google Client ID. להגדיר עכשיו?\n\n(תצטרך Client ID מ-Google Cloud Console — ראה GOOGLE_DRIVE_SETUP.md)')) {
+      openGDriveSetup();
+    }
+    return null;
+  }
+
+  await loadGoogleIdentityServices();
+
+  return new Promise((resolve, reject) => {
+    try {
+      gdriveTokenClient = window.google.accounts.oauth2.initTokenClient({
+        client_id: clientId,
+        scope: GOOGLE_DRIVE_SCOPE,
+        callback: (response) => {
+          if (response.error) {
+            reject(new Error(response.error));
+            return;
+          }
+          gdriveAccessToken = response.access_token;
+          localStorage.setItem(GDRIVE_TOKEN_KEY, JSON.stringify({
+            token: response.access_token,
+            expiresAt: Date.now() + (response.expires_in * 1000)
+          }));
+          resolve(response.access_token);
+        }
+      });
+
+      // Check if we have a cached valid token
+      const cached = localStorage.getItem(GDRIVE_TOKEN_KEY);
+      if (cached) {
+        try {
+          const { token, expiresAt } = JSON.parse(cached);
+          if (expiresAt > Date.now() + 60000) { // valid for at least 1 more minute
+            gdriveAccessToken = token;
+            resolve(token);
+            return;
+          }
+        } catch (e) {}
+      }
+
+      gdriveTokenClient.requestAccessToken({ prompt: '' });
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
+async function gdriveFetch(url, options = {}) {
+  const token = gdriveAccessToken || await gdriveAuthenticate();
+  if (!token) throw new Error('לא מחובר ל-Google');
+
+  const response = await fetch(url, {
+    ...options,
+    headers: {
+      ...options.headers,
+      'Authorization': `Bearer ${token}`
+    }
+  });
+
+  if (response.status === 401) {
+    // Token expired, try once more
+    localStorage.removeItem(GDRIVE_TOKEN_KEY);
+    gdriveAccessToken = null;
+    const newToken = await gdriveAuthenticate();
+    return fetch(url, {
+      ...options,
+      headers: {
+        ...options.headers,
+        'Authorization': `Bearer ${newToken}`
+      }
+    });
+  }
+
+  return response;
+}
+
+async function gdriveGetOrCreateFolder() {
+  // Search for existing folder
+  const query = encodeURIComponent(`name='${GDRIVE_FOLDER_NAME}' and mimeType='application/vnd.google-apps.folder' and trashed=false`);
+  const searchRes = await gdriveFetch(`https://www.googleapis.com/drive/v3/files?q=${query}&fields=files(id,name)`);
+  const searchData = await searchRes.json();
+
+  if (searchData.files && searchData.files.length > 0) {
+    return searchData.files[0].id;
+  }
+
+  // Create folder
+  const createRes = await gdriveFetch('https://www.googleapis.com/drive/v3/files', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      name: GDRIVE_FOLDER_NAME,
+      mimeType: 'application/vnd.google-apps.folder'
+    })
+  });
+  const createData = await createRes.json();
+  return createData.id;
+}
+
+async function gdriveBackup() {
+  try {
+    showToast('☁️ מתחבר ל-Google Drive...');
+    await gdriveAuthenticate();
+
+    showToast('☁️ יוצר גיבוי...');
+    const folderId = await gdriveGetOrCreateFolder();
+
+    const data = {
+      _meta: {
+        exportDate: new Date().toISOString(),
+        appVersion: '2.1',
+        type: 'full-backup',
+        source: 'google-drive-sync'
+      },
+      jobs: state.jobs,
+      profile: state.profile,
+      radarItems: state.radarItems,
+      searchSources: state.searchSources,
+      searchSourcesLog: state.searchSourcesLog
+    };
+
+    const jsonStr = JSON.stringify(data, null, 2);
+    const filename = `cfo-jobs-backup-${new Date().toISOString().split('T')[0]}-${Date.now()}.json`;
+
+    const metadata = {
+      name: filename,
+      parents: [folderId],
+      mimeType: 'application/json'
+    };
+
+    const boundary = 'foo_bar_baz';
+    const body =
+      `--${boundary}\r\n` +
+      `Content-Type: application/json; charset=UTF-8\r\n\r\n` +
+      JSON.stringify(metadata) + '\r\n' +
+      `--${boundary}\r\n` +
+      `Content-Type: application/json\r\n\r\n` +
+      jsonStr + '\r\n' +
+      `--${boundary}--`;
+
+    const uploadRes = await gdriveFetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart', {
+      method: 'POST',
+      headers: { 'Content-Type': `multipart/related; boundary=${boundary}` },
+      body: body
+    });
+
+    if (!uploadRes.ok) throw new Error(`Upload failed: ${uploadRes.status}`);
+
+    const uploaded = await uploadRes.json();
+    localStorage.setItem(GDRIVE_LAST_BACKUP_KEY, JSON.stringify({
+      fileId: uploaded.id,
+      filename: filename,
+      uploadDate: new Date().toISOString(),
+      jobCount: state.jobs.length,
+      radarCount: state.radarItems.length
+    }));
+
+    renderMore();
+    showToast(`✅ נשמר ב-Drive: ${state.jobs.length} משרות + ${state.radarItems.length} רדאר`);
+  } catch (err) {
+    console.error('GDrive backup error:', err);
+    showToast('❌ שגיאה: ' + (err.message || 'לא ידוע'));
+  }
+}
+
+async function gdriveListBackups() {
+  try {
+    const folderId = await gdriveGetOrCreateFolder();
+    const query = encodeURIComponent(`'${folderId}' in parents and trashed=false`);
+    const listRes = await gdriveFetch(`https://www.googleapis.com/drive/v3/files?q=${query}&orderBy=createdTime desc&fields=files(id,name,createdTime,size)&pageSize=20`);
+    const data = await listRes.json();
+    return data.files || [];
+  } catch (err) {
+    console.error('GDrive list error:', err);
+    showToast('❌ שגיאה: ' + (err.message || 'לא ידוע'));
+    return [];
+  }
+}
+
+async function gdriveRestore(fileId) {
+  try {
+    showToast('☁️ מוריד מ-Drive...');
+    const res = await gdriveFetch(`https://www.googleapis.com/drive/v3/files/${fileId}?alt=media`);
+    if (!res.ok) throw new Error(`Download failed: ${res.status}`);
+    const data = await res.json();
+
+    // Validate
+    if (!data._meta || !data.jobs) {
+      showToast('❌ הקובץ לא תקין');
+      return;
+    }
+
+    const jobCount = data.jobs.length;
+    const radarCount = data.radarItems ? data.radarItems.length : 0;
+    const profileStr = data.profile ? 'כולל פרופיל' : 'ללא פרופיל';
+
+    if (!confirm(`שחזור מ-Drive:\n• ${jobCount} משרות\n• ${radarCount} פריטי רדאר\n• ${profileStr}\n\nכל הנתונים הנוכחיים יוחלפו!\n\nמומלץ לעשות גיבוי מקומי קודם.`)) return;
+
+    state.jobs = data.jobs;
+    if (data.profile) {
+      state.profile = data.profile;
+      localStorage.setItem(PROFILE_KEY, JSON.stringify(data.profile));
+    }
+    if (data.radarItems) {
+      state.radarItems = data.radarItems;
+      saveRadar();
+    }
+    if (data.searchSources) {
+      state.searchSources = data.searchSources;
+      if (data.searchSourcesLog) state.searchSourcesLog = data.searchSourcesLog;
+      saveSearchSources();
+    }
+    saveData();
+    renderCurrentView();
+    showToast(`✅ שוחזרו ${jobCount} משרות + ${radarCount} רדאר`);
+  } catch (err) {
+    console.error('GDrive restore error:', err);
+    showToast('❌ שגיאה: ' + (err.message || 'לא ידוע'));
+  }
+}
+
+async function openGDriveRestoreModal() {
+  const clientId = getGoogleClientId();
+  if (!clientId) {
+    if (confirm('לא מוגדר Google Client ID. להגדיר עכשיו?')) openGDriveSetup();
+    return;
+  }
+
+  showToast('☁️ טוען רשימת גיבויים...');
+  try {
+    await gdriveAuthenticate();
+  } catch (e) {
+    showToast('שגיאת התחברות: ' + e.message);
+    return;
+  }
+
+  const files = await gdriveListBackups();
+  if (files.length === 0) {
+    showToast('אין גיבויים ב-Drive');
+    return;
+  }
+
+  const listHtml = files.map(f => {
+    const created = new Date(f.createdTime);
+    const dateStr = created.toLocaleDateString('he-IL') + ' ' + created.toLocaleTimeString('he-IL', {hour: '2-digit', minute: '2-digit'});
+    const sizeKB = f.size ? Math.round(f.size / 1024) : '?';
+    return `
+      <div class="gdrive-file-item" onclick="handleGDriveRestore('${f.id}')">
+        <div class="gdrive-file-icon">📦</div>
+        <div class="gdrive-file-info">
+          <div class="gdrive-file-name">${escapeHTML(f.name)}</div>
+          <div class="gdrive-file-meta">${dateStr} · ${sizeKB} KB</div>
+        </div>
+        <div class="gdrive-file-action">שחזר ←</div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('gdrive-modal-body').innerHTML = `
+    <div class="profile-info-box" style="margin-bottom: 12px;">
+      🗂️ מצאתי <strong>${files.length}</strong> גיבויים ב-Google Drive שלך (תיקייה: <code>${GDRIVE_FOLDER_NAME}</code>).<br>
+      לחץ על גיבוי כדי לשחזר אותו. הנתונים הנוכחיים יוחלפו.
+    </div>
+    <div class="gdrive-files-list">${listHtml}</div>
+  `;
+
+  document.getElementById('gdrive-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+async function handleGDriveRestore(fileId) {
+  closeGDriveModal();
+  await gdriveRestore(fileId);
+}
+
+function closeGDriveModal() {
+  document.getElementById('gdrive-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function openGDriveSetup() {
+  const current = localStorage.getItem('cfo_gdrive_client_id') || '';
+  const clientId = prompt(
+    'הדבק את ה-Google OAuth Client ID שלך:\n\n' +
+    '(לקבלת Client ID, ראה: GOOGLE_DRIVE_SETUP.md)\n\n' +
+    'דוגמה: 123456789012-abc...xyz.apps.googleusercontent.com',
+    current
+  );
+  if (clientId === null) return;
+  if (!clientId.trim()) {
+    localStorage.removeItem('cfo_gdrive_client_id');
+    showToast('ה-Client ID נמחק');
+    renderMore();
+    return;
+  }
+  if (!clientId.includes('.apps.googleusercontent.com')) {
+    showToast('Client ID נראה לא תקין (חסר .apps.googleusercontent.com)');
+    return;
+  }
+  localStorage.setItem('cfo_gdrive_client_id', clientId.trim());
+  showToast('✅ ה-Client ID נשמר');
+  renderMore();
+}
+
+function gdriveSignOut() {
+  if (!confirm('להתנתק מ-Google Drive?\n(ה-Client ID יישמר — רק ההרשאות יפוגו)')) return;
+  localStorage.removeItem(GDRIVE_TOKEN_KEY);
+  gdriveAccessToken = null;
+  if (window.google?.accounts?.oauth2 && gdriveTokenClient) {
+    try {
+      window.google.accounts.oauth2.revoke(gdriveAccessToken, () => {});
+    } catch (e) {}
+  }
+  showToast('✓ התנתקת מ-Drive');
+  renderMore();
+}
+
+function hasGDriveClientId() {
+  return !!(localStorage.getItem('cfo_gdrive_client_id'));
+}
+
+function getLastGDriveBackup() {
+  try {
+    const raw = localStorage.getItem(GDRIVE_LAST_BACKUP_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch { return null; }
+}
 
 function importSyncFile(event) {
   const file = event.target.files[0];
@@ -3477,6 +4035,9 @@ function init() {
   });
   document.getElementById('radar-modal').addEventListener('click', (e) => {
     if (e.target.id === 'radar-modal') closeRadarModal();
+  });
+  document.getElementById('gdrive-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'gdrive-modal') closeGDriveModal();
   });
 
   document.addEventListener('keydown', (e) => {
