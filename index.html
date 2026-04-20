@@ -1,0 +1,3502 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl" data-theme="light" data-layout="auto">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#FFFFFF" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#0A1628" media="(prefers-color-scheme: dark)">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="CFO Tracker">
+  <title>ניהול חיפוש משרות CFO | Dudu</title>
+
+  <link rel="manifest" href='data:application/manifest+json;charset=utf-8,{"name":"CFO Jobs Tracker - Dudu","short_name":"CFO Tracker","start_url":"./","display":"standalone","background_color":"%23F8FAFC","theme_color":"%23FFFFFF","orientation":"portrait","lang":"he","dir":"rtl","icons":[{"src":"data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 192 192%22><rect width=%22192%22 height=%22192%22 rx=%2244%22 fill=%22%230F172A%22/><text x=%2296%22 y=%22125%22 font-size=%22105%22 text-anchor=%22middle%22 fill=%22%23CBA457%22 font-family=%22Arial%22 font-weight=%22700%22>₪</text></svg>","sizes":"192x192","type":"image/svg+xml"}]}'>
+
+  <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='14' fill='%230F172A'/><text x='32' y='44' font-size='34' text-anchor='middle' fill='%23CBA457' font-family='Arial' font-weight='700'>₪</text></svg>">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    /* DESIGN TOKENS === LIGHT (default) */
+    :root, [data-theme="light"] {
+      --color-bg: #F8FAFC;
+      --color-surface: #FFFFFF;
+      --color-surface-2: #F1F5F9;
+      --color-surface-3: #E2E8F0;
+
+      --color-border: #E2E8F0;
+      --color-border-strong: #CBD5E1;
+      --color-border-focus: #0F172A;
+
+      --color-text-primary: #0F172A;
+      --color-text-secondary: #475569;
+      --color-text-tertiary: #94A3B8;
+      --color-text-on-accent: #FFFFFF;
+
+      --color-brand: #0F172A;
+      --color-brand-hover: #1E293B;
+      --color-brand-soft: rgba(15, 23, 42, 0.05);
+      --color-accent-gold: #B08641;
+      --color-accent-gold-soft: rgba(176, 134, 65, 0.08);
+
+      --color-urgent: #DC2626;
+      --color-urgent-bg: #FEF2F2;
+      --color-urgent-border: #FECACA;
+      --color-high: #D97706;
+      --color-high-bg: #FFFBEB;
+      --color-high-border: #FED7AA;
+      --color-medium: #2563EB;
+      --color-medium-bg: #EFF6FF;
+      --color-medium-border: #BFDBFE;
+      --color-low: #64748B;
+      --color-low-bg: #F1F5F9;
+      --color-low-border: #CBD5E1;
+
+      --color-success: #059669;
+      --color-success-bg: #ECFDF5;
+      --color-success-border: #A7F3D0;
+      --color-danger: #DC2626;
+      --color-danger-bg: #FEF2F2;
+      --color-warning: #D97706;
+      --color-warning-bg: #FFFBEB;
+      --color-info-pink: #DB2777;
+      --color-info-pink-bg: #FDF2F8;
+
+      --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.06), 0 1px 2px rgba(15, 23, 42, 0.04);
+      --shadow-md: 0 4px 6px -1px rgba(15, 23, 42, 0.07), 0 2px 4px -1px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.08), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
+      --shadow-xl: 0 20px 25px -5px rgba(15, 23, 42, 0.10);
+      --color-scrim: rgba(15, 23, 42, 0.50);
+    }
+
+    /* DARK */
+    [data-theme="dark"] {
+      --color-bg: #0A1628;
+      --color-surface: #122035;
+      --color-surface-2: #1A2B45;
+      --color-surface-3: #243554;
+      --color-border: #243554;
+      --color-border-strong: #334766;
+      --color-border-focus: #CBA457;
+      --color-text-primary: #F0F4F8;
+      --color-text-secondary: #A0B0C5;
+      --color-text-tertiary: #6B7F9A;
+      --color-text-on-accent: #0A1628;
+      --color-brand: #CBA457;
+      --color-brand-hover: #D9B35E;
+      --color-brand-soft: rgba(203, 164, 87, 0.10);
+      --color-accent-gold: #CBA457;
+      --color-accent-gold-soft: rgba(203, 164, 87, 0.12);
+      --color-urgent: #F87171;
+      --color-urgent-bg: rgba(248, 113, 113, 0.12);
+      --color-urgent-border: rgba(248, 113, 113, 0.25);
+      --color-high: #FBBF24;
+      --color-high-bg: rgba(251, 191, 36, 0.12);
+      --color-high-border: rgba(251, 191, 36, 0.25);
+      --color-medium: #60A5FA;
+      --color-medium-bg: rgba(96, 165, 250, 0.12);
+      --color-medium-border: rgba(96, 165, 250, 0.25);
+      --color-low: #94A3B8;
+      --color-low-bg: rgba(148, 163, 184, 0.10);
+      --color-low-border: rgba(148, 163, 184, 0.22);
+      --color-success: #34D399;
+      --color-success-bg: rgba(52, 211, 153, 0.12);
+      --color-success-border: rgba(52, 211, 153, 0.25);
+      --color-danger: #F87171;
+      --color-danger-bg: rgba(248, 113, 113, 0.12);
+      --color-warning: #FBBF24;
+      --color-warning-bg: rgba(251, 191, 36, 0.12);
+      --color-info-pink: #F472B6;
+      --color-info-pink-bg: rgba(244, 114, 182, 0.12);
+      --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.35);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.40);
+      --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.45);
+      --shadow-lg: 0 10px 20px rgba(0, 0, 0, 0.50);
+      --shadow-xl: 0 20px 30px rgba(0, 0, 0, 0.55);
+      --color-scrim: rgba(0, 0, 0, 0.70);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Heebo', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      background: var(--color-bg);
+      color: var(--color-text-primary);
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overscroll-behavior: none;
+      transition: background-color 0.2s, color 0.2s;
+    }
+
+    #app {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      height: 100dvh;
+      max-width: 640px;
+      margin: 0 auto;
+      position: relative;
+      background: var(--color-bg);
+      transition: max-width 0.3s ease;
+    }
+
+    /* DESKTOP MODE - explicit override */
+    [data-layout="desktop"] #app {
+      max-width: 1400px;
+    }
+
+    [data-layout="desktop"] .main-content {
+      padding: 32px 40px;
+      padding-bottom: 120px;
+    }
+
+    [data-layout="desktop"] .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+
+    [data-layout="desktop"] .greeting-title { font-size: 28px; }
+    [data-layout="desktop"] .section-title { font-size: 18px; }
+
+    [data-layout="desktop"] .job-card {
+      padding: 18px 22px;
+    }
+
+    [data-layout="desktop"] .job-company { font-size: 16px; }
+
+    /* Two-column job list on desktop */
+    [data-layout="desktop"] #jobs-list,
+    [data-layout="desktop"] #urgent-list,
+    [data-layout="desktop"] #thisweek-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    [data-layout="desktop"] #jobs-list .job-card,
+    [data-layout="desktop"] #urgent-list .job-card,
+    [data-layout="desktop"] #thisweek-list .job-card {
+      margin-bottom: 0;
+    }
+
+    [data-layout="desktop"] .bottom-nav {
+      max-width: 1400px;
+    }
+
+    [data-layout="desktop"] .modal {
+      max-width: 720px;
+      max-height: 88vh;
+      border-radius: 16px;
+      margin-bottom: 40px;
+    }
+
+    [data-layout="desktop"] .modal-overlay {
+      align-items: center;
+    }
+
+    [data-layout="desktop"] .pipeline-column {
+      flex: 0 0 300px;
+    }
+
+    /* Radar desktop: 2 cols grid for cards */
+    [data-layout="desktop"] .radar-content > div:not(.radar-section-header):not(.radar-stat-row) {
+      /* default render as list — grid applied via helper class */
+    }
+
+    [data-layout="desktop"] .radar-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    [data-layout="desktop"] .radar-cards-grid .radar-card {
+      margin-bottom: 0;
+    }
+
+    /* Auto-responsive: above 900px use desktop by default when auto mode */
+    @media (min-width: 900px) {
+      [data-layout="auto"] #app { max-width: 1400px; }
+      [data-layout="auto"] .main-content { padding: 32px 40px; padding-bottom: 120px; }
+      [data-layout="auto"] .stats-grid { grid-template-columns: repeat(4, 1fr); gap: 16px; }
+      [data-layout="auto"] .greeting-title { font-size: 28px; }
+      [data-layout="auto"] .job-card { padding: 18px 22px; }
+      [data-layout="auto"] .job-company { font-size: 16px; }
+      [data-layout="auto"] #jobs-list,
+      [data-layout="auto"] #urgent-list,
+      [data-layout="auto"] #thisweek-list {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+      [data-layout="auto"] #jobs-list .job-card,
+      [data-layout="auto"] #urgent-list .job-card,
+      [data-layout="auto"] #thisweek-list .job-card {
+        margin-bottom: 0;
+      }
+      [data-layout="auto"] .bottom-nav { max-width: 1400px; }
+      [data-layout="auto"] .modal { max-width: 720px; max-height: 88vh; border-radius: 16px; margin-bottom: 40px; }
+      [data-layout="auto"] .modal-overlay { align-items: center; }
+      [data-layout="auto"] .pipeline-column { flex: 0 0 300px; }
+      [data-layout="auto"] .radar-cards-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+      [data-layout="auto"] .radar-cards-grid .radar-card { margin-bottom: 0; }
+    }
+
+    /* Layout toggle button */
+    .layout-toggle {
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      color: var(--color-text-secondary);
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+    .layout-toggle:hover {
+      background: var(--color-surface-3);
+      color: var(--color-text-primary);
+    }
+    .layout-toggle:active { transform: scale(0.95); }
+    
+
+    :focus-visible { outline: 2px solid var(--color-border-focus); outline-offset: 2px; border-radius: 6px; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
+
+    /* HEADER */
+    .app-header {
+      padding: calc(env(safe-area-inset-top, 0px) + 14px) 20px 14px;
+      background: var(--color-surface);
+      border-bottom: 1px solid var(--color-border);
+      flex-shrink: 0;
+    }
+    .app-header-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .app-brand { display: flex; align-items: center; gap: 10px; }
+    .app-brand-icon {
+      width: 36px; height: 36px; background: var(--color-brand); color: var(--color-accent-gold);
+      border-radius: 10px; display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 20px; flex-shrink: 0;
+    }
+    .app-brand-text { display: flex; flex-direction: column; gap: 1px; }
+    .app-title { font-size: 17px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.01em; }
+    .app-subtitle { font-size: 12px; color: var(--color-text-tertiary); font-weight: 400; }
+
+    .btn-primary-header {
+      background: var(--color-brand); color: var(--color-text-on-accent); border: none;
+      padding: 9px 16px; border-radius: 10px; cursor: pointer; font-size: 14px;
+      font-weight: 600; font-family: inherit; min-height: 38px;
+      transition: all 0.15s; display: inline-flex; align-items: center; gap: 6px;
+    }
+    .btn-primary-header:hover { background: var(--color-brand-hover); }
+    .btn-primary-header:active { transform: scale(0.97); }
+    [data-theme="dark"] .btn-primary-header { color: var(--color-bg); }
+
+    /* MAIN */
+    .main-content {
+      flex: 1; overflow-y: auto; overflow-x: hidden;
+      padding: 20px; padding-bottom: 100px;
+      -webkit-overflow-scrolling: touch;
+    }
+    .view { display: none; }
+    .view.active { display: block; }
+
+    /* DASHBOARD */
+    .greeting { margin-bottom: 20px; }
+    .greeting-title { font-size: 22px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.02em; margin-bottom: 4px; }
+    .greeting-subtitle { font-size: 13px; color: var(--color-text-secondary); }
+    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 24px; }
+    .stat-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: 14px; padding: 14px 16px; transition: transform 0.15s, box-shadow 0.15s;
+      cursor: pointer;
+    }
+    .stat-card:active { transform: scale(0.98); }
+    .stat-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .stat-icon {
+      width: 36px; height: 36px; border-radius: 10px; display: flex;
+      align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
+    }
+    .stat-icon.urgent { background: var(--color-urgent-bg); color: var(--color-urgent); }
+    .stat-icon.progress { background: var(--color-medium-bg); color: var(--color-medium); }
+    .stat-icon.overdue { background: var(--color-urgent-bg); color: var(--color-urgent); }
+    .stat-icon.interviews { background: var(--color-success-bg); color: var(--color-success); }
+    .stat-value { font-size: 28px; font-weight: 700; color: var(--color-text-primary); line-height: 1; letter-spacing: -0.02em; }
+    .stat-label { font-size: 12px; color: var(--color-text-secondary); font-weight: 500; margin-top: 4px; }
+
+    /* SECTIONS */
+    .section { margin-top: 24px; }
+    .section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .section-title { font-size: 16px; font-weight: 700; color: var(--color-text-primary); letter-spacing: -0.01em; }
+    .section-count { font-size: 12px; color: var(--color-text-tertiary); font-weight: 500; background: var(--color-surface-2); padding: 3px 10px; border-radius: 10px; }
+
+    /* JOB CARDS */
+    .job-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: 14px; padding: 14px 16px; margin-bottom: 10px;
+      cursor: pointer; transition: all 0.15s; position: relative; overflow: hidden;
+    }
+    .job-card:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-sm); }
+    .job-card:active { transform: scale(0.99); }
+    .job-card::before {
+      content: ''; position: absolute; right: 0; top: 14px; bottom: 14px;
+      width: 3px; border-radius: 2px;
+    }
+    .job-card.priority-URGENT::before { background: var(--color-urgent); }
+    .job-card.priority-HIGH::before { background: var(--color-high); }
+    .job-card.priority-MEDIUM::before { background: var(--color-medium); }
+    .job-card.priority-LOW::before { background: var(--color-low); }
+    .job-card.done-yes { opacity: 0.55; }
+    .job-card.done-yes .job-company { text-decoration: line-through; }
+    .job-card.status-closed { opacity: 0.45; }
+    .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+    .job-company { font-size: 15px; font-weight: 600; color: var(--color-text-primary); flex: 1; line-height: 1.35; letter-spacing: -0.01em; }
+
+    .priority-badge {
+      font-size: 10px; font-weight: 700; padding: 4px 9px; border-radius: 6px;
+      flex-shrink: 0; letter-spacing: 0.03em; border: 1px solid transparent;
+    }
+    .priority-badge.URGENT { background: var(--color-urgent-bg); color: var(--color-urgent); border-color: var(--color-urgent-border); }
+    .priority-badge.HIGH { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high-border); }
+    .priority-badge.MEDIUM { background: var(--color-medium-bg); color: var(--color-medium); border-color: var(--color-medium-border); }
+    .priority-badge.LOW { background: var(--color-low-bg); color: var(--color-low); border-color: var(--color-low-border); }
+
+    .job-action-preview { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; margin-bottom: 10px; }
+    .job-meta { display: flex; flex-wrap: wrap; gap: 5px; }
+    .meta-chip { font-size: 11px; padding: 3px 8px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 6px; color: var(--color-text-secondary); display: inline-flex; align-items: center; gap: 4px; white-space: nowrap; font-weight: 500; }
+    .meta-chip.stage { color: var(--color-brand); background: var(--color-brand-soft); border-color: transparent; }
+    .meta-chip.done-yes { background: var(--color-success-bg); color: var(--color-success); border-color: var(--color-success-border); }
+    .meta-chip.done-partial { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high-border); }
+    .meta-chip.done-pending { background: var(--color-info-pink-bg); color: var(--color-info-pink); border-color: transparent; }
+    .overdue-indicator { display: inline-flex; align-items: center; gap: 3px; padding: 3px 7px; background: var(--color-urgent-bg); color: var(--color-urgent); border: 1px solid var(--color-urgent-border); border-radius: 5px; font-size: 10px; font-weight: 700; margin-left: 6px; }
+
+    /* SEARCH & FILTERS */
+    .search-box { position: relative; margin-bottom: 14px; }
+    .search-input { width: 100%; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 12px; padding: 12px 44px 12px 16px; color: var(--color-text-primary); font-size: 15px; font-family: inherit; direction: rtl; min-height: 44px; transition: border-color 0.15s, box-shadow 0.15s; }
+    .search-input:focus { outline: none; border-color: var(--color-brand); box-shadow: 0 0 0 3px var(--color-brand-soft); }
+    .search-input::placeholder { color: var(--color-text-tertiary); }
+    .search-icon { position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--color-text-tertiary); pointer-events: none; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; }
+    .filter-row { display: flex; gap: 6px; overflow-x: auto; padding-bottom: 4px; margin-bottom: 14px; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .filter-row::-webkit-scrollbar { display: none; }
+    .filter-chip { flex-shrink: 0; padding: 7px 14px; border-radius: 20px; font-size: 13px; font-weight: 500; cursor: pointer; border: 1px solid var(--color-border); background: var(--color-surface); color: var(--color-text-secondary); transition: all 0.15s; white-space: nowrap; min-height: 34px; display: inline-flex; align-items: center; gap: 5px; }
+    .filter-chip:hover { border-color: var(--color-border-strong); }
+    .filter-chip.active { background: var(--color-brand); color: var(--color-text-on-accent); border-color: var(--color-brand); font-weight: 600; }
+    [data-theme="dark"] .filter-chip.active { color: var(--color-bg); }
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+    .chip-dot.urgent { background: var(--color-urgent); }
+    .chip-dot.high { background: var(--color-high); }
+    .chip-dot.medium { background: var(--color-medium); }
+    .chip-dot.low { background: var(--color-low); }
+
+    /* PIPELINE */
+    .pipeline-info { font-size: 12px; color: var(--color-text-tertiary); margin-bottom: 12px; }
+    .pipeline-container { display: flex; gap: 10px; overflow-x: auto; -webkit-overflow-scrolling: touch; scroll-snap-type: x proximity; scrollbar-width: none; margin: 0 -20px; padding: 0 20px 16px; }
+    .pipeline-container::-webkit-scrollbar { display: none; }
+    .pipeline-column { flex: 0 0 260px; scroll-snap-align: start; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 14px; padding: 12px; min-height: 200px; }
+    .pipeline-column-header { font-size: 13px; font-weight: 700; color: var(--color-text-primary); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 10px; border-bottom: 1px solid var(--color-border); }
+    .pipeline-column-count { font-size: 11px; background: var(--color-surface); color: var(--color-text-secondary); padding: 2px 9px; border-radius: 10px; font-weight: 600; border: 1px solid var(--color-border); }
+    .pipeline-column-empty { text-align: center; color: var(--color-text-tertiary); font-size: 12px; padding: 24px 10px; }
+    .pipeline-card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; padding: 10px 12px; margin-bottom: 8px; font-size: 12px; cursor: pointer; position: relative; overflow: hidden; transition: box-shadow 0.15s; }
+    .pipeline-card:hover { box-shadow: var(--shadow-sm); }
+    .pipeline-card::before { content: ''; position: absolute; right: 0; top: 10px; bottom: 10px; width: 2px; border-radius: 1px; }
+    .pipeline-card.priority-URGENT::before { background: var(--color-urgent); }
+    .pipeline-card.priority-HIGH::before { background: var(--color-high); }
+    .pipeline-card.priority-MEDIUM::before { background: var(--color-medium); }
+    .pipeline-card.priority-LOW::before { background: var(--color-low); }
+    .pipeline-card-title { font-weight: 600; color: var(--color-text-primary); margin-bottom: 5px; line-height: 1.35; }
+    .pipeline-card-sub { color: var(--color-text-tertiary); font-size: 11px; line-height: 1.4; }
+
+    /* BOTTOM NAV */
+    .bottom-nav { position: fixed; bottom: 0; left: 0; right: 0; background: var(--color-surface); border-top: 1px solid var(--color-border); display: flex; padding: 6px 4px calc(env(safe-area-inset-bottom, 8px)); max-width: 640px; margin: 0 auto; z-index: 50; box-shadow: 0 -2px 10px rgba(15, 23, 42, 0.03); }
+    .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 4px; background: none; border: none; color: var(--color-text-tertiary); font-size: 11px; font-weight: 500; cursor: pointer; transition: color 0.15s; font-family: inherit; position: relative; min-height: 44px; }
+    .nav-btn-icon { font-size: 22px; line-height: 1; transition: transform 0.15s; }
+    .nav-btn.active { color: var(--color-brand); }
+    [data-theme="dark"] .nav-btn.active { color: var(--color-accent-gold); }
+    .nav-btn.active .nav-btn-icon { transform: scale(1.08); }
+    .nav-badge { position: absolute; top: 4px; right: 50%; transform: translateX(14px); min-width: 18px; height: 18px; background: var(--color-urgent); color: white; border-radius: 9px; font-size: 10px; font-weight: 700; display: flex; align-items: center; justify-content: center; padding: 0 5px; border: 2px solid var(--color-surface); }
+
+    /* MODAL */
+    .modal-overlay { position: fixed; inset: 0; background: var(--color-scrim); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); z-index: 100; display: none; align-items: flex-end; justify-content: center; }
+    .modal-overlay.active { display: flex; animation: fadeIn 0.2s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+    .modal { background: var(--color-bg); width: 100%; max-width: 640px; max-height: 92vh; border-radius: 24px 24px 0 0; overflow: hidden; animation: slideUp 0.28s cubic-bezier(0.4, 0, 0.2, 1); display: flex; flex-direction: column; box-shadow: var(--shadow-xl); }
+    .modal-handle { width: 40px; height: 4px; background: var(--color-border-strong); border-radius: 2px; margin: 10px auto 6px; flex-shrink: 0; }
+    .modal-header { padding: 4px 20px 14px; border-bottom: 1px solid var(--color-border); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-shrink: 0; background: var(--color-surface); }
+    .modal-title { flex: 1; font-size: 17px; font-weight: 700; color: var(--color-text-primary); line-height: 1.35; letter-spacing: -0.01em; padding-top: 4px; }
+    .modal-close { background: var(--color-surface-2); border: 1px solid var(--color-border); color: var(--color-text-secondary); width: 36px; height: 36px; border-radius: 10px; cursor: pointer; font-size: 18px; flex-shrink: 0; font-family: inherit; display: flex; align-items: center; justify-content: center; transition: all 0.15s; }
+    .modal-close:hover { background: var(--color-surface-3); color: var(--color-text-primary); }
+    .modal-body { flex: 1; overflow-y: auto; padding: 16px 20px; -webkit-overflow-scrolling: touch; }
+    .modal-footer { padding: 12px 20px calc(env(safe-area-inset-bottom, 16px) + 10px); background: var(--color-surface); border-top: 1px solid var(--color-border); display: flex; gap: 10px; flex-shrink: 0; }
+    .modal-footer button { flex: 1; padding: 13px; border-radius: 12px; border: 1px solid transparent; font-size: 15px; font-weight: 600; cursor: pointer; font-family: inherit; min-height: 46px; transition: all 0.15s; }
+    .btn-primary { background: var(--color-brand); color: var(--color-text-on-accent); border-color: var(--color-brand); }
+    .btn-primary:hover { background: var(--color-brand-hover); }
+    .btn-primary:active { transform: scale(0.98); }
+    [data-theme="dark"] .btn-primary { color: var(--color-bg); }
+    .btn-secondary { background: var(--color-surface-2); color: var(--color-text-primary); border-color: var(--color-border); }
+    .btn-secondary:hover { background: var(--color-surface-3); }
+    .btn-danger { background: var(--color-danger-bg); color: var(--color-danger); border-color: var(--color-urgent-border); }
+    .btn-danger:hover { background: var(--color-urgent-bg); }
+
+    /* FORM */
+    .field-group { margin-bottom: 16px; }
+    .field-label { display: block; font-size: 12px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 7px; letter-spacing: 0.01em; }
+    .field-input, .field-select, .field-textarea { width: 100%; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; padding: 11px 13px; color: var(--color-text-primary); font-size: 15px; font-family: inherit; direction: rtl; min-height: 44px; transition: border-color 0.15s, box-shadow 0.15s; }
+    .field-input:focus, .field-select:focus, .field-textarea:focus { outline: none; border-color: var(--color-brand); box-shadow: 0 0 0 3px var(--color-brand-soft); }
+    .field-textarea { resize: vertical; min-height: 90px; line-height: 1.55; }
+    .field-select { -webkit-appearance: none; appearance: none; background-image: linear-gradient(45deg, transparent 50%, var(--color-text-secondary) 50%), linear-gradient(135deg, var(--color-text-secondary) 50%, transparent 50%); background-position: calc(100% - 16px) 50%, calc(100% - 11px) 50%; background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; padding-left: 32px; cursor: pointer; }
+    .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+    .segmented-control { display: grid; gap: 6px; }
+    .segmented-control.priority { grid-template-columns: repeat(4, 1fr); }
+    .segmented-control.done { grid-template-columns: repeat(4, 1fr); }
+    .segment-option { padding: 10px 4px; border-radius: 10px; text-align: center; font-size: 12px; font-weight: 600; cursor: pointer; border: 1.5px solid var(--color-border); background: var(--color-surface); color: var(--color-text-secondary); transition: all 0.15s; min-height: 44px; display: flex; align-items: center; justify-content: center; gap: 4px; }
+    .segment-option.priority-URGENT.selected { background: var(--color-urgent-bg); color: var(--color-urgent); border-color: var(--color-urgent); }
+    .segment-option.priority-HIGH.selected { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high); }
+    .segment-option.priority-MEDIUM.selected { background: var(--color-medium-bg); color: var(--color-medium); border-color: var(--color-medium); }
+    .segment-option.priority-LOW.selected { background: var(--color-low-bg); color: var(--color-low); border-color: var(--color-low); }
+    .segment-option[data-value="כן"].selected { background: var(--color-success-bg); color: var(--color-success); border-color: var(--color-success); }
+    .segment-option[data-value="לא"].selected { background: var(--color-brand-soft); color: var(--color-brand); border-color: var(--color-brand); }
+    [data-theme="dark"] .segment-option[data-value="לא"].selected { color: var(--color-accent-gold); border-color: var(--color-accent-gold); }
+    .segment-option[data-value="חלקי"].selected { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high); }
+    .segment-option[data-value="בהמתנה"].selected { background: var(--color-info-pink-bg); color: var(--color-info-pink); border-color: var(--color-info-pink); }
+
+    /* QUICK ACTIONS */
+    .quick-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 20px; padding: 12px; background: var(--color-surface-2); border-radius: 12px; border: 1px solid var(--color-border); }
+    .quick-action-btn { padding: 11px 8px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; color: var(--color-text-primary); font-size: 13px; font-weight: 500; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: inherit; min-height: 44px; transition: all 0.15s; }
+    .quick-action-btn:hover { border-color: var(--color-border-strong); background: var(--color-surface); box-shadow: var(--shadow-xs); }
+    .quick-action-btn:active { transform: scale(0.97); }
+    .quick-action-btn.primary { background: var(--color-brand); color: var(--color-text-on-accent); border-color: var(--color-brand); grid-column: 1 / -1; }
+    [data-theme="dark"] .quick-action-btn.primary { color: var(--color-bg); }
+    .quick-action-emoji { font-size: 16px; }
+
+    /* HISTORY */
+    .history-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .history-item { padding: 10px 12px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 10px; font-size: 13px; position: relative; padding-right: 36px; }
+    .history-item::before { content: '📝'; position: absolute; right: 12px; top: 10px; font-size: 14px; }
+    .history-date { font-size: 11px; color: var(--color-text-tertiary); margin-bottom: 4px; font-weight: 500; }
+    .history-text { color: var(--color-text-primary); line-height: 1.5; }
+
+    /* SETTINGS */
+    .settings-section { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 14px; margin-bottom: 16px; overflow: hidden; }
+    .settings-title { padding: 12px 16px; font-size: 12px; font-weight: 700; color: var(--color-text-tertiary); background: var(--color-surface-2); border-bottom: 1px solid var(--color-border); text-transform: uppercase; letter-spacing: 0.05em; }
+    .settings-item { padding: 14px 16px; border-bottom: 1px solid var(--color-border); cursor: pointer; display: flex; align-items: center; gap: 14px; transition: background 0.15s; min-height: 60px; }
+    .settings-item:last-child { border-bottom: none; }
+    .settings-item:hover { background: var(--color-surface-2); }
+    .settings-item:active { background: var(--color-surface-3); }
+    .settings-item-icon { width: 36px; height: 36px; background: var(--color-surface-2); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .settings-item-content { flex: 1; min-width: 0; }
+    .settings-item-title { font-size: 14px; font-weight: 500; color: var(--color-text-primary); line-height: 1.35; }
+    .settings-item-desc { font-size: 12px; color: var(--color-text-secondary); margin-top: 2px; line-height: 1.4; }
+    .settings-item-chevron { color: var(--color-text-tertiary); font-size: 14px; flex-shrink: 0; }
+    .settings-item.danger .settings-item-title { color: var(--color-danger); }
+    .settings-item.danger .settings-item-icon { background: var(--color-danger-bg); color: var(--color-danger); }
+
+    .theme-switch { position: relative; width: 52px; height: 30px; background: var(--color-surface-3); border-radius: 15px; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .theme-switch.on { background: var(--color-brand); }
+    .theme-switch-thumb { position: absolute; top: 3px; right: 3px; width: 24px; height: 24px; background: white; border-radius: 12px; transition: transform 0.2s; box-shadow: var(--shadow-sm); }
+    .theme-switch.on .theme-switch-thumb { transform: translateX(-22px); }
+
+    /* CV MANAGEMENT */
+    .cv-list { display: flex; flex-direction: column; }
+    .cv-item { padding: 14px 16px; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 12px; min-height: 60px; }
+    .cv-item:last-child { border-bottom: none; }
+    .cv-icon { width: 40px; height: 40px; background: var(--color-urgent-bg); color: var(--color-urgent); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .cv-info { flex: 1; min-width: 0; }
+    .cv-name { font-size: 14px; font-weight: 600; color: var(--color-text-primary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .cv-meta { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+    .cv-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .cv-action-btn { width: 36px; height: 36px; background: var(--color-surface-2); border: 1px solid var(--color-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 15px; color: var(--color-text-secondary); transition: all 0.15s; }
+    .cv-action-btn:hover { background: var(--color-surface-3); color: var(--color-text-primary); }
+    .cv-empty { padding: 30px 16px; text-align: center; color: var(--color-text-tertiary); font-size: 13px; }
+    .cv-upload-item { padding: 14px 16px; display: flex; align-items: center; gap: 12px; cursor: pointer; background: var(--color-brand-soft); border-top: 1px solid var(--color-border); }
+    .cv-upload-item:hover { background: var(--color-accent-gold-soft); }
+    .cv-upload-item .settings-item-icon { background: var(--color-brand); color: var(--color-accent-gold); }
+    .cv-upload-item .settings-item-title { color: var(--color-brand); }
+    [data-theme="dark"] .cv-upload-item .settings-item-title { color: var(--color-accent-gold); }
+    .cv-storage-info { font-size: 11px; color: var(--color-text-tertiary); padding: 10px 16px; background: var(--color-surface-2); border-top: 1px solid var(--color-border); text-align: center; }
+    .cv-storage-bar { height: 4px; background: var(--color-border); border-radius: 2px; margin-top: 6px; overflow: hidden; }
+    .cv-storage-fill { height: 100%; background: var(--color-success); border-radius: 2px; transition: width 0.3s; }
+    .cv-storage-fill.warning { background: var(--color-warning); }
+    .cv-storage-fill.danger { background: var(--color-danger); }
+
+    /* EMAIL MODAL - uses modal but smaller */
+    .email-cv-picker { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    .email-cv-option { padding: 12px 14px; background: var(--color-surface); border: 2px solid var(--color-border); border-radius: 10px; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: all 0.15s; }
+    .email-cv-option:hover { border-color: var(--color-border-strong); }
+    .email-cv-option.selected { border-color: var(--color-brand); background: var(--color-brand-soft); }
+    [data-theme="dark"] .email-cv-option.selected { border-color: var(--color-accent-gold); }
+    .email-cv-option-icon { width: 36px; height: 36px; background: var(--color-urgent-bg); color: var(--color-urgent); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
+    .email-cv-option-info { flex: 1; min-width: 0; }
+    .email-cv-option-name { font-size: 14px; font-weight: 600; color: var(--color-text-primary); }
+    .email-cv-option-meta { font-size: 11px; color: var(--color-text-tertiary); margin-top: 2px; }
+    .email-instructions { padding: 12px 14px; background: var(--color-medium-bg); border: 1px solid var(--color-medium-border); border-radius: 10px; font-size: 13px; color: var(--color-medium); line-height: 1.5; margin-bottom: 16px; }
+    [data-theme="dark"] .email-instructions { color: var(--color-text-primary); }
+
+    /* SYNC PREVIEW */
+    .sync-preview { padding: 14px; background: var(--color-medium-bg); border: 1px solid var(--color-medium-border); border-radius: 10px; margin-bottom: 16px; }
+    .sync-preview-title { font-size: 14px; font-weight: 700; color: var(--color-medium); margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    [data-theme="dark"] .sync-preview-title { color: var(--color-text-primary); }
+    .sync-preview-stat { font-size: 13px; color: var(--color-text-primary); margin-bottom: 4px; }
+    .sync-new-jobs-list { max-height: 300px; overflow-y: auto; margin-top: 10px; }
+    .sync-new-job { padding: 8px 10px; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 8px; margin-bottom: 6px; font-size: 12px; }
+    .sync-new-job-title { font-weight: 600; color: var(--color-text-primary); }
+    .sync-new-job-desc { color: var(--color-text-tertiary); margin-top: 2px; }
+
+    /* SYNC PROTECTION BOX — shows guarantees before update */
+    .sync-protection-box {
+      padding: 14px 16px;
+      background: var(--color-success-bg);
+      border: 1.5px solid var(--color-success-border);
+      border-radius: 12px;
+      margin-bottom: 16px;
+    }
+    .sync-protection-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-success);
+      margin-bottom: 12px;
+      letter-spacing: -0.01em;
+    }
+    [data-theme="dark"] .sync-protection-title { color: var(--color-text-primary); }
+    .sync-protection-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .sync-protection-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13px;
+      line-height: 1.5;
+      color: var(--color-text-primary);
+    }
+    .sync-protection-icon {
+      font-size: 16px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    /* ABOUT */
+    .about-card { text-align: center; padding: 24px 16px; color: var(--color-text-tertiary); font-size: 12px; line-height: 1.6; }
+    .about-logo { width: 48px; height: 48px; margin: 0 auto 10px; background: var(--color-brand); color: var(--color-accent-gold); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; }
+    .about-name { font-size: 14px; color: var(--color-text-secondary); font-weight: 600; margin-bottom: 4px; }
+
+    /* EMPTY STATE */
+    .empty-state { text-align: center; padding: 60px 20px; color: var(--color-text-tertiary); }
+    .empty-state-icon { font-size: 42px; margin-bottom: 14px; opacity: 0.7; }
+    .empty-state-title { font-size: 16px; color: var(--color-text-primary); font-weight: 600; margin-bottom: 6px; }
+    .empty-state-text { font-size: 13px; color: var(--color-text-secondary); line-height: 1.5; }
+
+    /* TOAST */
+    .toast { position: fixed; top: calc(env(safe-area-inset-top, 20px) + 70px); left: 50%; transform: translateX(-50%) translateY(-20px); background: var(--color-text-primary); color: var(--color-surface); padding: 11px 18px; border-radius: 12px; font-size: 14px; font-weight: 500; z-index: 200; box-shadow: var(--shadow-lg); opacity: 0; pointer-events: none; transition: opacity 0.2s, transform 0.2s; max-width: calc(100% - 40px); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    .main-content::-webkit-scrollbar, .modal-body::-webkit-scrollbar { width: 4px; }
+    .main-content::-webkit-scrollbar-thumb, .modal-body::-webkit-scrollbar-thumb { background: var(--color-border-strong); border-radius: 2px; }
+
+    .hidden { display: none !important; }
+
+    /* SEARCH SOURCES */
+    .search-sources-intro {
+      padding: 12px 16px;
+      font-size: 12px;
+      color: var(--color-text-secondary);
+      background: var(--color-surface-2);
+      border-bottom: 1px solid var(--color-border);
+      line-height: 1.5;
+    }
+    .search-source-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      transition: background 0.15s;
+      min-height: 56px;
+    }
+    .search-source-item:last-child { border-bottom: none; }
+    .search-source-info {
+      flex: 1;
+      min-width: 0;
+      cursor: pointer;
+    }
+    .search-source-info:hover { opacity: 0.7; }
+    .search-source-icon {
+      width: 36px; height: 36px;
+      background: var(--color-surface-2);
+      border: 1px solid var(--color-border);
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--color-text-secondary);
+      flex-shrink: 0;
+    }
+    .search-source-name {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--color-text-primary);
+    }
+    .search-source-desc {
+      font-size: 11px;
+      color: var(--color-text-tertiary);
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .search-source-actions {
+      display: flex;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+    .search-source-btn {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-primary);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: inherit;
+      min-height: 36px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s;
+    }
+    .search-source-btn:hover {
+      background: var(--color-surface-2);
+      border-color: var(--color-border-strong);
+    }
+    .search-source-btn.primary {
+      background: var(--color-brand);
+      color: var(--color-text-on-accent);
+      border-color: var(--color-brand);
+    }
+    [data-theme="dark"] .search-source-btn.primary { color: var(--color-bg); }
+    .search-source-btn.icon-only {
+      width: 36px;
+      padding: 0;
+      justify-content: center;
+    }
+
+    /* RADAR */
+    .radar-tabs {
+      display: flex;
+      gap: 4px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-bottom: 14px;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .radar-tabs::-webkit-scrollbar { display: none; }
+    .radar-tab {
+      flex-shrink: 0;
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      color: var(--color-text-secondary);
+      transition: all 0.15s;
+      white-space: nowrap;
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+    }
+    .radar-tab:hover { border-color: var(--color-border-strong); }
+    .radar-tab.active {
+      background: var(--color-brand);
+      color: var(--color-text-on-accent);
+      border-color: var(--color-brand);
+    }
+    [data-theme="dark"] .radar-tab.active { color: var(--color-bg); }
+
+    .radar-section-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;
+    }
+    .radar-add-btn {
+      padding: 6px 12px; background: var(--color-brand-soft); color: var(--color-brand);
+      border: 1px solid transparent; border-radius: 8px; font-size: 13px; font-weight: 600;
+      cursor: pointer; font-family: inherit;
+    }
+    [data-theme="dark"] .radar-add-btn { color: var(--color-accent-gold); background: var(--color-accent-gold-soft); }
+    .radar-add-btn:hover { background: var(--color-brand); color: var(--color-text-on-accent); }
+    [data-theme="dark"] .radar-add-btn:hover { background: var(--color-accent-gold); color: var(--color-bg); }
+
+    .radar-card {
+      background: var(--color-surface); border: 1px solid var(--color-border);
+      border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; cursor: pointer;
+      transition: all 0.15s; position: relative;
+    }
+    .radar-card:hover { box-shadow: var(--shadow-sm); }
+    .radar-card:active { transform: scale(0.99); }
+
+    .radar-card-header {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 10px; margin-bottom: 6px;
+    }
+    .radar-card-title {
+      font-size: 14px; font-weight: 600; color: var(--color-text-primary); line-height: 1.4;
+    }
+    .radar-card-meta {
+      font-size: 12px; color: var(--color-text-secondary); line-height: 1.4;
+    }
+    .radar-status-badge {
+      font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 5px;
+      flex-shrink: 0; letter-spacing: 0.02em; border: 1px solid transparent;
+    }
+    .radar-status-badge.lead-hot { background: var(--color-urgent-bg); color: var(--color-urgent); border-color: var(--color-urgent-border); }
+    .radar-status-badge.lead-warm { background: var(--color-high-bg); color: var(--color-high); border-color: var(--color-high-border); }
+    .radar-status-badge.lead-cold { background: var(--color-low-bg); color: var(--color-low); border-color: var(--color-low-border); }
+    .radar-status-badge.contacted { background: var(--color-medium-bg); color: var(--color-medium); border-color: var(--color-medium-border); }
+    .radar-status-badge.meeting { background: var(--color-success-bg); color: var(--color-success); border-color: var(--color-success-border); }
+    .radar-status-badge.signal { background: var(--color-info-pink-bg); color: var(--color-info-pink); }
+
+    .radar-tags { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+    .radar-tag {
+      font-size: 10px; padding: 2px 7px; background: var(--color-surface-2);
+      border: 1px solid var(--color-border); border-radius: 5px; color: var(--color-text-secondary);
+    }
+
+    .radar-stat-row {
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-bottom: 16px;
+    }
+    .radar-stat {
+      background: var(--color-surface-2); padding: 10px 12px; border-radius: 10px;
+      border: 1px solid var(--color-border); text-align: center;
+    }
+    .radar-stat-val {
+      font-size: 22px; font-weight: 700; color: var(--color-text-primary); line-height: 1;
+    }
+    .radar-stat-label {
+      font-size: 10px; color: var(--color-text-secondary); margin-top: 4px;
+    }
+
+    /* PROFILE */
+    .profile-info-box {
+      padding: 12px 14px; background: var(--color-medium-bg); border: 1px solid var(--color-medium-border);
+      border-radius: 10px; font-size: 13px; color: var(--color-medium); line-height: 1.5; margin-bottom: 16px;
+    }
+    [data-theme="dark"] .profile-info-box { color: var(--color-text-primary); }
+
+    .chip-picker {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .chip-pick {
+      padding: 6px 12px; border-radius: 16px; font-size: 12px; font-weight: 500;
+      cursor: pointer; border: 1.5px solid var(--color-border); background: var(--color-surface);
+      color: var(--color-text-secondary); transition: all 0.15s; min-height: 32px;
+      display: inline-flex; align-items: center;
+    }
+    .chip-pick.selected {
+      background: var(--color-brand); color: var(--color-text-on-accent); border-color: var(--color-brand);
+    }
+    [data-theme="dark"] .chip-pick.selected { color: var(--color-bg); }
+  </style>
+</head>
+<body>
+
+<div id="app">
+  <header class="app-header">
+    <div class="app-header-row">
+      <div class="app-brand">
+        <div class="app-brand-icon">₪</div>
+        <div class="app-brand-text">
+          <div class="app-title">CFO Tracker</div>
+          <div class="app-subtitle">ניהול חיפוש משרות</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; align-items:center;">
+        <button class="layout-toggle" id="layout-toggle-btn" onclick="cycleLayout()" aria-label="החלף תצוגה" title="תצוגה">
+          <span id="layout-toggle-icon">🖥️</span>
+        </button>
+        <button class="btn-primary-header" onclick="openNewJobModal()" aria-label="הוסף משרה חדשה">
+          <span>+</span><span>חדש</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+
+    <!-- HOME -->
+    <div class="view active" id="view-home">
+      <div class="greeting">
+        <div class="greeting-title" id="greeting-title">שלום, דודו 👋</div>
+        <div class="greeting-subtitle" id="greeting-subtitle">—</div>
+      </div>
+
+      <div class="stats-grid" id="stats-grid"></div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">🔥 דחוף — לפעולה מיידית</div>
+          <div class="section-count" id="urgent-count">0</div>
+        </div>
+        <div id="urgent-list"></div>
+      </div>
+
+      <div class="section">
+        <div class="section-header">
+          <div class="section-title">⏱️ עדיפות גבוהה</div>
+          <div class="section-count" id="high-count">0</div>
+        </div>
+        <div id="thisweek-list"></div>
+      </div>
+    </div>
+
+    <!-- JOBS -->
+    <div class="view" id="view-jobs">
+      <div class="search-box">
+        <input type="text" class="search-input" id="search-input" placeholder="חיפוש בחברות, פעולות, הערות...">
+        <span class="search-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </span>
+      </div>
+      <div class="filter-row" id="priority-filters">
+        <div class="filter-chip active" data-filter-type="priority" data-filter-val="all">הכל</div>
+        <div class="filter-chip" data-filter-type="priority" data-filter-val="URGENT"><span class="chip-dot urgent"></span>דחוף</div>
+        <div class="filter-chip" data-filter-type="priority" data-filter-val="HIGH"><span class="chip-dot high"></span>גבוהה</div>
+        <div class="filter-chip" data-filter-type="priority" data-filter-val="MEDIUM"><span class="chip-dot medium"></span>בינונית</div>
+        <div class="filter-chip" data-filter-type="priority" data-filter-val="LOW"><span class="chip-dot low"></span>נמוכה</div>
+      </div>
+      <div class="filter-row" id="status-filters">
+        <div class="filter-chip active" data-filter-type="status" data-filter-val="פעיל">פעיל</div>
+        <div class="filter-chip" data-filter-type="status" data-filter-val="all">כל הסטטוסים</div>
+        <div class="filter-chip" data-filter-type="status" data-filter-val="מוקפא">מוקפא</div>
+        <div class="filter-chip" data-filter-type="status" data-filter-val="סגור">סגור</div>
+      </div>
+      <div id="jobs-list"></div>
+    </div>
+
+    <!-- RADAR (Hidden Jobs Market) -->
+    <div class="view" id="view-radar">
+      <div class="greeting">
+        <div class="greeting-title">🕵️ רדאר — שוק נסתר</div>
+        <div class="greeting-subtitle">ציידי ראשים, חברות יעד, דירקטורים וסיגנלים</div>
+      </div>
+
+      <div class="radar-tabs">
+        <div class="radar-tab active" data-radar-tab="recruiters">ציידי ראשים</div>
+        <div class="radar-tab" data-radar-tab="targets">חברות יעד</div>
+        <div class="radar-tab" data-radar-tab="board">דירקטורים</div>
+        <div class="radar-tab" data-radar-tab="signals">סיגנלים</div>
+        <div class="radar-tab" data-radar-tab="networking">Networking</div>
+      </div>
+
+      <div class="radar-content" id="radar-content"></div>
+    </div>
+
+    <!-- PIPELINE -->
+    <div class="view" id="view-pipeline">
+      <div class="section-header" style="margin-bottom:10px"><div class="section-title">📊 פייפליין לפי שלבים</div></div>
+      <div class="pipeline-info">← החלק ימינה/שמאלה לראות עוד עמודות</div>
+      <div class="pipeline-container" id="pipeline-container"></div>
+    </div>
+
+    <!-- MORE / SETTINGS -->
+    <div class="view" id="view-more">
+
+      <!-- Search Profile -->
+      <div class="settings-section">
+        <div class="settings-title">🎯 פרופיל חיפוש</div>
+        <div class="settings-item" onclick="openProfileModal()">
+          <div class="settings-item-icon">🎯</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">הגדרות חיפוש אישיות</div>
+            <div class="settings-item-desc" id="profile-summary">טרם הוגדר — לחץ להגדרה</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+      </div>
+
+      <!-- External Search Sources -->
+      <div class="settings-section">
+        <div class="settings-title">🔍 חיפוש באתרי משרות</div>
+        <div class="search-sources-intro">
+          לחיצה פותחת את האתר עם סינון CFO מוכן. עברו מאתר לאתר, סמנו משרות מעניינות, וחזרו אלי לבקש מחקר מעמיק או עדכון sync.
+        </div>
+        <div id="search-sources-list"></div>
+        <div class="settings-item" onclick="openAddSourceModal()" style="background:var(--color-brand-soft); border-top: 1px solid var(--color-border);">
+          <div class="settings-item-icon" style="background:var(--color-brand); color:var(--color-accent-gold);">+</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title" style="color:var(--color-brand);">הוסף מקור חיפוש</div>
+            <div class="settings-item-desc">אתר נוסף שלא ברשימה</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CV Management -->
+      <div class="settings-section">
+        <div class="settings-title">📄 קורות חיים שלי</div>
+        <div id="cv-list" class="cv-list"></div>
+        <div class="cv-upload-item" onclick="document.getElementById('cv-upload-input').click()">
+          <div class="settings-item-icon">+</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">העלה קורות חיים חדשים</div>
+            <div class="settings-item-desc">PDF או DOCX, עד 2MB</div>
+          </div>
+        </div>
+        <input type="file" id="cv-upload-input" accept=".pdf,.doc,.docx" style="display:none" onchange="uploadCV(event)">
+        <div id="cv-storage-info" class="cv-storage-info"></div>
+      </div>
+
+      <!-- Theme -->
+      <div class="settings-section">
+        <div class="settings-title">מראה</div>
+        <div class="settings-item" onclick="toggleTheme()">
+          <div class="settings-item-icon">🌓</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">מצב כהה</div>
+            <div class="settings-item-desc" id="theme-desc">—</div>
+          </div>
+          <div class="theme-switch" id="theme-switch"><div class="theme-switch-thumb"></div></div>
+        </div>
+        <div class="settings-item" onclick="cycleLayout()">
+          <div class="settings-item-icon">🖥️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">תצוגה</div>
+            <div class="settings-item-desc" id="layout-desc">—</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+      </div>
+
+      <!-- Sync -->
+      <div class="settings-section">
+        <div class="settings-title">🔄 סנכרון עדכוני משרות</div>
+        <div class="settings-item" onclick="document.getElementById('sync-file-input').click()">
+          <div class="settings-item-icon">📥</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">ייבוא עדכון משרות</div>
+            <div class="settings-item-desc">קובץ JSON שקיבלת מ-Claude · גיבוי אוטומטי לפני העדכון</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item hidden" id="undo-sync-item" onclick="undoLastSync()">
+          <div class="settings-item-icon" style="background:var(--color-warning-bg); color:var(--color-warning);">↩️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">ביטול העדכון האחרון</div>
+            <div class="settings-item-desc" id="undo-sync-desc">שחזור מצב שהיה לפני הסנכרון</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <input type="file" id="sync-file-input" accept=".json" style="display:none" onchange="importSyncFile(event)">
+      </div>
+
+      <!-- Backup -->
+      <div class="settings-section">
+        <div class="settings-title">💾 גיבוי ושמירה</div>
+        <div class="settings-item" onclick="exportJSON()">
+          <div class="settings-item-icon">📤</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">גיבוי מלא (JSON)</div>
+            <div class="settings-item-desc">משרות + פרופיל + רדאר · במחשב תבחר היכן לשמור · במובייל יורד</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item" onclick="exportCSV()">
+          <div class="settings-item-icon">📊</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">ייצוא ל-Excel/CSV</div>
+            <div class="settings-item-desc">פתיחה ב-Excel או Sheets (משרות בלבד)</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item" onclick="document.getElementById('backup-import-input').click()">
+          <div class="settings-item-icon">♻️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">שחזור מגיבוי</div>
+            <div class="settings-item-desc">מחליף את כל הנתונים הנוכחיים</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <input type="file" id="backup-import-input" accept=".json" style="display:none" onchange="importBackup(event)">
+      </div>
+
+      <!-- Stats -->
+      <div class="settings-section">
+        <div class="settings-title">סטטיסטיקות</div>
+        <div class="settings-item" style="cursor:default">
+          <div class="settings-item-icon">📋</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title" id="stats-total">—</div>
+            <div class="settings-item-desc" id="stats-summary-desc">—</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Danger zone -->
+      <div class="settings-section">
+        <div class="settings-title">פעולות</div>
+        <div class="settings-item" onclick="if(confirm('לאפס את הנתונים לרשימה המקורית של 23 המשרות? כל השינויים שעשית יאבדו!')) resetData()">
+          <div class="settings-item-icon">🔄</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">איפוס לרשימת מוצא</div>
+            <div class="settings-item-desc">שחזור 23 המשרות מהסריקה</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+        <div class="settings-item danger" onclick="if(confirm('למחוק את כל המשרות? פעולה בלתי הפיכה!')) clearAll()">
+          <div class="settings-item-icon">🗑️</div>
+          <div class="settings-item-content">
+            <div class="settings-item-title">מחיקת כל המשרות</div>
+            <div class="settings-item-desc">(קורות חיים ישארו)</div>
+          </div>
+          <span class="settings-item-chevron">◄</span>
+        </div>
+      </div>
+
+      <div class="about-card">
+        <div class="about-logo">₪</div>
+        <div class="about-name">CFO Jobs Tracker</div>
+        <div>נבנה עבור דודו · Q2 2026</div>
+        <div style="margin-top: 4px">הנתונים נשמרים מקומית על המכשיר</div>
+      </div>
+    </div>
+
+  </main>
+
+  <nav class="bottom-nav">
+    <button class="nav-btn active" data-view="home" aria-label="בית">
+      <span class="nav-btn-icon">🏠</span><span>בית</span>
+      <span class="nav-badge hidden" id="urgent-badge">0</span>
+    </button>
+    <button class="nav-btn" data-view="jobs" aria-label="משרות"><span class="nav-btn-icon">📋</span><span>משרות</span></button>
+    <button class="nav-btn" data-view="radar" aria-label="רדאר"><span class="nav-btn-icon">🕵️</span><span>רדאר</span></button>
+    <button class="nav-btn" data-view="pipeline" aria-label="פייפליין"><span class="nav-btn-icon">📊</span><span>פייפליין</span></button>
+    <button class="nav-btn" data-view="more" aria-label="עוד"><span class="nav-btn-icon">⚙️</span><span>עוד</span></button>
+  </nav>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="detail-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="modal-title">...</div>
+      <button class="modal-close" onclick="closeModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-danger" onclick="deleteCurrentJob()">מחיקה</button>
+      <button class="btn-primary" onclick="saveCurrentJob()">שמירה</button>
+    </div>
+  </div>
+</div>
+
+<!-- Email Compose Modal -->
+<div class="modal-overlay" id="email-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">📧 שליחת קורות חיים</div>
+      <button class="modal-close" onclick="closeEmailModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="email-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeEmailModal()">ביטול</button>
+      <button class="btn-primary" onclick="sendEmailNow()">📤 המשך ל-Gmail</button>
+    </div>
+  </div>
+</div>
+
+<!-- Sync Preview Modal -->
+<div class="modal-overlay" id="sync-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">🔄 עדכון משרות</div>
+      <button class="modal-close" onclick="closeSyncModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="sync-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeSyncModal()">ביטול</button>
+      <button class="btn-primary" onclick="applySyncUpdate()">החל עדכון</button>
+    </div>
+  </div>
+</div>
+
+<!-- Profile Modal -->
+<div class="modal-overlay" id="profile-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">🎯 פרופיל חיפוש</div>
+      <button class="modal-close" onclick="closeProfileModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="profile-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="closeProfileModal()">ביטול</button>
+      <button class="btn-primary" onclick="saveProfile()">שמירה</button>
+    </div>
+  </div>
+</div>
+
+<!-- Radar Item Modal -->
+<div class="modal-overlay" id="radar-modal" role="dialog" aria-modal="true">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title" id="radar-modal-title">...</div>
+      <button class="modal-close" onclick="closeRadarModal()" aria-label="סגור">✕</button>
+    </div>
+    <div class="modal-body" id="radar-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn-danger" onclick="deleteRadarItem()">מחיקה</button>
+      <button class="btn-primary" onclick="saveRadarItem()">שמירה</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ============================================================
+// CONSTANTS
+// ============================================================
+const STORAGE_KEY = 'cfo_jobs_tracker_dudu_v1';
+const THEME_KEY = 'cfo_tracker_theme';
+const CVS_LIST_KEY = 'cfo_cvs_list';
+const CV_PREFIX = 'cfo_cv_';
+
+const PRIORITIES = ['URGENT', 'HIGH', 'MEDIUM', 'LOW'];
+const PRIORITY_LABELS = { URGENT: 'דחוף', HIGH: 'גבוהה', MEDIUM: 'בינונית', LOW: 'נמוכה' };
+const DONE_OPTIONS = ['לא', 'כן', 'חלקי', 'בהמתנה'];
+const STAGES = ['1. לא התחיל','2. מחקר ראשוני','3. פנייה נשלחה','4. קיבל תגובה','5. שיחת טלפון','6. פגישה ראשונה','7. ראיון ראשון','8. ראיונות מתקדמים','9. הצעה התקבלה','10. משא ומתן','11. נחתם חוזה','12. סירוב','13. מוקפא'];
+const STATUSES = ['פעיל','מוקפא','סגור - קיבלתי','סגור - סירוב','סגור - ויתרתי','לא רלוונטי'];
+
+const MAX_CV_SIZE_MB = 2;
+const STORAGE_WARN_MB = 4;
+
+const PROFILE_KEY = 'cfo_search_profile';
+const RADAR_KEY = 'cfo_radar_items';
+const LAYOUT_KEY = 'cfo_tracker_layout';
+const SEARCH_SOURCES_KEY = 'cfo_search_sources';
+
+// Layout modes
+const LAYOUT_MODES = ['auto', 'mobile', 'desktop'];
+const LAYOUT_LABELS = { auto: '🔄 אוטומטי', mobile: '📱 מובייל', desktop: '🖥️ מחשב' };
+const LAYOUT_ICONS = { auto: '🔄', mobile: '📱', desktop: '🖥️' };
+
+// ============================================================
+// SEARCH SOURCES — מקורות לחיפוש משרות CFO
+// ============================================================
+const DEFAULT_SEARCH_SOURCES = [
+  // Israeli job boards
+  {
+    id: 'alljobs',
+    name: 'AllJobs',
+    description: 'סמנכ"ל כספים · משרות ניהוליות',
+    icon: 'A',
+    searchUrl: 'https://www.alljobs.co.il/SearchResultsGuest.aspx?page=1&position=728',
+    homeUrl: 'https://www.alljobs.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'drushim',
+    name: 'Drushim (דרושים)',
+    description: 'סמנכ"ל כספים · בכירים',
+    icon: 'ד',
+    searchUrl: 'https://www.drushim.co.il/jobs/subcat/390/',
+    homeUrl: 'https://www.drushim.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'drushim-cfo',
+    name: 'Drushim — חיפוש CFO',
+    description: 'חיפוש חופשי CFO',
+    icon: 'ד',
+    searchUrl: 'https://www.drushim.co.il/jobs/search/cfo/',
+    homeUrl: 'https://www.drushim.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'jobmaster',
+    name: 'JobMaster (ג\'וב מאסטר)',
+    description: 'סמנכ"ל כספים',
+    icon: 'J',
+    searchUrl: 'https://www.jobmaster.co.il/jobs/?q=%D7%A1%D7%9E%D7%A0%D7%9B%22%D7%9C+%D7%9B%D7%A1%D7%A4%D7%99%D7%9D',
+    homeUrl: 'https://www.jobmaster.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'jobnet',
+    name: 'JobNet',
+    description: 'תפקידים בכירים',
+    icon: 'N',
+    searchUrl: 'https://www.jobnet.co.il/jobs/?keyword=%D7%A1%D7%9E%D7%A0%D7%9B%22%D7%9C%20%D7%9B%D7%A1%D7%A4%D7%99%D7%9D',
+    homeUrl: 'https://www.jobnet.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'jobinfo',
+    name: 'JobInfo',
+    description: 'משרות ניהוליות',
+    icon: 'I',
+    searchUrl: 'https://www.jobinfo.co.il/Jobs.aspx?keyword=CFO',
+    homeUrl: 'https://www.jobinfo.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'themarker-career',
+    name: 'TheMarker Career',
+    description: 'קריירה בכירה',
+    icon: 'TM',
+    searchUrl: 'https://www.themarker.com/career/',
+    homeUrl: 'https://www.themarker.com/career/',
+    category: 'israeli'
+  },
+  {
+    id: 'jobify',
+    name: 'Jobify',
+    description: 'חיפוש ממוקד CFO',
+    icon: 'J',
+    searchUrl: 'https://jobify360.co.il/jobs?q=CFO',
+    homeUrl: 'https://jobify360.co.il',
+    category: 'israeli'
+  },
+  {
+    id: 'bebee',
+    name: 'BeBee Israel',
+    description: 'משרות CFO בישראל',
+    icon: 'B',
+    searchUrl: 'https://bebee.com/il/jobs/role/cfo',
+    homeUrl: 'https://il.bebee.com',
+    category: 'israeli'
+  },
+
+  // LinkedIn
+  {
+    id: 'linkedin-cfo-il',
+    name: 'LinkedIn Jobs — CFO Israel',
+    description: 'משרות CFO בישראל · חם ביותר',
+    icon: 'in',
+    searchUrl: 'https://www.linkedin.com/jobs/search/?keywords=CFO&location=Israel&f_TPR=r604800',
+    homeUrl: 'https://www.linkedin.com/jobs',
+    category: 'linkedin'
+  },
+  {
+    id: 'linkedin-vpfinance',
+    name: 'LinkedIn — VP Finance',
+    description: 'VP Finance + Finance Director',
+    icon: 'in',
+    searchUrl: 'https://www.linkedin.com/jobs/search/?keywords=%22VP%20Finance%22%20OR%20%22Finance%20Director%22&location=Israel&f_TPR=r604800',
+    homeUrl: 'https://www.linkedin.com/jobs',
+    category: 'linkedin'
+  },
+  {
+    id: 'linkedin-country-cfo',
+    name: 'LinkedIn — Country CFO',
+    description: 'Multinationals בישראל',
+    icon: 'in',
+    searchUrl: 'https://www.linkedin.com/jobs/search/?keywords=%22Country%20CFO%22%20OR%20%22Country%20Finance%22&location=Israel',
+    homeUrl: 'https://www.linkedin.com/jobs',
+    category: 'linkedin'
+  },
+
+  // International
+  {
+    id: 'glassdoor',
+    name: 'Glassdoor Israel',
+    description: 'משרות CFO + תגמול',
+    icon: 'G',
+    searchUrl: 'https://www.glassdoor.com/Job/israel-cfo-jobs-SRCH_IL.0,6_IN119_KO7,10.htm',
+    homeUrl: 'https://www.glassdoor.com',
+    category: 'international'
+  },
+  {
+    id: 'indeed',
+    name: 'Indeed Israel',
+    description: 'חיפוש CFO רחב',
+    icon: 'i',
+    searchUrl: 'https://il.indeed.com/jobs?q=CFO&l=Israel',
+    homeUrl: 'https://il.indeed.com',
+    category: 'international'
+  },
+
+  // Business press — for signals
+  {
+    id: 'calcalist-minuyim',
+    name: 'Calcalist — מדור מינויים',
+    description: 'סיגנלים · CFO חדשים',
+    icon: 'C',
+    searchUrl: 'https://www.calcalist.co.il/Tags/tags_page?id=3701',
+    homeUrl: 'https://www.calcalist.co.il',
+    category: 'signals'
+  },
+  {
+    id: 'globes-minuyim',
+    name: 'Globes — מינויים',
+    description: 'מינויי בכירים',
+    icon: 'G',
+    searchUrl: 'https://www.globes.co.il/news/minuim.tag',
+    homeUrl: 'https://www.globes.co.il',
+    category: 'signals'
+  },
+  {
+    id: 'themarker-appointments',
+    name: 'TheMarker — מינויים',
+    description: 'שינויים בהנהלה',
+    icon: 'TM',
+    searchUrl: 'https://www.themarker.com/career/',
+    homeUrl: 'https://www.themarker.com',
+    category: 'signals'
+  },
+  {
+    id: 'bizportal',
+    name: 'Bizportal',
+    description: 'חדשות עסקיות · מינויים',
+    icon: 'Bz',
+    searchUrl: 'https://www.bizportal.co.il/search?q=%D7%A1%D7%9E%D7%A0%D7%9B%22%D7%9C+%D7%9B%D7%A1%D7%A4%D7%99%D7%9D',
+    homeUrl: 'https://www.bizportal.co.il',
+    category: 'signals'
+  },
+
+  // TASE / Maya — for regulatory signals
+  {
+    id: 'maya-tase',
+    name: 'מאיה (TASE)',
+    description: 'דיווחים מיידיים · מינויי CFO',
+    icon: 'ת',
+    searchUrl: 'https://maya.tase.co.il/reports/details',
+    homeUrl: 'https://maya.tase.co.il',
+    category: 'signals'
+  }
+];
+
+// ============================================================
+// PROFILE SCHEMA
+// ============================================================
+const ROLE_TYPES = [
+  'CFO — חברה ציבורית (TASE)',
+  'CFO — חברה פרטית בינונית-גדולה',
+  'Country CFO / Finance Lead — רב-לאומית',
+  'VP Finance / Director of Finance',
+  'Fractional CFO / עצמאי'
+];
+const SECTORS = [
+  'לוגיסטיקה/שילוח/תובלה',
+  'נדל"ן מניב/יזמות',
+  'קמעונאות/מזון/הפצה',
+  'יבוא/מוצרי צריכה',
+  'תעשייה/ייצור',
+  'ביטחון/דיפנס טק',
+  'היי-טק/פינטק',
+  'פארמה/רפואי',
+  'בנייה/תשתיות',
+  'ליסינג/רכב',
+  'אחר'
+];
+const GEOGRAPHIES = [
+  'ראש העין + 30 ק"מ',
+  'גוש דן מורחב',
+  'שפלה',
+  'שרון (הרצליה-נתניה)',
+  'ירושלים',
+  'חיפה/צפון',
+  'באר שבע/דרום',
+  'חו"ל (רילוקיישן)'
+];
+
+// ============================================================
+// RADAR SCHEMA
+// ============================================================
+const RADAR_TYPES = {
+  recruiters: {
+    title: 'ציידי ראשים',
+    icon: '🎯',
+    desc: 'חברות Executive Search שעובדות עם חברות-יעד',
+    fields: ['firmName', 'contactPerson', 'specialization', 'contactChannel', 'lastContact', 'leadStatus', 'notes']
+  },
+  targets: {
+    title: 'חברות יעד',
+    icon: '🏢',
+    desc: 'חברות שמעניינות גם בלי משרה מפורסמת',
+    fields: ['companyName', 'sector', 'sizeCategory', 'currentCFO', 'contactPath', 'leadStatus', 'notes']
+  },
+  board: {
+    title: 'דירקטורים',
+    icon: '👥',
+    desc: 'חברי דירקטוריון שיכולים להמליץ',
+    fields: ['personName', 'companies', 'introSource', 'lastContact', 'leadStatus', 'notes']
+  },
+  signals: {
+    title: 'סיגנלים',
+    icon: '📡',
+    desc: 'CFO שעזב, M&A, הנפקה — אירועים שיוצרים הזדמנות',
+    fields: ['companyName', 'signalType', 'signalDate', 'sourceUrl', 'expectedTiming', 'leadStatus', 'notes']
+  },
+  networking: {
+    title: 'Networking',
+    icon: '☕',
+    desc: 'פגישות קפה + שיחות עם עמיתי CFO',
+    fields: ['personName', 'role', 'company', 'lastMeeting', 'nextMeeting', 'leadStatus', 'notes']
+  }
+};
+
+const RADAR_STATUSES = [
+  'lead-hot',
+  'lead-warm',
+  'lead-cold',
+  'contacted',
+  'meeting',
+  'signal'
+];
+const RADAR_STATUS_LABELS = {
+  'lead-hot': '🔥 חם',
+  'lead-warm': '☀️ חמים',
+  'lead-cold': '❄️ קר',
+  'contacted': '📞 פניתי',
+  'meeting': '🤝 נפגשנו',
+  'signal': '📡 לעקוב'
+};
+
+// ============================================================
+// SEED DATA (with sourceKey for sync)
+// ============================================================
+const SEED_DATA = [
+  {id:1,sourceKey:'signal-rafael-cfo-2026-feb',priority:'URGENT',company:'רפאל מערכות לחימה — CFO',action:'בדיקת מכרז פומבי ב-gov.il רשות החברות; הגשת מועמדות פורמלית + הכנת תיק חומרים (CV + מכתב מקדים)',deadline:'שבוע 1 (דחוף!)',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לזהות אם יש מכרז פומבי במערכת',nextActionDate:'',contact:'ועדת איתור — שולמית דותן (בדימוס)',notes:'תהליך ועדתי ארוך (2-4 חודשים). צריך רקע ביטחוני/ציבורי.\nתא"ל משה ליפל פרש אוק\' 2025.',status:'פעיל',history:[]},
+  {id:2,sourceKey:'bebee-primelease-lubinsky-cfo-feb26',priority:'URGENT',company:'פריים ליס / קבוצת לובינסקי — CFO',action:'פנייה ישירה לדני שביט (מנכ"ל לובינסקי) או צביקה שחר (מנכ"ל פריים ליס) ב-LinkedIn',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לחפש ב-LinkedIn את דני שביט + צביקה שחר',nextActionDate:'',contact:'דני שביט (מנכ"ל לובינסקי); צביקה שחר (מנכ"ל פריים ליס); דור קלימן היה CFO של לובינסקי',notes:'צי 10,000 רכב; 500M₪ חוב מוסדיים 2024; פיט מושלם לרקע ציי רכב שלך',status:'פעיל',history:[]},
+  {id:3,sourceKey:'recruiter-sgroup-import-procurement-mar26',priority:'URGENT',company:'חברה יבואנית (השמה גרופ) — CFO + רכש',action:'פנייה להשמה גרופ עם מכתב ממוקד; דגש על Pri-Trade',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לעלות לאתר sgroup.co.il + שליחת CV',nextActionDate:'',contact:'השמה גרופ (sgroup.co.il)',notes:'שילוב CFO + רכש = Pri-Trade 1:1. יבואנית בינונית משפחתית כנראה.',status:'פעיל',history:[]},
+  {id:4,sourceKey:'recruiter-guykonik-global-raanana-mar26',priority:'URGENT',company:'חברה גלובאלית רעננה (גיא קוניק)',action:'פנייה ישירה לגיא קוניק השמה בכירה',deadline:'שבוע 1',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn connect עם Guy Konik + הודעה ישירה',nextActionDate:'',contact:'גיא קוניק (LinkedIn)',notes:'Multi-brand יבואנית; רעננה; CPA + SAP + יבוא + 3+ שנות CFO',status:'פעיל',history:[]},
+  {id:5,sourceKey:'alljobs-728-realestate-tlv-discreet-mar26',priority:'HIGH',company:'חברת נדל"ן ציבורית מהגדולות בארץ (דיסקרטי)',action:'חקירה מיידית לזהות משרד ההשמה דרך AllJobs; cross-check עם LinkedIn של CFOs בחברות נדל"ן ציבוריות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + LinkedIn Sales Navigator',nextActionDate:'',contact:'לא ידוע — דיסקרטי',notes:'Azrieli/Melisron/Gazit/Mivne/Alony/Amot/Big — 7 מועמדות. שכר צפוי 150-300K',status:'פעיל',history:[]},
+  {id:6,sourceKey:'alljobs-retail-group-50staff-mar26',priority:'HIGH',company:'קבוצה ציבורית קמעונאות (50+ עובדי כספים)',action:'איתור זהות — 50+ צוות = שופרסל/Rami Levi; פנייה ישירה דרך HR',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי החברה',nextActionDate:'',contact:'לזהות',notes:'פיט לרקע לוגיסטיקה (שרשרת אספקה, יבוא, הפצה). CFO נוכחי של שופרסל = גיל וייס',status:'פעיל',history:[]},
+  {id:7,sourceKey:'drushim-organize-retail-hadera-feb26',priority:'HIGH',company:'ORganize — ריטייל מולטי-ברנד (חדרה)',action:'פנייה ל-ORganize. בירור אם הדרישה 3-4 שנים יש לשנות',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'organize-hr.co.il + LinkedIn Managing Partner',nextActionDate:'',contact:'ORganize (אתר)',notes:'Multi-brand; מותגים בינלאומיים; חדרה; פיט Pri-Trade. ⚠️ אולי חסר רמה',status:'פעיל',history:[]},
+  {id:8,sourceKey:'alljobs-beverage-georgia-mar26',priority:'HIGH',company:'חברת משקאות (תמפו/יפאורה) — גאורגיה',action:'זיהוי החברה ופנייה דיסקרטית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'לשלוח לחברים לזיהוי תמפו/יפאורה/CBC',nextActionDate:'',contact:'לזהות',notes:'בינלאומי + גידור סחורות + IFRS; פתיחת מבשלת בירה בגאורגיה',status:'פעיל',history:[]},
+  {id:9,sourceKey:'glassdoor-kornit-rosh-haayin-mar26',priority:'HIGH',company:'Kornit Digital (ראש העין)',action:'LinkedIn ישיר ל-VP Finance/Recruiter; פנייה דרך רשת אישית',deadline:'שבוע 2',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn Kornit + חיפוש בוגרי פרידנזון שעברו לחברה',nextActionDate:'',contact:'Kornit HR (LinkedIn)',notes:'דואלית NASDAQ+TASE; ראש העין!; SEC reporting + US GAAP',status:'פעיל',history:[]},
+  {id:10,sourceKey:'drushim-industrial-subsidiary-feb26',priority:'MEDIUM',company:'חברה תעשייתית חברת-בת של ציבורית',action:'חקירת זהות דרך Drushim; פנייה למפרסם',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-reference חברות אחזקה',nextActionDate:'',contact:'לזהות',notes:'אחזקה ציבורית עם חב"ב: Elco/Electra/Plasson/Tadiran/ICL/Shapir',status:'פעיל',history:[]},
+  {id:11,sourceKey:'alljobs-interview-realestate-herzliya-mar26',priority:'MEDIUM',company:'Interview השמה — נדל"ן הרצליה',action:'פנייה ל-Interview השמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Interview השמה + LinkedIn',nextActionDate:'',contact:'Interview השמה (Google)',notes:'נדל"ן ציבורית הרצליה; Alony Hetz/Electra RE?',status:'פעיל',history:[]},
+  {id:12,sourceKey:'alljobs-adstik-innovations-rosh-haayin-mar26',priority:'MEDIUM',company:'אדסטיק אינוביישנס (ראש העין)',action:'פנייה ישירה — חברה מגייסת עצמה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'אתר החברה + LinkedIn',nextActionDate:'',contact:'אדסטיק HR',notes:'Geographic perfect fit; אבל חברה פחות מאתגרת — בדוק גודל',status:'פעיל',history:[]},
+  {id:13,sourceKey:'recruiter-etzhasade-import-feb26',priority:'MEDIUM',company:'חברה יבואנית מובילה (עץ השדה)',action:'פנייה לעץ השדה',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'LinkedIn עץ השדה + CV',nextActionDate:'',contact:'עץ השדה (LinkedIn)',notes:'יבואנית משפחתית בינונית; פיט Pri-Trade',status:'פעיל',history:[]},
+  {id:14,sourceKey:'drushim-fintech-public-feb26',priority:'MEDIUM',company:'חברה ציבורית טכנולוגית פינטק',action:'חקירת זהות דרך Drushim',deadline:'שבוע 3',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Drushim + cross-check TASE פינטק',nextActionDate:'',contact:'לזהות',notes:'חברות פינטק TASE: Tsur, Nayax, Global-e, Plus500, eToro',status:'פעיל',history:[]},
+  {id:15,sourceKey:'alljobs-construction-ipo-mar26',priority:'MEDIUM',company:'חברת בנייה גדולה (CFO בכיר + הנפקה)',action:'חקירת זהות; פנייה למפרסם',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'AllJobs + JobMaster',nextActionDate:'',contact:'לזהות',notes:'קבלניות ציבוריות: Shikun & Binui, Ashtrom, Electra. הנפקה עתידית → IPO',status:'פעיל',history:[]},
+  {id:16,sourceKey:'glassdoor-medison-pharma-ptk-mar26',priority:'MEDIUM',company:'Medison Pharma',action:'LinkedIn ישיר + CV',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Medison LinkedIn + HR',nextActionDate:'',contact:'Medison HR',notes:'פארמה פרטית גדולה; פתח תקווה',status:'פעיל',history:[]},
+  {id:17,sourceKey:'glassdoor-diageo-israel-tlv-mar26',priority:'MEDIUM',company:'Diageo Israel',action:'LinkedIn ישיר; פנייה ל-HR גלובלי',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Diageo Careers + LinkedIn',nextActionDate:'',contact:'Diageo HR (גלובלי)',notes:'Country CFO משקאות גלובלי; Johnnie Walker/Guinness/Smirnoff',status:'פעיל',history:[]},
+  {id:18,sourceKey:'recruiter-etzhasade-defense-feb26',priority:'MEDIUM',company:'חברה תעשייתית ביטחונית (עץ השדה)',action:'פנייה לעץ השדה אם תחזור הודעה',deadline:'שבוע 4',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'עץ השדה LinkedIn',nextActionDate:'',contact:'עץ השדה',notes:'ביטחוני פרטי: Plasan/IMCO/IWI/UVision/Meprolight',status:'פעיל',history:[]},
+  {id:19,sourceKey:'signal-ondas-expansion-2026-feb',priority:'LOW',company:'אונדס (Ondas) — הרחבה',action:'מעקב ב-SEC filings + LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב חודשי ב-SEC EDGAR',nextActionDate:'',contact:'Ondas HR (LinkedIn)',notes:'חברה צומחת; מעבירים בכירים מרפאל; פוטנציאל CFO/Senior Finance',status:'פעיל',history:[]},
+  {id:20,sourceKey:'signal-shufersal-turnover',priority:'LOW',company:'שופרסל — מעקב turnover',action:'מעקב ב-Calcalist/Globes',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "שופרסל CFO"',nextActionDate:'',contact:'לא רלוונטי כרגע',notes:'CFO גיל וייס מונה 2024; turnover גבוה היסטורית',status:'פעיל',history:[]},
+  {id:21,sourceKey:'glassdoor-startups-cyber-social-2026',priority:'LOW',company:'Transmit Security / TangoMe / Tenengroup',action:'פאסיבי — מעקב',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'מעקב LinkedIn',nextActionDate:'',contact:'ישיר מהחברות',notes:'סטארטאפים היי-טק; שלב פחות מתאים אבל אופציה',status:'פעיל',history:[]},
+  {id:22,sourceKey:'fractional-brookskeret-nextage-2026',priority:'LOW',company:'Brooks-Keret / Nextage — Fractional CFO',action:'החלטה אסטרטגית — האם ללכת על מסלול עצמאות',deadline:'לא מיידי',done:'לא',stage:'13. מוקפא',lastActionDate:'',nextAction:'לדון בתוך משפחה קודם',nextActionDate:'',contact:'Brooks-Keret / Nextage (אתרים)',notes:'מסלול עצמאי; רק אם ישקול לעזוב חברה שכירה',status:'מוקפא',history:[]},
+  {id:23,sourceKey:'signal-sindiana-2026-feb',priority:'LOW',company:'סינדיאנה (Sindiana) — יו"ר חדש',action:'מעקב ב-Calcalist/LinkedIn',deadline:'שוטף',done:'לא',stage:'1. לא התחיל',lastActionDate:'',nextAction:'Google Alert על "סינדיאנה"',nextActionDate:'',contact:'לא ידוע',notes:'סטארטאפ דיפנס טק; יו"ר חדש הר אבן; פוטנציאל CFO חדש',status:'פעיל',history:[]}
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = {
+  view: 'home',
+  jobs: [],
+  detailJobId: null,
+  emailContext: null,
+  syncData: null,
+  profile: null,
+  radarItems: [],
+  radarActiveTab: 'recruiters',
+  radarEditId: null,
+  searchSources: [],
+  searchSourcesLog: {},  // {sourceId: {lastSearched: '2026-04-20', searchCount: N}}
+  filters: { priority: 'all', status: 'פעיל' },
+  search: ''
+};
+
+// ============================================================
+// DATA: JOBS
+// ============================================================
+function loadData() {
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored) {
+      state.jobs = JSON.parse(stored);
+      // Backward compat: add sourceKey to any job missing it
+      state.jobs.forEach(j => {
+        if (!j.sourceKey) {
+          const seed = SEED_DATA.find(s => s.id === j.id || s.company === j.company);
+          j.sourceKey = seed ? seed.sourceKey : `user-${j.id}-${Date.now()}`;
+        }
+      });
+      saveData();
+    } else {
+      state.jobs = JSON.parse(JSON.stringify(SEED_DATA));
+      saveData();
+    }
+  } catch (e) {
+    console.error('Load error:', e);
+    state.jobs = JSON.parse(JSON.stringify(SEED_DATA));
+  }
+}
+
+function saveData() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.jobs));
+  } catch (e) {
+    showToast('שגיאת שמירה: ' + e.message);
+  }
+}
+
+function getNextId() {
+  return state.jobs.length ? Math.max(...state.jobs.map(j => j.id)) + 1 : 1;
+}
+
+// ============================================================
+// DATA: CVs
+// ============================================================
+function loadCVList() {
+  try {
+    const raw = localStorage.getItem(CVS_LIST_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveCVList(list) {
+  try {
+    localStorage.setItem(CVS_LIST_KEY, JSON.stringify(list));
+  } catch (e) {
+    showToast('שגיאת שמירה: ' + e.message);
+  }
+}
+
+function getCVContent(cvId) {
+  return localStorage.getItem(CV_PREFIX + cvId);
+}
+
+function saveCVContent(cvId, base64) {
+  try {
+    localStorage.setItem(CV_PREFIX + cvId, base64);
+    return true;
+  } catch (e) {
+    // Storage quota exceeded
+    return false;
+  }
+}
+
+function deleteCVContent(cvId) {
+  localStorage.removeItem(CV_PREFIX + cvId);
+}
+
+function getStorageUsage() {
+  let total = 0;
+  for (let i = 0; i < localStorage.length; i++) {
+    const k = localStorage.key(i);
+    const v = localStorage.getItem(k);
+    total += (k.length + (v ? v.length : 0)) * 2; // rough UTF-16 bytes
+  }
+  return total;
+}
+
+// ============================================================
+// DATA: PROFILE
+// ============================================================
+function loadProfile() {
+  try {
+    const raw = localStorage.getItem(PROFILE_KEY);
+    state.profile = raw ? JSON.parse(raw) : null;
+  } catch { state.profile = null; }
+}
+
+function saveProfileData(data) {
+  localStorage.setItem(PROFILE_KEY, JSON.stringify(data));
+  state.profile = data;
+}
+
+// ============================================================
+// DATA: RADAR
+// ============================================================
+function loadRadar() {
+  try {
+    const raw = localStorage.getItem(RADAR_KEY);
+    if (raw) {
+      state.radarItems = JSON.parse(raw);
+    } else {
+      state.radarItems = getSeedRadarData();
+      saveRadar();
+    }
+  } catch {
+    state.radarItems = getSeedRadarData();
+  }
+}
+
+function saveRadar() {
+  localStorage.setItem(RADAR_KEY, JSON.stringify(state.radarItems));
+}
+
+// ============================================================
+// DATA: SEARCH SOURCES
+// ============================================================
+function loadSearchSources() {
+  try {
+    const stored = localStorage.getItem(SEARCH_SOURCES_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      state.searchSources = parsed.sources || DEFAULT_SEARCH_SOURCES;
+      state.searchSourcesLog = parsed.log || {};
+    } else {
+      state.searchSources = [...DEFAULT_SEARCH_SOURCES];
+      state.searchSourcesLog = {};
+      saveSearchSources();
+    }
+  } catch (e) {
+    state.searchSources = [...DEFAULT_SEARCH_SOURCES];
+    state.searchSourcesLog = {};
+  }
+}
+
+function saveSearchSources() {
+  localStorage.setItem(SEARCH_SOURCES_KEY, JSON.stringify({
+    sources: state.searchSources,
+    log: state.searchSourcesLog
+  }));
+}
+
+function openSearchSource(sourceId) {
+  const source = state.searchSources.find(s => s.id === sourceId);
+  if (!source) return;
+
+  // Log the search
+  const today = new Date().toISOString().split('T')[0];
+  if (!state.searchSourcesLog[sourceId]) {
+    state.searchSourcesLog[sourceId] = { searchCount: 0 };
+  }
+  state.searchSourcesLog[sourceId].lastSearched = today;
+  state.searchSourcesLog[sourceId].searchCount = (state.searchSourcesLog[sourceId].searchCount || 0) + 1;
+  saveSearchSources();
+
+  // Open in new tab
+  window.open(source.searchUrl, '_blank', 'noopener,noreferrer');
+
+  // Re-render to show updated timestamp
+  if (state.view === 'more') renderMore();
+}
+
+function deleteSearchSource(sourceId) {
+  if (!confirm('למחוק את המקור הזה?')) return;
+  state.searchSources = state.searchSources.filter(s => s.id !== sourceId);
+  delete state.searchSourcesLog[sourceId];
+  saveSearchSources();
+  renderMore();
+  showToast('המקור נמחק');
+}
+
+function renderSearchSourcesList() {
+  const listEl = document.getElementById('search-sources-list');
+  if (!listEl) return;
+
+  // Group by category
+  const categories = {
+    'israeli': { title: 'אתרי משרות בישראל', icon: '🇮🇱' },
+    'linkedin': { title: 'LinkedIn', icon: '💼' },
+    'international': { title: 'אתרים בינלאומיים', icon: '🌍' },
+    'signals': { title: 'עיתונות + סיגנלים', icon: '📡' },
+    'custom': { title: 'מקורות שהוספתי', icon: '⭐' }
+  };
+
+  let html = '';
+  Object.keys(categories).forEach(catKey => {
+    const sourcesInCat = state.searchSources.filter(s => (s.category || 'custom') === catKey);
+    if (sourcesInCat.length === 0) return;
+
+    const cat = categories[catKey];
+    html += `<div style="padding:10px 16px; background:var(--color-surface-2); font-size:11px; font-weight:700; color:var(--color-text-tertiary); text-transform:uppercase; letter-spacing:0.05em; border-bottom:1px solid var(--color-border);">${cat.icon} ${cat.title}</div>`;
+
+    sourcesInCat.forEach(source => {
+      const log = state.searchSourcesLog[source.id] || {};
+      const lastSearched = log.lastSearched
+        ? `נבדק: ${log.lastSearched}${log.searchCount > 1 ? ` (×${log.searchCount})` : ''}`
+        : source.description;
+
+      html += `
+        <div class="search-source-item">
+          <div class="search-source-icon">${escapeHTML(source.icon)}</div>
+          <div class="search-source-info" onclick="openSearchSource('${source.id}')">
+            <div class="search-source-name">${escapeHTML(source.name)}</div>
+            <div class="search-source-desc">${escapeHTML(lastSearched)}</div>
+          </div>
+          <div class="search-source-actions">
+            <button class="search-source-btn primary" onclick="openSearchSource('${source.id}')">פתח →</button>
+            ${source.category === 'custom' ? `<button class="search-source-btn icon-only" onclick="deleteSearchSource('${source.id}')" title="מחק">🗑</button>` : ''}
+          </div>
+        </div>
+      `;
+    });
+  });
+
+  listEl.innerHTML = html;
+}
+
+function openAddSourceModal() {
+  const name = prompt('שם המקור (לדוגמה: Stack Overflow Jobs):');
+  if (!name || !name.trim()) return;
+
+  const url = prompt('כתובת אתר/URL של דף החיפוש:');
+  if (!url || !url.trim()) return;
+
+  try {
+    new URL(url); // validate URL
+  } catch (e) {
+    showToast('URL לא תקין');
+    return;
+  }
+
+  const newSource = {
+    id: 'custom-' + Date.now(),
+    name: name.trim(),
+    description: 'נוסף על ידי דודו',
+    icon: name.trim().charAt(0).toUpperCase(),
+    searchUrl: url.trim(),
+    homeUrl: url.trim(),
+    category: 'custom'
+  };
+
+  state.searchSources.push(newSource);
+  saveSearchSources();
+  renderMore();
+  showToast('✓ המקור נוסף');
+}
+
+// ============================================================
+
+function getSeedRadarData() {
+  return [
+    // Executive Search firms
+    {id: 'r1', type: 'recruiters', firmName: 'Spencer Stuart Israel', contactPerson: '', specialization: 'CFO חברות TA-35', contactChannel: 'LinkedIn', lastContact: '', leadStatus: 'lead-cold', notes: 'מוביל עולמי בחיפוש CFO בכירים. לא פומבי.', createdAt: '2026-04-20'},
+    {id: 'r2', type: 'recruiters', firmName: 'Korn Ferry Israel', contactPerson: '', specialization: 'CFO היי-טק + תעשייה', contactChannel: 'LinkedIn', lastContact: '', leadStatus: 'lead-cold', notes: 'פעילים מאוד בשוק הישראלי', createdAt: '2026-04-20'},
+    {id: 'r3', type: 'recruiters', firmName: 'Heidrick & Struggles', contactPerson: '', specialization: 'CFO רב-לאומיות', contactChannel: 'דרך רשת', lastContact: '', leadStatus: 'lead-cold', notes: '', createdAt: '2026-04-20'},
+    {id: 'r4', type: 'recruiters', firmName: 'Egon Zehnder Israel', contactPerson: '', specialization: 'CFO בכירים — סלקטיבי', contactChannel: 'הכרות אישית', lastContact: '', leadStatus: 'lead-cold', notes: 'עובדים רק עם TA-35 ו-Unicorns', createdAt: '2026-04-20'},
+    {id: 'r5', type: 'recruiters', firmName: 'Boyden Israel', contactPerson: '', specialization: 'Executive בכירים', contactChannel: 'אתר', lastContact: '', leadStatus: 'lead-cold', notes: 'יחסית פתוחים לפניות', createdAt: '2026-04-20'},
+    {id: 'r6', type: 'recruiters', firmName: 'השמה גרופ', contactPerson: '', specialization: 'ציבוריות/ממשלתיות/יבוא', contactChannel: 'sgroup.co.il', lastContact: '', leadStatus: 'lead-warm', notes: 'פעיל עם 5+ משרות CFO כרגע', createdAt: '2026-04-20'},
+    {id: 'r7', type: 'recruiters', firmName: 'גיא קוניק השמה בכירה', contactPerson: 'Guy Konik', specialization: 'יבוא/קמעונאות', contactChannel: 'LinkedIn', lastContact: '', leadStatus: 'lead-warm', notes: 'יש משרת רעננה אקטיבית', createdAt: '2026-04-20'},
+    {id: 'r8', type: 'recruiters', firmName: 'Ethosia', contactPerson: '', specialization: 'היי-טק + ביוטק', contactChannel: 'ethosia.co.il', lastContact: '', leadStatus: 'lead-cold', notes: 'פחות מתאים ל-CFO מסורתי', createdAt: '2026-04-20'},
+
+    // Target Companies (חברות יעד)
+    {id: 't1', type: 'targets', companyName: 'Azrieli Group', sector: 'נדל"ן ציבורית', sizeCategory: 'TA-35', currentCFO: 'אירית סקלר', contactPath: 'דרך Board member', leadStatus: 'lead-cold', notes: 'ענקית נדל"ן. CFO יציב. לעקוב.', createdAt: '2026-04-20'},
+    {id: 't2', type: 'targets', companyName: 'Melisron', sector: 'נדל"ן ציבורית', sizeCategory: 'TA-125', currentCFO: '', contactPath: '', leadStatus: 'lead-cold', notes: 'קניונים + נדל"ן מסחרי', createdAt: '2026-04-20'},
+    {id: 't3', type: 'targets', companyName: 'Gazit Horizons', sector: 'נדל"ן ציבורית', sizeCategory: 'TA-125', currentCFO: '', contactPath: '', leadStatus: 'lead-cold', notes: '', createdAt: '2026-04-20'},
+    {id: 't4', type: 'targets', companyName: 'ZIM', sector: 'ספנות/לוגיסטיקה', sizeCategory: 'TA-35 + NYSE', currentCFO: 'Xavier Destriau', contactPath: 'LinkedIn', leadStatus: 'lead-warm', notes: '★ פיט מושלם — ספנות + לוגיסטיקה', createdAt: '2026-04-20'},
+    {id: 't5', type: 'targets', companyName: 'Shapir Engineering', sector: 'בנייה/תשתיות', sizeCategory: 'TA-125', currentCFO: '', contactPath: '', leadStatus: 'lead-cold', notes: 'תשתיות + נדל"ן', createdAt: '2026-04-20'},
+
+    // Signals (סיגנלים פתוחים)
+    {id: 's1', type: 'signals', companyName: 'רפאל', signalType: 'CFO עזב', signalDate: '2025-10-01', sourceUrl: 'https://www.calcalist.co.il', expectedTiming: '2-4 חודשים', leadStatus: 'signal', notes: 'תא"ל משה ליפל פרש. ועדת איתור פעילה. כבר במשרות.', createdAt: '2026-04-20'},
+    {id: 's2', type: 'signals', companyName: 'שופרסל', signalType: 'היסטוריית turnover', signalDate: '2024-01-01', sourceUrl: '', expectedTiming: 'למעקב', leadStatus: 'signal', notes: 'CFO גיל וייס מונה 2024. 3 CFO ב-3 שנים. לבדוק יציבות.', createdAt: '2026-04-20'},
+    {id: 's3', type: 'signals', companyName: 'Ondas Networks', signalType: 'הרחבה דרמטית', signalDate: '2026-02-01', sourceUrl: '', expectedTiming: '3-6 חודשים', leadStatus: 'signal', notes: 'מעבירים בכירים מרפאל. צפוי CFO/Senior Finance.', createdAt: '2026-04-20'},
+  ];
+}
+
+// ============================================================
+// THEME
+// ============================================================
+function loadTheme() {
+  const saved = localStorage.getItem(THEME_KEY) || 'light';
+  document.documentElement.setAttribute('data-theme', saved);
+  updateThemeUI(saved);
+}
+
+function toggleTheme() {
+  const current = document.documentElement.getAttribute('data-theme');
+  const next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem(THEME_KEY, next);
+  updateThemeUI(next);
+  showToast(next === 'dark' ? '🌙 מעבר למצב כהה' : '☀️ מעבר למצב בהיר');
+}
+
+function updateThemeUI(theme) {
+  const sw = document.getElementById('theme-switch');
+  const desc = document.getElementById('theme-desc');
+  if (!sw) return;
+  if (theme === 'dark') {
+    sw.classList.add('on');
+    if (desc) desc.textContent = 'כרגע: מצב כהה';
+  } else {
+    sw.classList.remove('on');
+    if (desc) desc.textContent = 'כרגע: מצב בהיר';
+  }
+}
+
+// ============================================================
+// LAYOUT MODE
+// ============================================================
+function loadLayout() {
+  const saved = localStorage.getItem(LAYOUT_KEY) || 'auto';
+  document.documentElement.setAttribute('data-layout', saved);
+  updateLayoutUI(saved);
+}
+
+function cycleLayout() {
+  const current = document.documentElement.getAttribute('data-layout') || 'auto';
+  const currentIdx = LAYOUT_MODES.indexOf(current);
+  const next = LAYOUT_MODES[(currentIdx + 1) % LAYOUT_MODES.length];
+  document.documentElement.setAttribute('data-layout', next);
+  localStorage.setItem(LAYOUT_KEY, next);
+  updateLayoutUI(next);
+  showToast(LAYOUT_LABELS[next]);
+  renderCurrentView();
+}
+
+function updateLayoutUI(mode) {
+  const icon = document.getElementById('layout-toggle-icon');
+  if (icon) icon.textContent = LAYOUT_ICONS[mode] || '🖥️';
+  const desc = document.getElementById('layout-desc');
+  if (desc) {
+    const labels = { auto: 'אוטומטי (לפי רוחב המסך)', mobile: 'מובייל — מסך צר', desktop: 'מחשב — מסך רחב' };
+    desc.textContent = 'כרגע: ' + (labels[mode] || mode);
+  }
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+function isOverdue(job) {
+  if (!job.nextActionDate || job.done === 'כן' || (job.status || '').includes('סגור')) return false;
+  return job.nextActionDate < new Date().toISOString().split('T')[0];
+}
+
+function filterJobs(jobs) {
+  let result = jobs;
+  if (state.filters.priority !== 'all') result = result.filter(j => j.priority === state.filters.priority);
+  if (state.filters.status === 'סגור') result = result.filter(j => (j.status || '').startsWith('סגור'));
+  else if (state.filters.status !== 'all') result = result.filter(j => j.status === state.filters.status);
+  if (state.search.trim()) {
+    const q = state.search.trim().toLowerCase();
+    result = result.filter(j =>
+      (j.company || '').toLowerCase().includes(q) ||
+      (j.action || '').toLowerCase().includes(q) ||
+      (j.notes || '').toLowerCase().includes(q) ||
+      (j.contact || '').toLowerCase().includes(q)
+    );
+  }
+  return result;
+}
+
+function sortByPriority(jobs) {
+  const order = { URGENT: 0, HIGH: 1, MEDIUM: 2, LOW: 3 };
+  return [...jobs].sort((a, b) => (order[a.priority] || 99) - (order[b.priority] || 99));
+}
+
+function escapeHTML(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function getGreeting() {
+  const h = new Date().getHours();
+  if (h < 12) return 'בוקר טוב';
+  if (h < 18) return 'צהריים טובים';
+  return 'ערב טוב';
+}
+
+function formatFileSize(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+  return (bytes / 1024 / 1024).toFixed(2) + ' MB';
+}
+
+function extractEmail(text) {
+  if (!text) return '';
+  const match = text.match(/[\w.\-]+@[\w.\-]+\.\w+/);
+  return match ? match[0] : '';
+}
+
+// ============================================================
+// RENDER: HOME
+// ============================================================
+function renderHome() {
+  document.getElementById('greeting-title').textContent = `${getGreeting()}, דודו 👋`;
+  document.getElementById('greeting-subtitle').textContent =
+    new Date().toLocaleDateString('he-IL', { weekday: 'long', day: 'numeric', month: 'long' });
+
+  const active = state.jobs.filter(j => j.status === 'פעיל');
+  const urgent = active.filter(j => j.priority === 'URGENT' && j.done !== 'כן');
+  const inProgress = active.filter(j => { const n = parseInt(j.stage); return n >= 3 && n <= 10; });
+  const overdue = active.filter(isOverdue);
+  const offers = active.filter(j => { const n = parseInt(j.stage); return n >= 7 && n <= 11; });
+
+  document.getElementById('stats-grid').innerHTML = `
+    <div class="stat-card" onclick="switchView('jobs'); setFilter('priority', 'URGENT');">
+      <div class="stat-card-top"><div class="stat-icon urgent">🔥</div></div>
+      <div class="stat-value">${urgent.length}</div>
+      <div class="stat-label">דחוף — פעיל</div>
+    </div>
+    <div class="stat-card" onclick="switchView('pipeline');">
+      <div class="stat-card-top"><div class="stat-icon progress">📈</div></div>
+      <div class="stat-value">${inProgress.length}</div>
+      <div class="stat-label">בתהליך</div>
+    </div>
+    <div class="stat-card" onclick="switchView('jobs');">
+      <div class="stat-card-top"><div class="stat-icon overdue">⏰</div></div>
+      <div class="stat-value">${overdue.length}</div>
+      <div class="stat-label">באיחור</div>
+    </div>
+    <div class="stat-card" onclick="switchView('pipeline');">
+      <div class="stat-card-top"><div class="stat-icon interviews">🎯</div></div>
+      <div class="stat-value">${offers.length}</div>
+      <div class="stat-label">בראיונות/הצעות</div>
+    </div>
+  `;
+
+  const urgentJobs = sortByPriority(urgent);
+  document.getElementById('urgent-count').textContent = urgentJobs.length;
+  document.getElementById('urgent-list').innerHTML = urgentJobs.length === 0
+    ? '<div class="empty-state" style="padding:30px 20px"><div class="empty-state-icon">🎉</div><div class="empty-state-title">אין משרות דחופות פתוחות</div><div class="empty-state-text">כל הכבוד! בוא נבדוק את העדיפות הגבוהה</div></div>'
+    : urgentJobs.map(renderJobCard).join('');
+
+  const thisWeek = sortByPriority(active.filter(j => j.priority === 'HIGH' && j.done !== 'כן'));
+  document.getElementById('high-count').textContent = thisWeek.length;
+  document.getElementById('thisweek-list').innerHTML = thisWeek.length === 0
+    ? '<div class="empty-state" style="padding:30px 20px"><div class="empty-state-icon">✨</div><div class="empty-state-text">אין משרות בעדיפות גבוהה</div></div>'
+    : thisWeek.map(renderJobCard).join('');
+
+  const badgeEl = document.getElementById('urgent-badge');
+  if (urgent.length > 0) { badgeEl.textContent = urgent.length; badgeEl.classList.remove('hidden'); }
+  else badgeEl.classList.add('hidden');
+}
+
+function renderJobs() {
+  const filtered = sortByPriority(filterJobs(state.jobs));
+  document.getElementById('jobs-list').innerHTML = filtered.length === 0
+    ? '<div class="empty-state"><div class="empty-state-icon">🔍</div><div class="empty-state-title">לא נמצאו משרות</div><div class="empty-state-text">נסה לשנות את הסינון או החיפוש</div></div>'
+    : filtered.map(renderJobCard).join('');
+}
+
+function renderJobCard(job) {
+  const overdue = isOverdue(job);
+  const doneClass = job.done === 'כן' ? 'done-yes' : '';
+  const statusClass = (job.status || '').startsWith('סגור') ? 'status-closed' : '';
+  const doneChipClass = job.done === 'כן' ? 'done-yes' : job.done === 'חלקי' ? 'done-partial' : job.done === 'בהמתנה' ? 'done-pending' : '';
+  const doneEmoji = job.done === 'כן' ? '✅' : job.done === 'חלקי' ? '🔶' : job.done === 'בהמתנה' ? '⏸️' : '⭕';
+
+  return `
+    <div class="job-card priority-${job.priority} ${doneClass} ${statusClass}" onclick="openDetailModal(${job.id})">
+      <div class="job-card-header">
+        <div class="job-company">${escapeHTML(job.company)}</div>
+        <span class="priority-badge ${job.priority}">${PRIORITY_LABELS[job.priority] || job.priority}</span>
+      </div>
+      <div class="job-action-preview">${overdue ? '<span class="overdue-indicator">⏰ באיחור</span>' : ''}${escapeHTML((job.action || '').substring(0, 150))}${job.action && job.action.length > 150 ? '...' : ''}</div>
+      <div class="job-meta">
+        <div class="meta-chip stage">📌 ${escapeHTML((job.stage || '').replace(/^\d+\.\s*/, ''))}</div>
+        <div class="meta-chip ${doneChipClass}">${doneEmoji} ${escapeHTML(job.done || 'לא')}</div>
+        ${job.deadline ? `<div class="meta-chip">🗓 ${escapeHTML(job.deadline)}</div>` : ''}
+      </div>
+    </div>
+  `;
+}
+
+function renderPipeline() {
+  const active = state.jobs.filter(j => !(j.status || '').startsWith('סגור') && j.status !== 'לא רלוונטי');
+  const activeStages = ['1. לא התחיל','2. מחקר ראשוני','3. פנייה נשלחה','4. קיבל תגובה','5. שיחת טלפון','6. פגישה ראשונה','7. ראיון ראשון','8. ראיונות מתקדמים','9. הצעה התקבלה','10. משא ומתן','11. נחתם חוזה','13. מוקפא'];
+
+  document.getElementById('pipeline-container').innerHTML = activeStages.map(stage => {
+    const jobs = sortByPriority(active.filter(j => j.stage === stage));
+    return `
+      <div class="pipeline-column">
+        <div class="pipeline-column-header"><span>${escapeHTML(stage)}</span><span class="pipeline-column-count">${jobs.length}</span></div>
+        ${jobs.length === 0
+          ? '<div class="pipeline-column-empty">אין משרות</div>'
+          : jobs.map(j => `
+            <div class="pipeline-card priority-${j.priority}" onclick="openDetailModal(${j.id})">
+              <div class="pipeline-card-title">${escapeHTML(j.company.length > 50 ? j.company.substring(0, 50) + '...' : j.company)}</div>
+              <div class="pipeline-card-sub">${escapeHTML(j.nextAction ? (j.nextAction.substring(0, 70) + (j.nextAction.length > 70 ? '...' : '')) : '—')}</div>
+            </div>
+          `).join('')
+        }
+      </div>
+    `;
+  }).join('');
+}
+
+function renderMore() {
+  const total = state.jobs.length;
+  const active = state.jobs.filter(j => j.status === 'פעיל').length;
+  const closed = state.jobs.filter(j => (j.status || '').startsWith('סגור')).length;
+  const done = state.jobs.filter(j => j.done === 'כן').length;
+  document.getElementById('stats-total').textContent = `סה"כ ${total} משרות`;
+  document.getElementById('stats-summary-desc').textContent = `${active} פעילות · ${done} בוצעו · ${closed} סגורות`;
+
+  // Profile summary
+  const profileDesc = document.getElementById('profile-summary');
+  if (profileDesc) {
+    if (state.profile && state.profile.roles && state.profile.roles.length) {
+      const parts = [];
+      if (state.profile.roles.length) parts.push(`${state.profile.roles.length} סוגי תפקידים`);
+      if (state.profile.sectors && state.profile.sectors.length) parts.push(`${state.profile.sectors.length} סקטורים`);
+      else parts.push('כל הסקטורים');
+      if (state.profile.geographies && state.profile.geographies.length) parts.push(`${state.profile.geographies.length} אזורים`);
+      profileDesc.textContent = parts.join(' · ');
+    } else {
+      profileDesc.textContent = 'טרם הוגדר — לחץ להגדרה';
+    }
+  }
+
+  renderCVList();
+  renderSearchSourcesList();
+
+  // Show/hide undo button based on backup availability
+  const undoEl = document.getElementById('undo-sync-item');
+  const undoDescEl = document.getElementById('undo-sync-desc');
+  if (undoEl) {
+    if (hasRecentSyncBackup()) {
+      undoEl.classList.remove('hidden');
+      try {
+        const backup = JSON.parse(localStorage.getItem(SYNC_BACKUP_KEY));
+        const when = new Date(backup.backupDate);
+        const hoursAgo = Math.round((Date.now() - when.getTime()) / 3600000);
+        if (undoDescEl) {
+          undoDescEl.textContent = hoursAgo < 1
+            ? 'זמין לשחזור · בוצע לפני פחות משעה'
+            : `זמין לשחזור · בוצע לפני ${hoursAgo} שעות`;
+        }
+      } catch (e) {}
+    } else {
+      undoEl.classList.add('hidden');
+    }
+  }
+}
+
+// ============================================================
+// RENDER: RADAR
+// ============================================================
+function renderRadar() {
+  // Update tab active state
+  document.querySelectorAll('.radar-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.radarTab === state.radarActiveTab);
+  });
+
+  const contentEl = document.getElementById('radar-content');
+  const items = state.radarItems.filter(i => i.type === state.radarActiveTab);
+  const typeConfig = RADAR_TYPES[state.radarActiveTab];
+
+  // Stats
+  const hot = items.filter(i => i.leadStatus === 'lead-hot').length;
+  const active = items.filter(i => i.leadStatus === 'contacted' || i.leadStatus === 'meeting').length;
+  const total = items.length;
+
+  contentEl.innerHTML = `
+    <div class="radar-stat-row">
+      <div class="radar-stat">
+        <div class="radar-stat-val">${total}</div>
+        <div class="radar-stat-label">סה"כ</div>
+      </div>
+      <div class="radar-stat">
+        <div class="radar-stat-val">${hot}</div>
+        <div class="radar-stat-label">חמים</div>
+      </div>
+      <div class="radar-stat">
+        <div class="radar-stat-val">${active}</div>
+        <div class="radar-stat-label">בקשר</div>
+      </div>
+    </div>
+
+    <div class="radar-section-header">
+      <div class="section-title">${typeConfig.icon} ${typeConfig.title}</div>
+      <button class="radar-add-btn" onclick="openRadarModal(null, '${state.radarActiveTab}')">+ חדש</button>
+    </div>
+
+    <p class="text-muted" style="font-size:12px; margin-bottom:14px; line-height:1.5">${typeConfig.desc}</p>
+
+    ${items.length === 0
+      ? `<div class="empty-state" style="padding:40px 20px">
+           <div class="empty-state-icon">${typeConfig.icon}</div>
+           <div class="empty-state-title">עדיין לא הוספת ${typeConfig.title}</div>
+           <div class="empty-state-text">לחץ על "+ חדש" למעלה להוספת פריט ראשון</div>
+         </div>`
+      : `<div class="radar-cards-grid">${items.map(renderRadarCard).join('')}</div>`
+    }
+  `;
+}
+
+function renderRadarCard(item) {
+  const title = item.firmName || item.companyName || item.personName || '—';
+  const statusLabel = RADAR_STATUS_LABELS[item.leadStatus] || item.leadStatus || '';
+
+  let metaLines = [];
+  if (item.type === 'recruiters') {
+    if (item.contactPerson) metaLines.push(`👤 ${item.contactPerson}`);
+    if (item.specialization) metaLines.push(item.specialization);
+    if (item.contactChannel) metaLines.push(`📞 ${item.contactChannel}`);
+  } else if (item.type === 'targets') {
+    if (item.sector) metaLines.push(item.sector);
+    if (item.sizeCategory) metaLines.push(item.sizeCategory);
+    if (item.currentCFO) metaLines.push(`CFO נוכחי: ${item.currentCFO}`);
+  } else if (item.type === 'board') {
+    if (item.companies) metaLines.push(item.companies);
+    if (item.introSource) metaLines.push(`👋 דרך: ${item.introSource}`);
+  } else if (item.type === 'signals') {
+    if (item.signalType) metaLines.push(`⚡ ${item.signalType}`);
+    if (item.expectedTiming) metaLines.push(`⏱ ${item.expectedTiming}`);
+  } else if (item.type === 'networking') {
+    if (item.role) metaLines.push(item.role);
+    if (item.company) metaLines.push(`@ ${item.company}`);
+    if (item.nextMeeting) metaLines.push(`🗓 בא: ${item.nextMeeting}`);
+  }
+
+  return `
+    <div class="radar-card" onclick="openRadarModal('${item.id}')">
+      <div class="radar-card-header">
+        <div class="radar-card-title">${escapeHTML(title)}</div>
+        <span class="radar-status-badge ${item.leadStatus || 'lead-cold'}">${statusLabel}</span>
+      </div>
+      ${metaLines.length ? `<div class="radar-card-meta">${metaLines.map(escapeHTML).join(' · ')}</div>` : ''}
+      ${item.lastContact ? `<div class="radar-card-meta" style="margin-top:4px">📅 פניה אחרונה: ${escapeHTML(item.lastContact)}</div>` : ''}
+      ${item.notes ? `<div class="radar-card-meta" style="margin-top:4px; color:var(--color-text-tertiary)">${escapeHTML(item.notes.substring(0, 80))}${item.notes.length > 80 ? '...' : ''}</div>` : ''}
+    </div>
+  `;
+}
+
+function switchRadarTab(tab) {
+  state.radarActiveTab = tab;
+  renderRadar();
+}
+
+// ============================================================
+// MODAL: RADAR ITEM
+// ============================================================
+function openRadarModal(itemId, newType) {
+  let item;
+  if (itemId) {
+    item = state.radarItems.find(i => i.id === itemId);
+    if (!item) return;
+    state.radarEditId = itemId;
+  } else {
+    // New item
+    const newId = 'rad_' + Date.now();
+    item = {
+      id: newId,
+      type: newType,
+      leadStatus: 'lead-cold',
+      createdAt: new Date().toISOString().split('T')[0],
+      _new: true
+    };
+    state.radarItems.push(item);
+    state.radarEditId = newId;
+  }
+
+  const typeConfig = RADAR_TYPES[item.type];
+  document.getElementById('radar-modal-title').textContent = `${typeConfig.icon} ${typeConfig.title}`;
+  document.getElementById('radar-modal-body').innerHTML = renderRadarForm(item);
+  document.getElementById('radar-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderRadarForm(item) {
+  // Common status chooser
+  const statusHtml = `
+    <div class="field-group">
+      <label class="field-label">סטטוס</label>
+      <select class="field-select" id="rad-leadStatus">
+        ${RADAR_STATUSES.map(s => `<option value="${s}" ${item.leadStatus === s ? 'selected' : ''}>${RADAR_STATUS_LABELS[s]}</option>`).join('')}
+      </select>
+    </div>
+  `;
+
+  let fieldsHtml = '';
+  if (item.type === 'recruiters') {
+    fieldsHtml = `
+      <div class="field-group">
+        <label class="field-label">שם החברה</label>
+        <input type="text" class="field-input" id="rad-firmName" value="${escapeHTML(item.firmName || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">איש קשר (אם ידוע)</label>
+        <input type="text" class="field-input" id="rad-contactPerson" value="${escapeHTML(item.contactPerson || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">התמחות/סקטורים</label>
+        <input type="text" class="field-input" id="rad-specialization" value="${escapeHTML(item.specialization || '')}" placeholder="לדוגמה: CFO נדל"ן ציבורית">
+      </div>
+      <div class="field-group">
+        <label class="field-label">ערוץ פניה</label>
+        <input type="text" class="field-input" id="rad-contactChannel" value="${escapeHTML(item.contactChannel || '')}" placeholder="LinkedIn / אתר / טלפון">
+      </div>
+      <div class="field-group">
+        <label class="field-label">תאריך פניה אחרונה</label>
+        <input type="date" class="field-input" id="rad-lastContact" value="${item.lastContact || ''}">
+      </div>
+    `;
+  } else if (item.type === 'targets') {
+    fieldsHtml = `
+      <div class="field-group">
+        <label class="field-label">שם החברה</label>
+        <input type="text" class="field-input" id="rad-companyName" value="${escapeHTML(item.companyName || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">סקטור</label>
+        <input type="text" class="field-input" id="rad-sector" value="${escapeHTML(item.sector || '')}" placeholder="לדוגמה: נדל"ן ציבורית">
+      </div>
+      <div class="field-group">
+        <label class="field-label">גודל/קטגוריה</label>
+        <input type="text" class="field-input" id="rad-sizeCategory" value="${escapeHTML(item.sizeCategory || '')}" placeholder="לדוגמה: TA-35 / TA-125 / פרטית גדולה">
+      </div>
+      <div class="field-group">
+        <label class="field-label">CFO נוכחי (אם ידוע)</label>
+        <input type="text" class="field-input" id="rad-currentCFO" value="${escapeHTML(item.currentCFO || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">ערוץ פניה אפשרי</label>
+        <input type="text" class="field-input" id="rad-contactPath" value="${escapeHTML(item.contactPath || '')}" placeholder="LinkedIn / דרך X / Board member">
+      </div>
+    `;
+  } else if (item.type === 'board') {
+    fieldsHtml = `
+      <div class="field-group">
+        <label class="field-label">שם</label>
+        <input type="text" class="field-input" id="rad-personName" value="${escapeHTML(item.personName || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">חברות בהן הוא/היא דירקטור</label>
+        <textarea class="field-textarea" id="rad-companies" style="min-height:70px">${escapeHTML(item.companies || '')}</textarea>
+      </div>
+      <div class="field-group">
+        <label class="field-label">איך התוודעת / דרך מי</label>
+        <input type="text" class="field-input" id="rad-introSource" value="${escapeHTML(item.introSource || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">תאריך פניה אחרונה</label>
+        <input type="date" class="field-input" id="rad-lastContact" value="${item.lastContact || ''}">
+      </div>
+    `;
+  } else if (item.type === 'signals') {
+    fieldsHtml = `
+      <div class="field-group">
+        <label class="field-label">חברה</label>
+        <input type="text" class="field-input" id="rad-companyName" value="${escapeHTML(item.companyName || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">סוג הסיגנל</label>
+        <input type="text" class="field-input" id="rad-signalType" value="${escapeHTML(item.signalType || '')}" placeholder="CFO עזב / M&A / הנפקה">
+      </div>
+      <div class="field-group">
+        <label class="field-label">תאריך הסיגנל</label>
+        <input type="date" class="field-input" id="rad-signalDate" value="${item.signalDate || ''}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">קישור למקור</label>
+        <input type="text" class="field-input" id="rad-sourceUrl" value="${escapeHTML(item.sourceUrl || '')}" placeholder="https://...">
+      </div>
+      <div class="field-group">
+        <label class="field-label">מתי צפוי הצורך</label>
+        <input type="text" class="field-input" id="rad-expectedTiming" value="${escapeHTML(item.expectedTiming || '')}" placeholder="2-4 חודשים">
+      </div>
+    `;
+  } else if (item.type === 'networking') {
+    fieldsHtml = `
+      <div class="field-group">
+        <label class="field-label">שם האדם</label>
+        <input type="text" class="field-input" id="rad-personName" value="${escapeHTML(item.personName || '')}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">תפקיד</label>
+        <input type="text" class="field-input" id="rad-role" value="${escapeHTML(item.role || '')}" placeholder="CFO / VP Finance / יועץ">
+      </div>
+      <div class="field-group">
+        <label class="field-label">חברה</label>
+        <input type="text" class="field-input" id="rad-company" value="${escapeHTML(item.company || '')}">
+      </div>
+      <div class="field-row">
+        <div class="field-group">
+          <label class="field-label">פגישה אחרונה</label>
+          <input type="date" class="field-input" id="rad-lastMeeting" value="${item.lastMeeting || ''}">
+        </div>
+        <div class="field-group">
+          <label class="field-label">פגישה הבאה</label>
+          <input type="date" class="field-input" id="rad-nextMeeting" value="${item.nextMeeting || ''}">
+        </div>
+      </div>
+    `;
+  }
+
+  return `
+    ${fieldsHtml}
+    ${statusHtml}
+    <div class="field-group">
+      <label class="field-label">הערות</label>
+      <textarea class="field-textarea" id="rad-notes" style="min-height:100px">${escapeHTML(item.notes || '')}</textarea>
+    </div>
+  `;
+}
+
+function saveRadarItem() {
+  const item = state.radarItems.find(i => i.id === state.radarEditId);
+  if (!item) return;
+
+  // Collect all fields by type
+  const fieldMap = {
+    'recruiters': ['firmName', 'contactPerson', 'specialization', 'contactChannel', 'lastContact'],
+    'targets': ['companyName', 'sector', 'sizeCategory', 'currentCFO', 'contactPath'],
+    'board': ['personName', 'companies', 'introSource', 'lastContact'],
+    'signals': ['companyName', 'signalType', 'signalDate', 'sourceUrl', 'expectedTiming'],
+    'networking': ['personName', 'role', 'company', 'lastMeeting', 'nextMeeting']
+  };
+
+  const fields = fieldMap[item.type] || [];
+  fields.forEach(f => {
+    const el = document.getElementById(`rad-${f}`);
+    if (el) item[f] = el.value.trim();
+  });
+
+  item.leadStatus = document.getElementById('rad-leadStatus').value;
+  item.notes = document.getElementById('rad-notes').value.trim();
+
+  // Validate — must have at least a name
+  const name = item.firmName || item.companyName || item.personName;
+  if (!name) {
+    showToast('חובה להזין שם');
+    return;
+  }
+
+  delete item._new;
+  saveRadar();
+  closeRadarModal();
+  renderRadar();
+  showToast('✓ נשמר');
+}
+
+function deleteRadarItem() {
+  if (!confirm('למחוק פריט זה?')) return;
+  state.radarItems = state.radarItems.filter(i => i.id !== state.radarEditId);
+  saveRadar();
+  closeRadarModal();
+  renderRadar();
+  showToast('נמחק');
+}
+
+function closeRadarModal() {
+  const item = state.radarItems.find(i => i.id === state.radarEditId);
+  if (item && item._new) {
+    state.radarItems = state.radarItems.filter(i => i.id !== state.radarEditId);
+  }
+  document.getElementById('radar-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  state.radarEditId = null;
+}
+
+// ============================================================
+// MODAL: PROFILE
+// ============================================================
+function openProfileModal() {
+  const p = state.profile || { roles: [], sectors: [], geographies: [], salaryMin: '', salaryMax: '', notes: '' };
+
+  document.getElementById('profile-modal-body').innerHTML = `
+    <div class="profile-info-box">
+      📋 <strong>לשם מה זה?</strong><br>
+      ההגדרות שכאן מסייעות ל-Claude לבצע סריקות ממוקדות יותר בעתיד — רק משרות שמתאימות לפרופיל שלך.
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">סוגי תפקידים מעניינים</label>
+      <div class="chip-picker" id="profile-roles-picker">
+        ${ROLE_TYPES.map(r => `
+          <div class="chip-pick ${p.roles.includes(r) ? 'selected' : ''}" data-pick-group="roles" data-pick-value="${escapeHTML(r)}">${escapeHTML(r)}</div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">סקטורים (השאר ריק = כל הסקטורים)</label>
+      <div class="chip-picker" id="profile-sectors-picker">
+        ${SECTORS.map(s => `
+          <div class="chip-pick ${p.sectors.includes(s) ? 'selected' : ''}" data-pick-group="sectors" data-pick-value="${escapeHTML(s)}">${escapeHTML(s)}</div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">גיאוגרפיה מועדפת</label>
+      <div class="chip-picker" id="profile-geos-picker">
+        ${GEOGRAPHIES.map(g => `
+          <div class="chip-pick ${p.geographies.includes(g) ? 'selected' : ''}" data-pick-group="geographies" data-pick-value="${escapeHTML(g)}">${escapeHTML(g)}</div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">שכר מינימום (₪/חודש)</label>
+        <input type="text" class="field-input" id="profile-salaryMin" value="${escapeHTML(p.salaryMin || '')}" placeholder="לדוגמה: 80000">
+      </div>
+      <div class="field-group">
+        <label class="field-label">שכר יעד (₪/חודש)</label>
+        <input type="text" class="field-input" id="profile-salaryMax" value="${escapeHTML(p.salaryMax || '')}" placeholder="לדוגמה: 180000">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">הערות חופשיות / קריטריונים נוספים</label>
+      <textarea class="field-textarea" id="profile-notes" style="min-height:100px" placeholder="לדוגמה: מעדיף אתגר אסטרטגי; רוצה חברה עם M&A פעיל; חשוב לי מנכ"ל חזק...">${escapeHTML(p.notes || '')}</textarea>
+    </div>
+  `;
+
+  // Chip picker event delegation
+  document.querySelectorAll('.chip-pick').forEach(chip => {
+    chip.addEventListener('click', () => chip.classList.toggle('selected'));
+  });
+
+  document.getElementById('profile-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function saveProfile() {
+  const getSelected = (group) => {
+    const chips = document.querySelectorAll(`[data-pick-group="${group}"].selected`);
+    return Array.from(chips).map(c => c.dataset.pickValue);
+  };
+
+  const data = {
+    roles: getSelected('roles'),
+    sectors: getSelected('sectors'),
+    geographies: getSelected('geographies'),
+    salaryMin: document.getElementById('profile-salaryMin').value.trim(),
+    salaryMax: document.getElementById('profile-salaryMax').value.trim(),
+    notes: document.getElementById('profile-notes').value.trim(),
+    updatedAt: new Date().toISOString().split('T')[0]
+  };
+
+  saveProfileData(data);
+  closeProfileModal();
+  renderMore();
+  showToast('✓ הפרופיל נשמר');
+}
+
+function closeProfileModal() {
+  document.getElementById('profile-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// ============================================================
+// RENDER: CV LIST
+// ============================================================
+function renderCVList() {
+  const list = loadCVList();
+  const listEl = document.getElementById('cv-list');
+  if (list.length === 0) {
+    listEl.innerHTML = '<div class="cv-empty">אין קורות חיים שמורים. לחץ על "העלה" למטה.</div>';
+  } else {
+    listEl.innerHTML = list.map(cv => `
+      <div class="cv-item">
+        <div class="cv-icon">📄</div>
+        <div class="cv-info">
+          <div class="cv-name">${escapeHTML(cv.name)}</div>
+          <div class="cv-meta">${cv.dateAdded} · ${formatFileSize(cv.sizeKB * 1024)}</div>
+        </div>
+        <div class="cv-actions">
+          <button class="cv-action-btn" onclick="downloadCV('${cv.id}')" title="הורדה">⬇</button>
+          <button class="cv-action-btn" onclick="renameCV('${cv.id}')" title="שם">✏</button>
+          <button class="cv-action-btn" onclick="deleteCV('${cv.id}')" title="מחיקה" style="color: var(--color-danger)">🗑</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  // Storage info
+  const usage = getStorageUsage();
+  const usageMB = usage / 1024 / 1024;
+  const percent = Math.min(100, (usageMB / 5) * 100);
+  let fillClass = '';
+  if (usageMB > STORAGE_WARN_MB) fillClass = 'danger';
+  else if (usageMB > 3) fillClass = 'warning';
+  document.getElementById('cv-storage-info').innerHTML = `
+    <div>שימוש בזיכרון: ${usageMB.toFixed(2)} MB מתוך ~5MB</div>
+    <div class="cv-storage-bar"><div class="cv-storage-fill ${fillClass}" style="width:${percent}%"></div></div>
+  `;
+}
+
+// ============================================================
+// CV: UPLOAD / DOWNLOAD / DELETE / RENAME
+// ============================================================
+function uploadCV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  // Size check
+  const sizeMB = file.size / 1024 / 1024;
+  if (sizeMB > MAX_CV_SIZE_MB) {
+    showToast(`קובץ גדול מדי (${sizeMB.toFixed(1)}MB). מקסימום ${MAX_CV_SIZE_MB}MB`);
+    event.target.value = '';
+    return;
+  }
+
+  // Type check
+  if (!/\.(pdf|doc|docx)$/i.test(file.name)) {
+    showToast('רק קבצי PDF או DOCX');
+    event.target.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    const base64 = e.target.result;
+    const cvId = 'cv_' + Date.now();
+
+    // Try saving content
+    if (!saveCVContent(cvId, base64)) {
+      showToast('❌ אין מקום בזיכרון. מחק CV ישן קודם');
+      event.target.value = '';
+      return;
+    }
+
+    // Suggest a clean name
+    const defaultName = file.name.replace(/\.(pdf|doc|docx)$/i, '');
+    const name = prompt('שם לקובץ (לזיהוי):', defaultName) || defaultName;
+
+    const list = loadCVList();
+    list.push({
+      id: cvId,
+      name: name.trim() || defaultName,
+      filename: file.name,
+      dateAdded: new Date().toISOString().split('T')[0],
+      sizeKB: Math.round(file.size / 1024),
+      mimeType: file.type
+    });
+    saveCVList(list);
+
+    showToast('✅ קורות החיים נשמרו');
+    renderCVList();
+    event.target.value = '';
+  };
+  reader.onerror = () => showToast('שגיאה בקריאת הקובץ');
+  reader.readAsDataURL(file);
+}
+
+function downloadCV(cvId) {
+  const list = loadCVList();
+  const cv = list.find(c => c.id === cvId);
+  if (!cv) return;
+  const content = getCVContent(cvId);
+  if (!content) {
+    showToast('שגיאה: הקובץ לא נמצא');
+    return;
+  }
+  const a = document.createElement('a');
+  a.href = content;
+  a.download = cv.filename || cv.name + '.pdf';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  showToast('📥 הקובץ הורד');
+}
+
+function renameCV(cvId) {
+  const list = loadCVList();
+  const cv = list.find(c => c.id === cvId);
+  if (!cv) return;
+  const newName = prompt('שם חדש:', cv.name);
+  if (!newName || !newName.trim()) return;
+  cv.name = newName.trim();
+  saveCVList(list);
+  renderCVList();
+  showToast('השם עודכן');
+}
+
+function deleteCV(cvId) {
+  if (!confirm('למחוק את קורות החיים האלה?')) return;
+  const list = loadCVList();
+  const newList = list.filter(c => c.id !== cvId);
+  saveCVList(newList);
+  deleteCVContent(cvId);
+  renderCVList();
+  showToast('נמחק');
+}
+
+// ============================================================
+// EMAIL COMPOSE
+// ============================================================
+function openEmailModal(jobId) {
+  const job = state.jobs.find(j => j.id === jobId);
+  if (!job) return;
+
+  const cvs = loadCVList();
+  if (cvs.length === 0) {
+    if (confirm('אין קורות חיים שמורים. לעבור לעמוד ההגדרות להעלאת CV?')) {
+      closeModal();
+      switchView('more');
+    }
+    return;
+  }
+
+  state.emailContext = { jobId, selectedCvId: cvs[0].id };
+
+  const recipientEmail = extractEmail(job.contact);
+  document.getElementById('email-modal-body').innerHTML = `
+    <div class="email-instructions">
+      📋 <strong>איך זה עובד:</strong><br>
+      1. בחר איזה CV לשלוח<br>
+      2. אלחץ "המשך ל-Gmail" — ה-CV יורד אוטומטית<br>
+      3. Gmail ייפתח עם תבנית מוכנה<br>
+      4. צרף את ה-CV שהורד ושלח
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">בחר קורות חיים</label>
+      <div class="email-cv-picker">
+        ${cvs.map((cv, idx) => `
+          <div class="email-cv-option ${idx === 0 ? 'selected' : ''}" data-cv-id="${cv.id}" onclick="selectEmailCv('${cv.id}')">
+            <div class="email-cv-option-icon">📄</div>
+            <div class="email-cv-option-info">
+              <div class="email-cv-option-name">${escapeHTML(cv.name)}</div>
+              <div class="email-cv-option-meta">${cv.dateAdded} · ${formatFileSize(cv.sizeKB * 1024)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">נמען (אימייל)</label>
+      <input type="email" class="field-input" id="email-to" value="${recipientEmail}" placeholder="recipient@example.com">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">נושא</label>
+      <input type="text" class="field-input" id="email-subject" value="מועמדות לתפקיד CFO — ${escapeHTML(job.company.substring(0, 40))}">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">גוף ההודעה</label>
+      <textarea class="field-textarea" id="email-body" style="min-height:160px">שלום,
+
+בהמשך לפרסום תפקיד סמנכ"ל הכספים,
+מצורפים קורות חיי לעיונכם.
+
+אשמח להיפגש לשיחה ראשונית.
+
+בברכה,
+דודו טל</textarea>
+    </div>
+  `;
+
+  document.getElementById('email-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function selectEmailCv(cvId) {
+  document.querySelectorAll('.email-cv-option').forEach(el => {
+    el.classList.toggle('selected', el.dataset.cvId === cvId);
+  });
+  state.emailContext.selectedCvId = cvId;
+}
+
+function sendEmailNow() {
+  const to = document.getElementById('email-to').value.trim();
+  const subject = document.getElementById('email-subject').value.trim();
+  const body = document.getElementById('email-body').value.trim();
+
+  // Step 1: Download the CV
+  const cvId = state.emailContext.selectedCvId;
+  const list = loadCVList();
+  const cv = list.find(c => c.id === cvId);
+  if (cv) {
+    const content = getCVContent(cvId);
+    if (content) {
+      const a = document.createElement('a');
+      a.href = content;
+      a.download = cv.filename || cv.name + '.pdf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  }
+
+  // Step 2: Open Gmail composer
+  const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&tf=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+
+  closeEmailModal();
+  showToast('📥 ה-CV הורד — כעת פותח Gmail');
+
+  setTimeout(() => {
+    window.open(gmailUrl, '_blank');
+  }, 300);
+}
+
+function closeEmailModal() {
+  document.getElementById('email-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  state.emailContext = null;
+}
+
+// ============================================================
+// SYNC IMPORT
+// ============================================================
+const SYNC_BACKUP_KEY = 'cfo_tracker_sync_backup_v1';
+
+function importSyncFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      // Validate basic structure
+      if (!data.syncDate) {
+        showToast('⚠️ הקובץ לא מכיל תאריך סריקה — ייתכן שזה לא קובץ sync');
+        return;
+      }
+
+      // Must have at least newJobs or newRadarItems
+      const hasJobs = Array.isArray(data.newJobs);
+      const hasRadar = Array.isArray(data.newRadarItems);
+
+      if (!hasJobs && !hasRadar) {
+        showToast('⚠️ הקובץ לא מכיל newJobs או newRadarItems');
+        return;
+      }
+
+      state.syncData = data;
+      showSyncPreview(data);
+    } catch (err) {
+      showToast('שגיאה בקריאת הקובץ: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function showSyncPreview(data) {
+  // Analyze jobs
+  const existingJobKeys = new Set(state.jobs.map(j => j.sourceKey).filter(Boolean));
+  const newJobs = Array.isArray(data.newJobs) ? data.newJobs : [];
+  const trulyNewJobs = newJobs.filter(j => j.sourceKey && !existingJobKeys.has(j.sourceKey));
+  const skippedJobs = newJobs.length - trulyNewJobs.length;
+
+  // Analyze radar items (only sourceKey-based matching; if no sourceKey, treat as user-added and skip)
+  const newRadar = Array.isArray(data.newRadarItems) ? data.newRadarItems : [];
+
+  // Dedupe radar by type + name (firmName / companyName / personName)
+  const existingRadarSigs = new Set(state.radarItems.map(r =>
+    r.type + ':' + (r.firmName || r.companyName || r.personName || '').toLowerCase().trim()
+  ));
+  const trulyNewRadar = newRadar.filter(r => {
+    const sig = r.type + ':' + (r.firmName || r.companyName || r.personName || '').toLowerCase().trim();
+    return !existingRadarSigs.has(sig);
+  });
+  const skippedRadar = newRadar.length - trulyNewRadar.length;
+
+  // Stats for user
+  const userAddedJobs = state.jobs.filter(j => (j.sourceKey || '').startsWith('user-')).length;
+  const modifiedJobs = state.jobs.filter(j =>
+    j.done !== 'לא' || j.stage !== '1. לא התחיל' || (j.history && j.history.length > 0) || j.notes?.length > 0 || j.lastActionDate || j.nextActionDate
+  ).length;
+
+  state.syncData._trulyNewJobs = trulyNewJobs;
+  state.syncData._trulyNewRadar = trulyNewRadar;
+
+  document.getElementById('sync-modal-body').innerHTML = `
+    <!-- PROTECTION SUMMARY — FIRST & MOST PROMINENT -->
+    <div class="sync-protection-box">
+      <div class="sync-protection-title">🛡️ ההגנה שלך</div>
+      <div class="sync-protection-list">
+        <div class="sync-protection-item">
+          <div class="sync-protection-icon">✅</div>
+          <div><strong>${state.jobs.length}</strong> משרות קיימות — <strong>לא ייגעו</strong> כלל</div>
+        </div>
+        <div class="sync-protection-item">
+          <div class="sync-protection-icon">📝</div>
+          <div><strong>${modifiedJobs}</strong> משרות עם הערות/היסטוריה/שלבים — הכל יישמר</div>
+        </div>
+        <div class="sync-protection-item">
+          <div class="sync-protection-icon">⭐</div>
+          <div><strong>${userAddedJobs}</strong> משרות שהוספת ידנית — מוגנות פעמיים</div>
+        </div>
+        <div class="sync-protection-item">
+          <div class="sync-protection-icon">💾</div>
+          <div>גיבוי אוטומטי יישמר <strong>לפני</strong> העדכון — תוכל לבטל</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT WILL BE ADDED -->
+    <div class="sync-preview">
+      <div class="sync-preview-title">📊 מה יתווסף</div>
+      <div class="sync-preview-stat">תאריך הסריקה: <strong>${escapeHTML(data.syncDate)}</strong></div>
+      ${data.summary?.notes ? `<div class="sync-preview-stat">${escapeHTML(data.summary.notes)}</div>` : ''}
+      <div class="sync-preview-stat" style="margin-top:8px">
+        ➕ <strong>${trulyNewJobs.length}</strong> משרות חדשות יתווספו
+      </div>
+      ${trulyNewRadar.length > 0 ? `<div class="sync-preview-stat">➕ <strong>${trulyNewRadar.length}</strong> פריטי רדאר חדשים (ציידי ראשים/חברות יעד/סיגנלים)</div>` : ''}
+      ${skippedJobs > 0 ? `<div class="sync-preview-stat">⏭️ ${skippedJobs} משרות כבר קיימות — ידולגו</div>` : ''}
+      ${skippedRadar > 0 ? `<div class="sync-preview-stat">⏭️ ${skippedRadar} פריטי רדאר כבר קיימים — ידולגו</div>` : ''}
+    </div>
+
+    ${trulyNewJobs.length > 0 ? `
+      <div style="margin-top: 16px">
+        <div style="font-size: 13px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 8px">משרות חדשות:</div>
+        <div class="sync-new-jobs-list">
+          ${trulyNewJobs.map(j => `
+            <div class="sync-new-job">
+              <div class="sync-new-job-title">${escapeHTML(j.company)}</div>
+              <div class="sync-new-job-desc">${PRIORITY_LABELS[j.priority] || j.priority} · ${escapeHTML(j.stage || '')}</div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    ${trulyNewRadar.length > 0 ? `
+      <div style="margin-top: 16px">
+        <div style="font-size: 13px; font-weight: 600; color: var(--color-text-secondary); margin-bottom: 8px">פריטי רדאר חדשים:</div>
+        <div class="sync-new-jobs-list">
+          ${trulyNewRadar.map(r => {
+            const name = r.firmName || r.companyName || r.personName || '—';
+            const typeLabel = RADAR_TYPES[r.type]?.title || r.type;
+            return `
+              <div class="sync-new-job">
+                <div class="sync-new-job-title">${escapeHTML(name)}</div>
+                <div class="sync-new-job-desc">${escapeHTML(typeLabel)}</div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+    ` : ''}
+
+    ${trulyNewJobs.length === 0 && trulyNewRadar.length === 0
+      ? '<div style="text-align:center; padding: 20px; color: var(--color-text-tertiary); margin-top:16px">אין פריטים חדשים להוספה — הכל כבר אצלך</div>'
+      : ''
+    }
+  `;
+
+  document.getElementById('sync-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function applySyncUpdate() {
+  if (!state.syncData) return;
+  const trulyNewJobs = state.syncData._trulyNewJobs || [];
+  const trulyNewRadar = state.syncData._trulyNewRadar || [];
+
+  if (trulyNewJobs.length === 0 && trulyNewRadar.length === 0) {
+    closeSyncModal();
+    showToast('אין שינויים להחיל');
+    return;
+  }
+
+  // 🛡️ STEP 1: Save automatic backup BEFORE any changes
+  try {
+    const backup = {
+      backupDate: new Date().toISOString(),
+      syncDate: state.syncData.syncDate,
+      jobs: JSON.parse(JSON.stringify(state.jobs)),
+      radarItems: JSON.parse(JSON.stringify(state.radarItems))
+    };
+    localStorage.setItem(SYNC_BACKUP_KEY, JSON.stringify(backup));
+  } catch (e) {
+    // If backup fails, abort sync
+    showToast('❌ לא הצלחתי לשמור גיבוי — העדכון הופסק');
+    closeSyncModal();
+    return;
+  }
+
+  // STEP 2: Add new jobs (append only, never modify)
+  let nextId = getNextId();
+  trulyNewJobs.forEach(j => {
+    j.id = nextId++;
+    if (!j.history) j.history = [];
+    if (!j.status) j.status = 'פעיל';
+    if (!j.done) j.done = 'לא';
+    if (!j.stage) j.stage = '1. לא התחיל';
+    if (!j.priority) j.priority = 'MEDIUM';
+  });
+  state.jobs = state.jobs.concat(trulyNewJobs);
+  saveData();
+
+  // STEP 3: Add new radar items (append only)
+  let nextRadarNum = state.radarItems.length;
+  trulyNewRadar.forEach(r => {
+    if (!r.id) r.id = 'rad_sync_' + Date.now() + '_' + (nextRadarNum++);
+    if (!r.leadStatus) r.leadStatus = 'lead-cold';
+    if (!r.createdAt) r.createdAt = new Date().toISOString().split('T')[0];
+  });
+  state.radarItems = state.radarItems.concat(trulyNewRadar);
+  saveRadar();
+
+  closeSyncModal();
+  renderCurrentView();
+
+  // STEP 4: Show confirmation with UNDO option
+  const parts = [];
+  if (trulyNewJobs.length > 0) parts.push(`${trulyNewJobs.length} משרות`);
+  if (trulyNewRadar.length > 0) parts.push(`${trulyNewRadar.length} רדאר`);
+  showUndoToast(`✅ נוספו: ${parts.join(' + ')}`, 'בטל');
+}
+
+function hasRecentSyncBackup() {
+  try {
+    const raw = localStorage.getItem(SYNC_BACKUP_KEY);
+    if (!raw) return false;
+    const backup = JSON.parse(raw);
+    if (!backup.backupDate) return false;
+    // Valid for 24 hours
+    const age = Date.now() - new Date(backup.backupDate).getTime();
+    return age < 24 * 60 * 60 * 1000;
+  } catch { return false; }
+}
+
+function undoLastSync() {
+  try {
+    const raw = localStorage.getItem(SYNC_BACKUP_KEY);
+    if (!raw) {
+      showToast('אין גיבוי לשחזור');
+      return;
+    }
+    const backup = JSON.parse(raw);
+    if (!confirm(`לשחזר את המצב שהיה לפני העדכון האחרון?\n\n(${backup.jobs.length} משרות + ${backup.radarItems.length} רדאר, נשמר ב-${new Date(backup.backupDate).toLocaleString('he-IL')})`)) return;
+
+    state.jobs = backup.jobs;
+    state.radarItems = backup.radarItems;
+    saveData();
+    saveRadar();
+
+    // Remove the backup (was used)
+    localStorage.removeItem(SYNC_BACKUP_KEY);
+
+    renderCurrentView();
+    showToast('↩️ המצב שוחזר');
+  } catch (e) {
+    showToast('שגיאה בשחזור: ' + e.message);
+  }
+}
+
+function showUndoToast(message, undoLabel) {
+  const toast = document.getElementById('toast');
+  toast.innerHTML = `
+    <span>${escapeHTML(message)}</span>
+    <span style="margin: 0 12px; opacity: 0.5;">·</span>
+    <span onclick="undoLastSync()" style="color: var(--color-accent-gold); cursor: pointer; font-weight: 700;">${escapeHTML(undoLabel)}</span>
+  `;
+  toast.classList.add('show');
+  // Longer duration for undo toasts
+  setTimeout(() => toast.classList.remove('show'), 6000);
+}
+
+function closeSyncModal() {
+  document.getElementById('sync-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  state.syncData = null;
+}
+
+// ============================================================
+// JOB DETAIL MODAL
+// ============================================================
+function openDetailModal(id) {
+  const job = state.jobs.find(j => j.id === id);
+  if (!job) return;
+  state.detailJobId = id;
+
+  document.getElementById('modal-title').textContent = job.company;
+  document.getElementById('modal-body').innerHTML = renderDetailForm(job);
+  document.getElementById('detail-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+
+  document.querySelectorAll('.segment-option[data-field="priority"]').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.segment-option[data-field="priority"]').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('field-priority').value = el.dataset.value;
+    });
+  });
+  document.querySelectorAll('.segment-option[data-field="done"]').forEach(el => {
+    el.addEventListener('click', () => {
+      document.querySelectorAll('.segment-option[data-field="done"]').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('field-done').value = el.dataset.value;
+    });
+  });
+}
+
+function openNewJobModal() {
+  const id = getNextId();
+  const newJob = {
+    id, sourceKey: `user-${Date.now()}`,
+    priority: 'MEDIUM', company: '', action: '', deadline: '',
+    done: 'לא', stage: '1. לא התחיל',
+    lastActionDate: '', nextAction: '', nextActionDate: '',
+    contact: '', notes: '', status: 'פעיל', history: [], _new: true
+  };
+  state.jobs.push(newJob);
+  state.detailJobId = id;
+  openDetailModal(id);
+  setTimeout(() => { const el = document.getElementById('field-company'); if (el) el.focus(); }, 300);
+}
+
+function renderDetailForm(job) {
+  return `
+    <div class="quick-actions">
+      <button class="quick-action-btn primary" onclick="openEmailModal(${job.id})">
+        <span class="quick-action-emoji">📧</span><span>שלח קורות חיים במייל</span>
+      </button>
+      <button class="quick-action-btn" onclick="quickAdvanceStage()">
+        <span class="quick-action-emoji">➡️</span><span>שלב הבא</span>
+      </button>
+      <button class="quick-action-btn" onclick="quickMarkDone()">
+        <span class="quick-action-emoji">✅</span><span>סמן בוצע</span>
+      </button>
+      <button class="quick-action-btn" onclick="quickAddLog()">
+        <span class="quick-action-emoji">📝</span><span>רישום יומן</span>
+      </button>
+      <button class="quick-action-btn" onclick="quickCloseWon()">
+        <span class="quick-action-emoji">🎯</span><span>קיבלתי!</span>
+      </button>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">שם החברה / תיאור</label>
+      <input type="text" class="field-input" id="field-company" value="${escapeHTML(job.company)}">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">עדיפות</label>
+      <div class="segmented-control priority">
+        ${PRIORITIES.map(p => `<div class="segment-option priority-${p} ${job.priority === p ? 'selected' : ''}" data-field="priority" data-value="${p}">${PRIORITY_LABELS[p]}</div>`).join('')}
+      </div>
+      <input type="hidden" id="field-priority" value="${job.priority}">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">בוצע?</label>
+      <div class="segmented-control done">
+        ${DONE_OPTIONS.map(d => `<div class="segment-option ${job.done === d ? 'selected' : ''}" data-field="done" data-value="${d}">${d}</div>`).join('')}
+      </div>
+      <input type="hidden" id="field-done" value="${job.done}">
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">שלב בתהליך</label>
+        <select class="field-select" id="field-stage">
+          ${STAGES.map(s => `<option value="${s}" ${job.stage === s ? 'selected' : ''}>${s}</option>`).join('')}
+        </select>
+      </div>
+      <div class="field-group">
+        <label class="field-label">סטטוס</label>
+        <select class="field-select" id="field-status">
+          ${STATUSES.map(s => `<option value="${s}" ${job.status === s ? 'selected' : ''}>${s}</option>`).join('')}
+        </select>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field-group">
+        <label class="field-label">פעולה אחרונה</label>
+        <input type="date" class="field-input" id="field-lastActionDate" value="${job.lastActionDate || ''}">
+      </div>
+      <div class="field-group">
+        <label class="field-label">פעולה הבאה</label>
+        <input type="date" class="field-input" id="field-nextActionDate" value="${job.nextActionDate || ''}">
+      </div>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">דדליין / שבוע יעד</label>
+      <input type="text" class="field-input" id="field-deadline" value="${escapeHTML(job.deadline)}" placeholder="לדוגמה: שבוע 1">
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">פעולה נדרשת</label>
+      <textarea class="field-textarea" id="field-action">${escapeHTML(job.action)}</textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">פעולה הבאה</label>
+      <textarea class="field-textarea" id="field-nextAction">${escapeHTML(job.nextAction)}</textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">איש קשר + פרטים</label>
+      <textarea class="field-textarea" id="field-contact">${escapeHTML(job.contact)}</textarea>
+    </div>
+
+    <div class="field-group">
+      <label class="field-label">הערות / יומן מעקב</label>
+      <textarea class="field-textarea" id="field-notes" style="min-height:120px">${escapeHTML(job.notes)}</textarea>
+    </div>
+
+    ${job.history && job.history.length > 0 ? `
+      <div class="field-group">
+        <label class="field-label">📅 יומן פעולות</label>
+        <ul class="history-list">
+          ${job.history.slice().reverse().map(h => `
+            <li class="history-item">
+              <div class="history-date">${h.date}</div>
+              <div class="history-text">${escapeHTML(h.action)}</div>
+            </li>
+          `).join('')}
+        </ul>
+      </div>
+    ` : ''}
+  `;
+}
+
+function quickAdvanceStage() {
+  const el = document.getElementById('field-stage');
+  const idx = STAGES.indexOf(el.value);
+  if (idx < STAGES.length - 3) {
+    el.value = STAGES[idx + 1];
+    showToast('🚀 ' + STAGES[idx + 1]);
+  }
+}
+
+function quickMarkDone() {
+  document.querySelectorAll('.segment-option[data-field="done"]').forEach(e => e.classList.remove('selected'));
+  const yesOpt = document.querySelector('.segment-option[data-field="done"][data-value="כן"]');
+  if (yesOpt) yesOpt.classList.add('selected');
+  document.getElementById('field-done').value = 'כן';
+  document.getElementById('field-lastActionDate').value = new Date().toISOString().split('T')[0];
+  showToast('סומן כבוצע — אל תשכח לשמור!');
+}
+
+function quickAddLog() {
+  const entry = prompt('רישום יומן חדש:');
+  if (!entry || !entry.trim()) return;
+  const job = state.jobs.find(j => j.id === state.detailJobId);
+  if (!job.history) job.history = [];
+  const today = new Date().toISOString().split('T')[0];
+  job.history.push({ date: today, action: entry.trim() });
+  job.lastActionDate = today;
+  saveData();
+  openDetailModal(state.detailJobId);
+  showToast('הרישום נוסף ליומן');
+}
+
+function quickCloseWon() {
+  if (!confirm('לסגור את המשרה כ"קיבלתי את המשרה"? 🎉')) return;
+  document.getElementById('field-status').value = 'סגור - קיבלתי';
+  document.getElementById('field-stage').value = '11. נחתם חוזה';
+  document.querySelectorAll('.segment-option[data-field="done"]').forEach(e => e.classList.remove('selected'));
+  const yesOpt = document.querySelector('.segment-option[data-field="done"][data-value="כן"]');
+  if (yesOpt) yesOpt.classList.add('selected');
+  document.getElementById('field-done').value = 'כן';
+  showToast('🎉 מזל טוב! אל תשכח לשמור');
+}
+
+function saveCurrentJob() {
+  const job = state.jobs.find(j => j.id === state.detailJobId);
+  if (!job) return;
+  const newCompany = document.getElementById('field-company').value.trim();
+  if (!newCompany) { showToast('חובה להזין שם חברה'); return; }
+
+  job.company = newCompany;
+  job.priority = document.getElementById('field-priority').value;
+  job.done = document.getElementById('field-done').value;
+  job.stage = document.getElementById('field-stage').value;
+  job.status = document.getElementById('field-status').value;
+  job.lastActionDate = document.getElementById('field-lastActionDate').value;
+  job.nextActionDate = document.getElementById('field-nextActionDate').value;
+  job.deadline = document.getElementById('field-deadline').value.trim();
+  job.action = document.getElementById('field-action').value.trim();
+  job.nextAction = document.getElementById('field-nextAction').value.trim();
+  job.contact = document.getElementById('field-contact').value.trim();
+  job.notes = document.getElementById('field-notes').value.trim();
+  delete job._new;
+
+  saveData();
+  closeModal();
+  renderCurrentView();
+  showToast('✓ השינויים נשמרו');
+}
+
+function deleteCurrentJob() {
+  if (!confirm('למחוק את המשרה הזו לצמיתות?')) return;
+  state.jobs = state.jobs.filter(j => j.id !== state.detailJobId);
+  saveData();
+  closeModal();
+  renderCurrentView();
+  showToast('המשרה נמחקה');
+}
+
+function closeModal() {
+  const job = state.jobs.find(j => j.id === state.detailJobId);
+  if (job && job._new) state.jobs = state.jobs.filter(j => j.id !== state.detailJobId);
+  document.getElementById('detail-modal').classList.remove('active');
+  document.body.style.overflow = '';
+  state.detailJobId = null;
+}
+
+// ============================================================
+// NAVIGATION
+// ============================================================
+function switchView(viewName) {
+  state.view = viewName;
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + viewName).classList.add('active');
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.nav-btn[data-view="${viewName}"]`).classList.add('active');
+  renderCurrentView();
+  document.querySelector('.main-content').scrollTop = 0;
+}
+
+function setFilter(type, val) {
+  state.filters[type] = val;
+  document.querySelectorAll(`.filter-chip[data-filter-type="${type}"]`).forEach(c => c.classList.toggle('active', c.dataset.filterVal === val));
+  if (state.view === 'jobs') renderJobs();
+}
+
+function renderCurrentView() {
+  if (state.view === 'home') renderHome();
+  else if (state.view === 'jobs') renderJobs();
+  else if (state.view === 'radar') renderRadar();
+  else if (state.view === 'pipeline') renderPipeline();
+  else if (state.view === 'more') renderMore();
+}
+
+// ============================================================
+// EXPORT / IMPORT (full backup with File System API support)
+// ============================================================
+async function exportJSON() {
+  const data = {
+    _meta: {
+      exportDate: new Date().toISOString(),
+      appVersion: '2.0',
+      type: 'full-backup'
+    },
+    jobs: state.jobs,
+    profile: state.profile,
+    radarItems: state.radarItems
+  };
+  const jsonStr = JSON.stringify(data, null, 2);
+  const filename = `cfo-jobs-backup-${new Date().toISOString().split('T')[0]}.json`;
+
+  // Try File System Access API (Chrome/Edge desktop) - user picks location
+  if ('showSaveFilePicker' in window) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{
+          description: 'JSON backup',
+          accept: { 'application/json': ['.json'] }
+        }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(jsonStr);
+      await writable.close();
+      showToast('📤 הגיבוי נשמר במיקום שבחרת');
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return; // user cancelled
+      console.warn('File System API failed, falling back:', err);
+    }
+  }
+
+  // Fallback: traditional download
+  const blob = new Blob([jsonStr], { type: 'application/json;charset=utf-8' });
+  downloadFile(URL.createObjectURL(blob), filename);
+  showToast('📤 הגיבוי הורד');
+}
+
+async function exportCSV() {
+  const headers = ['#','sourceKey','עדיפות','חברה','פעולה','דדליין','בוצע','שלב','תאריך פעולה אחרונה','פעולה הבאה','תאריך הבא','איש קשר','הערות','סטטוס'];
+  const rows = state.jobs.map(j => [
+    j.id, j.sourceKey || '', j.priority, j.company, j.action, j.deadline, j.done, j.stage,
+    j.lastActionDate, j.nextAction, j.nextActionDate, j.contact, j.notes, j.status
+  ]);
+  const csv = [headers, ...rows].map(r => r.map(c => `"${String(c || '').replace(/"/g, '""')}"`).join(',')).join('\n');
+  const csvContent = '\uFEFF' + csv;
+  const filename = `cfo-jobs-${new Date().toISOString().split('T')[0]}.csv`;
+
+  if ('showSaveFilePicker' in window) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: 'CSV file', accept: { 'text/csv': ['.csv'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(csvContent);
+      await writable.close();
+      showToast('📊 ה-CSV נשמר');
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+    }
+  }
+
+  const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+  downloadFile(URL.createObjectURL(blob), filename);
+  showToast('📊 הקובץ הורד');
+}
+
+function downloadFile(url, filename) {
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 100);
+}
+
+function importBackup(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+
+      // New format (v2): {_meta, jobs, profile, radarItems}
+      if (data._meta && data.jobs) {
+        const jobCount = data.jobs.length;
+        const radarCount = data.radarItems ? data.radarItems.length : 0;
+        const hasProfile = data.profile ? 'כולל פרופיל' : 'ללא פרופיל';
+
+        const msg = `שחזור מלא:\n• ${jobCount} משרות\n• ${radarCount} פריטי רדאר\n• ${hasProfile}\n\nכל הנתונים הנוכחיים יוחלפו!`;
+        if (!confirm(msg)) return;
+
+        state.jobs = data.jobs;
+        if (data.profile) {
+          state.profile = data.profile;
+          localStorage.setItem(PROFILE_KEY, JSON.stringify(data.profile));
+        }
+        if (data.radarItems) {
+          state.radarItems = data.radarItems;
+          saveRadar();
+        }
+        saveData();
+        renderCurrentView();
+        showToast(`✅ שוחזרו ${jobCount} משרות + ${radarCount} רדאר`);
+        return;
+      }
+
+      // Legacy format: just an array of jobs
+      if (Array.isArray(data)) {
+        if (!confirm(`שחזור ${data.length} משרות? הנתונים הנוכחיים יוחלפו!`)) return;
+        state.jobs = data;
+        saveData();
+        renderCurrentView();
+        showToast(`✅ שוחזרו ${data.length} משרות`);
+        return;
+      }
+
+      throw new Error('פורמט לא מוכר');
+    } catch (err) { showToast('שגיאה: ' + err.message); }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
+
+function resetData() {
+  state.jobs = JSON.parse(JSON.stringify(SEED_DATA));
+  saveData();
+  renderCurrentView();
+  showToast('🔄 הנתונים אופסו');
+}
+
+function clearAll() {
+  state.jobs = [];
+  saveData();
+  renderCurrentView();
+  showToast('🗑️ כל המשרות נמחקו');
+}
+
+// ============================================================
+// UI
+// ============================================================
+function showToast(message) {
+  const toast = document.getElementById('toast');
+  toast.textContent = message;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+// ============================================================
+// INIT
+// ============================================================
+function init() {
+  loadTheme();
+  loadLayout();
+  loadData();
+  loadProfile();
+  loadRadar();
+  loadSearchSources();
+
+  document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => switchView(btn.dataset.view));
+  });
+
+  // Radar tabs
+  document.querySelectorAll('.radar-tab').forEach(tab => {
+    tab.addEventListener('click', () => switchRadarTab(tab.dataset.radarTab));
+  });
+
+  document.querySelectorAll('.filter-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      const type = chip.dataset.filterType;
+      const val = chip.dataset.filterVal;
+      document.querySelectorAll(`.filter-chip[data-filter-type="${type}"]`).forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      state.filters[type] = val;
+      renderJobs();
+    });
+  });
+
+  document.getElementById('search-input').addEventListener('input', (e) => {
+    state.search = e.target.value;
+    renderJobs();
+  });
+
+  document.getElementById('detail-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'detail-modal') closeModal();
+  });
+  document.getElementById('email-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'email-modal') closeEmailModal();
+  });
+  document.getElementById('sync-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'sync-modal') closeSyncModal();
+  });
+  document.getElementById('profile-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'profile-modal') closeProfileModal();
+  });
+  document.getElementById('radar-modal').addEventListener('click', (e) => {
+    if (e.target.id === 'radar-modal') closeRadarModal();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      if (state.detailJobId !== null) closeModal();
+      else if (state.emailContext) closeEmailModal();
+      else if (state.syncData) closeSyncModal();
+      else if (state.radarEditId) closeRadarModal();
+      else if (document.getElementById('profile-modal').classList.contains('active')) closeProfileModal();
+    }
+  });
+
+  renderCurrentView();
+}
+
+document.addEventListener('DOMContentLoaded', init);
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  setTimeout(init, 0);
+}
+</script>
+
+</body>
+</html>

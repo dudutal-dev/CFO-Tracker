@@ -1,0 +1,23 @@
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Node / JS (just in case)
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+
+# Local backups
+*.backup.json
+backup-*.json
+
+# Logs
+*.log

@@ -1,0 +1,4 @@
+# GitHub Pages configuration
+# This app is fully static - no Jekyll processing needed
+
+# Disable Jekyll to speed up deploys (no _config.yml needed)
